@@ -1,141 +1,280 @@
-import {Directive, ElementRef, inject, Input, OnDestroy, OnInit} from "@angular/core";
+import { Directive, ElementRef, inject, Input, OnDestroy, OnInit } from "@angular/core";
 import * as THREE from "three";
 
-@Directive({selector: "ngt-mesh[sizeLines]"})
-export class SizeLinesDirective implements OnInit, OnDestroy {
+interface LineConfig {
+  start: THREE.Vector3;
+  end: THREE.Vector3;
+}
 
-  @Input() targetObject: THREE.Object3D | null = null;
-  @Input() liesInZ: boolean = false;
-  @Input() showX: boolean = true;
-  @Input() showY: boolean = true;
-  private points: THREE.Mesh[] = [];
+interface LabelConfig {
+  position: THREE.Vector3;
+  text: number;
+  rotation?: number;
+  axis: 'x' | 'y';
+}
+
+@Directive({ selector: "ngt-mesh[sizeLines]" })
+export class SizeLinesDirective implements OnInit, OnDestroy {
+  @Input() public liesInZ: boolean = false;
+  @Input() public showX: boolean = true;
+  @Input() public showY: boolean = true;
+  @Input() public showLines: boolean = true;
+
+  private readonly targetObject: THREE.Object3D;
+  private lines: THREE.Line[] = [];
+  private sprites: THREE.Sprite[] = [];
   private size!: THREE.Vector3;
-  private offset: number = 0.05;
   private host = inject<ElementRef<THREE.Mesh>>(ElementRef);
+  private isInitialized = false;
+  private lastOpacity = 1;
+  private lastShowLines = true;
+  private animationFrame: number | null = null;
+
+  // Приватные настройки
+  private readonly lineColor: string | number = 'black';
+  private readonly labelColor: string = '#000000';
+  private readonly offset: number = 0.05;
 
   constructor() {
     this.targetObject = this.host.nativeElement;
   }
 
   ngOnInit() {
-    if (this.targetObject) {
-      // Небольшая задержка для гарантии загрузки объекта
-      setTimeout(() => {
-        this.calculateObjectCoordinates();
-        this.addEdgePoints();
-        this.addLabels();
-      }, 100);
-    }
+    // Начинаем проверять размеры сразу
+    this.startChecking();
   }
 
   ngOnDestroy() {
-    this.removePoints();
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
+    }
+    this.removeAll();
   }
 
-  private addEdgePoints() {
+  private startChecking() {
+    const check = () => {
+      // Пытаемся получить размеры объекта
+      if (!this.isInitialized) {
+        this.tryInitialize();
+      }
+
+      // Обновляем видимость, если уже инициализированы
+      if (this.isInitialized) {
+        this.updateVisibility();
+      }
+
+      this.animationFrame = requestAnimationFrame(check);
+    };
+    check();
+  }
+
+  private tryInitialize() {
     if (!this.targetObject) return;
 
-    const xCoordinate = !this.liesInZ ? this.size.x : this.size.z;
-    const yCoordinate = this.size.y;
+    // Пробуем получить размеры
+    const box = new THREE.Box3().setFromObject(this.targetObject);
+    const newSize = box.getSize(new THREE.Vector3());
 
-    const positionsY = [
-      {pos: new THREE.Vector3(xCoordinate / 2 + this.offset, (yCoordinate / 2))}, // вверх
-      {pos: new THREE.Vector3(xCoordinate / 2 + this.offset, -((yCoordinate / 2)))},// низ
-    ];
+    // Проверяем, что размеры не нулевые
+    if (newSize.x > 0 || newSize.y > 0 || newSize.z > 0) {
+      this.size = newSize;
+      this.isInitialized = true;
 
-    const positionsX = [
-      {pos: new THREE.Vector3(-xCoordinate / 2, (yCoordinate / 2) + this.offset)}, // право
-      {pos: new THREE.Vector3(xCoordinate / 2, (yCoordinate / 2) + this.offset)}, // лево
-    ];
-
-    if (this.showY) {
-      this.joinPoints(positionsY[0].pos, positionsY[1].pos);
-      this.addAdditionalLines(positionsY[0].pos, false);
-      this.addAdditionalLines(positionsY[1].pos, false);
-    }
-
-    if (this.showX) {
-      this.joinPoints(positionsX[0].pos, positionsX[1].pos);
-      this.addAdditionalLines(positionsX[0].pos, true);
-      this.addAdditionalLines(positionsX[1].pos, true);
+      // Сразу создаем линии, если нужно
+      if (this.shouldShow()) {
+        this.drawAll();
+      }
     }
   }
 
-  private removePoints() {
-    this.points.forEach(point => {
-      if (point.parent) {
-        point.parent.remove(point);
+  private getCurrentOpacity(): number {
+    const parentMaterial = (this.targetObject as THREE.Mesh).material;
+    if (!parentMaterial) return 1;
+
+    if (Array.isArray(parentMaterial)) {
+      return Math.min(...parentMaterial.map(m => m.opacity));
+    } else {
+      return parentMaterial.opacity;
+    }
+  }
+
+  private shouldShow(): boolean {
+    if (!this.showLines) return false;
+    const opacity = this.getCurrentOpacity();
+    return opacity > 0;
+  }
+
+  private updateVisibility() {
+    if (!this.isInitialized) return;
+
+    const currentOpacity = this.getCurrentOpacity();
+    const shouldShow = this.shouldShow();
+
+    // Проверяем изменения
+    const opacityChanged = currentOpacity !== this.lastOpacity;
+    const showLinesChanged = this.showLines !== this.lastShowLines;
+
+    if (opacityChanged || showLinesChanged) {
+      this.lastOpacity = currentOpacity;
+      this.lastShowLines = this.showLines;
+
+      if (shouldShow) {
+        if (this.lines.length === 0 && this.sprites.length === 0) {
+          this.drawAll();
+        } else {
+          this.setVisibility(true);
+        }
+      } else {
+        this.setVisibility(false);
+      }
+    }
+  }
+
+  private setVisibility(visible: boolean) {
+    this.lines.forEach(line => {
+      line.visible = visible;
+    });
+    this.sprites.forEach(sprite => {
+      sprite.visible = visible;
+    });
+  }
+
+  private drawAll() {
+    if (!this.size) return;
+
+    if (this.size.x === 0 && this.size.y === 0 && this.size.z === 0) {
+      return;
+    }
+
+    this.removeAll();
+    this.createLines();
+    this.createLabels();
+  }
+
+  private removeAll() {
+    this.lines.forEach(line => {
+      if (line.parent) {
+        line.parent.remove(line);
+        line.geometry.dispose();
+        (line.material as THREE.Material).dispose();
       }
     });
-    this.points = [];
+    this.lines = [];
+
+    this.sprites.forEach(sprite => {
+      if (sprite.parent) {
+        sprite.parent.remove(sprite);
+        if (sprite.material.map) {
+          sprite.material.map.dispose();
+        }
+        sprite.material.dispose();
+      }
+    });
+    this.sprites = [];
   }
 
-  private addLabels(): void {
-    if (!this.targetObject) return;
+  private createLines(): void {
     const xCoordinate = !this.liesInZ ? this.size.x : this.size.z;
+    const yCoordinate = this.size.y;
+    const halfX = xCoordinate / 2;
+    const halfY = yCoordinate / 2;
 
     if (this.showY) {
-      const labelMaterial = new THREE.SpriteMaterial({
-        map: this.createLabelTexture(this.size.y),
-        depthTest: false,
-        depthWrite: false,
-        rotation: Math.PI / 2
+      // Основная вертикальная линия
+      this.drawLine({
+        start: new THREE.Vector3(halfX + this.offset, halfY, 0),
+        end: new THREE.Vector3(halfX + this.offset, -halfY, 0)
       });
-      const labelY = new THREE.Sprite(labelMaterial);
-      this.targetObject.add(labelY);
-      labelY.position.copy(new THREE.Vector3(xCoordinate / 2 + (this.offset * 2)));
+
+      // Засечки на концах
+      this.drawLine({
+        start: new THREE.Vector3(halfX + this.offset - 0.05, halfY, 0),
+        end: new THREE.Vector3(halfX + this.offset + 0.05, halfY, 0)
+      });
+      this.drawLine({
+        start: new THREE.Vector3(halfX + this.offset - 0.05, -halfY, 0),
+        end: new THREE.Vector3(halfX + this.offset + 0.05, -halfY, 0)
+      });
     }
 
     if (this.showX) {
-      const labelMaterial = new THREE.SpriteMaterial({
-        map: this.createLabelTexture(xCoordinate),
-        depthTest: false,
-        depthWrite: false
+      // Основная горизонтальная линия
+      this.drawLine({
+        start: new THREE.Vector3(-halfX, halfY + this.offset, 0),
+        end: new THREE.Vector3(halfX, halfY + this.offset, 0)
       });
-      const labelX = new THREE.Sprite(labelMaterial);
-      this.targetObject.add(labelX);
-      labelX.position.copy(new THREE.Vector3(0, (this.size.y / 2) + (this.offset * 2)));
+
+      // Засечки на концах
+      this.drawLine({
+        start: new THREE.Vector3(-halfX, halfY + this.offset - 0.05, 0),
+        end: new THREE.Vector3(-halfX, halfY + this.offset + 0.05, 0)
+      });
+      this.drawLine({
+        start: new THREE.Vector3(halfX, halfY + this.offset - 0.05, 0),
+        end: new THREE.Vector3(halfX, halfY + this.offset + 0.05, 0)
+      });
     }
   }
 
-  private addAdditionalLines(vector: THREE.Vector3, byX: boolean): void {
-    if (!this.targetObject) return;
-
-    const { x, y } = vector;
-
-    if (byX) {
-      this.joinPoints(new THREE.Vector3(x,y - this.offset),new THREE.Vector3(x,y + this.offset))
-    } else {
-      this.joinPoints(new THREE.Vector3(x - this.offset,y),new THREE.Vector3(x + this.offset,y))
-    }
-  }
-
-  private joinPoints(start: THREE.Vector3, end: THREE.Vector3): void {
-    if (!this.targetObject) return;
-    const points = [start, end];
+  private drawLine(config: LineConfig): void {
+    const points = [config.start, config.end];
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({color: 'black'});
+    const material = new THREE.LineBasicMaterial({ color: this.lineColor });
     const line = new THREE.Line(geometry, material);
+
     this.targetObject.add(line);
+    this.lines.push(line);
   }
 
-  private calculateObjectCoordinates(): void {
-    if (!this.targetObject) return;
-    const box = new THREE.Box3().setFromObject(this.targetObject);
-    this.size = box.getSize(new THREE.Vector3())
+  private createLabels(): void {
+    const xCoordinate = !this.liesInZ ? this.size.x : this.size.z;
+    const halfX = xCoordinate / 2;
+    const halfY = this.size.y / 2;
+
+    if (this.showY) {
+      this.createLabel({
+        position: new THREE.Vector3(halfX + this.offset * 2, 0, 0),
+        text: this.size.y,
+        rotation: Math.PI / 2,
+        axis: 'y'
+      });
+    }
+
+    if (this.showX) {
+      this.createLabel({
+        position: new THREE.Vector3(0, halfY + this.offset * 2, 0),
+        text: xCoordinate,
+        axis: 'x'
+      });
+    }
   }
 
-  private createLabelTexture(text: number): THREE.CanvasTexture {
+  private createLabel(config: LabelConfig): void {
     const canvas = document.createElement('canvas');
     canvas.width = 256;
     canvas.height = 256;
     const ctx = canvas.getContext('2d')!;
 
     ctx.font = '20px Arial';
-    ctx.fillStyle = '#000000';
+    ctx.fillStyle = this.labelColor;
     ctx.textAlign = 'center';
-    ctx.fillText((text * 1000).toString(), canvas.width / 2, canvas.height / 2);
+    ctx.fillText(this.formatNumber(config.text), canvas.width / 2, canvas.height / 2);
 
-    return new THREE.CanvasTexture(canvas);
+    const texture = new THREE.CanvasTexture(canvas);
+    const material = new THREE.SpriteMaterial({
+      map: texture,
+      depthTest: false,
+      depthWrite: false,
+      rotation: config.rotation || 0
+    });
+
+    const sprite = new THREE.Sprite(material);
+    this.targetObject.add(sprite);
+    sprite.position.copy(config.position);
+    this.sprites.push(sprite);
+  }
+
+  private formatNumber(value: number): string {
+    return (value * 1000).toString();
   }
 }
