@@ -7,6 +7,7 @@ import { injectStore } from 'angular-three';
   standalone: true
 })
 export class WallOpacityDirective implements OnInit, OnDestroy {
+  // TODO не нужна для plane geometry, однако может понадобиться при реализации drag and drop
   private store = injectStore();
   private host = inject<ElementRef<THREE.Mesh>>(ElementRef);
   private objectNormal = new THREE.Vector3();
