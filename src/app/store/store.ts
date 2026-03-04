@@ -1,17 +1,39 @@
-import { signalStore, withState } from '@ngrx/signals';
+import {
+  signalStore,
+  withState,
+  withMethods,
+  patchState,
+} from '@ngrx/signals';
 
-interface AppState {
-  count: number;
-  // other global state properties
-}
-
-const initialState: AppState = {
-  count: 0
+type State = {
+  roomParameters: {
+    size: {
+      x: number,
+      y: number,
+      z: number,
+    }
+  }
 };
 
-export const AppStore = signalStore(
-  // 👇 Provide the store at the root level
+const initialState: State = {
+  roomParameters: {
+    size: {
+      x: 5,
+      y: 2.5,
+      z: 4,
+    }
+  }
+};
+
+export const ConfigurationStore = signalStore(
   { providedIn: 'root' },
-  withState(initialState)
-  // Add other features like withComputed, withMethods, etc.
+  withState(initialState),
+  withMethods((store) => ({
+    updateRoomSize(roomParameters: any) {
+      patchState(store, {roomParameters});
+    },
+  })),
 );
+
+export type ConfigurationStore = InstanceType<typeof ConfigurationStore>;
+

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, inject, Input, OnDestroy, OnInit } from "@angular/core";
+import {Directive, ElementRef, inject, Input, OnDestroy, OnInit} from "@angular/core";
 import * as THREE from "three";
 
 interface LineConfig {
@@ -13,7 +13,7 @@ interface LabelConfig {
   axis: 'x' | 'y';
 }
 
-@Directive({ selector: "ngt-mesh[sizeLines]" })
+@Directive({selector: "ngt-mesh[sizeLines]"})
 export class SizeLinesDirective implements OnInit, OnDestroy {
   @Input() public liesInZ: boolean = false;
   @Input() public showX: boolean = true;
@@ -29,6 +29,7 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
   private lastOpacity = 1;
   private lastShowLines = true;
   private animationFrame: number | null = null;
+  private linesDimensions: { x: number, y: number, z: number } = {x: 0, y: 0, z: 0};
 
   // Приватные настройки
   private readonly lineColor: string | number = 'black';
@@ -72,9 +73,7 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
     if (!this.targetObject) return;
 
     // Пробуем получить размеры
-    const box = new THREE.Box3().setFromObject(this.targetObject);
-    const newSize = box.getSize(new THREE.Vector3());
-
+    const newSize = this.defineSize();
     // Проверяем, что размеры не нулевые
     if (newSize.x > 0 || newSize.y > 0 || newSize.z > 0) {
       this.size = newSize;
@@ -84,6 +83,7 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
       if (this.shouldShow()) {
         this.drawAll();
       }
+      this.defineSizeDifference();
     }
   }
 
@@ -105,14 +105,21 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
   }
 
   private updateVisibility() {
-    if (!this.isInitialized) return;
-
     const currentOpacity = this.getCurrentOpacity();
     const shouldShow = this.shouldShow();
 
     // Проверяем изменения
     const opacityChanged = currentOpacity !== this.lastOpacity;
     const showLinesChanged = this.showLines !== this.lastShowLines;
+    const sizeChanged = this.sizeChanged();
+
+    if (sizeChanged) {
+      this.removeAll();
+      this.size = this.defineSize();
+      this.drawAll();
+      this.setVisibility(!!this.getCurrentOpacity());
+      return;
+    }
 
     if (opacityChanged || showLinesChanged) {
       this.lastOpacity = currentOpacity;
@@ -120,6 +127,8 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
 
       if (shouldShow) {
         if (this.lines.length === 0 && this.sprites.length === 0) {
+          this.removeAll();
+          this.size = this.defineSize();
           this.drawAll();
         } else {
           this.setVisibility(true);
@@ -140,13 +149,10 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
   }
 
   private drawAll() {
-    if (!this.size) return;
-
-    if (this.size.x === 0 && this.size.y === 0 && this.size.z === 0) {
+    if (!this.size || (this.size.x === 0 && this.size.y === 0 && this.size.z === 0)) {
       return;
     }
 
-    this.removeAll();
     this.createLines();
     this.createLabels();
   }
@@ -219,7 +225,7 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
   private drawLine(config: LineConfig): void {
     const points = [config.start, config.end];
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({ color: this.lineColor });
+    const material = new THREE.LineBasicMaterial({color: this.lineColor});
     const line = new THREE.Line(geometry, material);
 
     this.targetObject.add(line);
@@ -276,5 +282,30 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
 
   private formatNumber(value: number): string {
     return (value * 1000).toString();
+  }
+
+  private stabilizeNumber(value: number): number {
+    return Number(value.toFixed(5));
+  }
+
+  private defineSize(): THREE.Vector3 {
+    const box = new THREE.Box3().setFromObject(this.targetObject);
+    const {x, y, z} = box.getSize(new THREE.Vector3());
+    return new THREE.Vector3(this.stabilizeNumber(x), this.stabilizeNumber(y), this.stabilizeNumber(z));
+  }
+
+  // Определяем разницу без линий и с ними
+  private defineSizeDifference(): void {
+    const newSize = this.defineSize();
+    const xDifference = this.stabilizeNumber(newSize.x - this.size.x);
+    const yDifference = this.stabilizeNumber(newSize.y - this.size.y);
+    const zDifference = this.stabilizeNumber(newSize.z - this.size.z);
+    this.linesDimensions = {x: xDifference, y: yDifference, z: zDifference};
+  }
+
+  private sizeChanged(): boolean {
+    const newSize = this.defineSize();
+    const {x, y, z} = this.linesDimensions;
+    return this.size.x !== this.stabilizeNumber(newSize.x - x) || this.size.y !== this.stabilizeNumber(newSize.y - y) || this.size.z !== this.stabilizeNumber(newSize.z - z);
   }
 }
