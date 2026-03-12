@@ -172,10 +172,8 @@ export class SizeLinesDirective implements OnInit, OnDestroy {
   }
 
   private createLines(): void {
-    const xCoordinate = this.size.x;
-    const yCoordinate = this.size.y;
-    const halfX = xCoordinate / 2;
-    const halfY = yCoordinate / 2;
+    const halfX = this.size.x / 2;
+    const halfY = this.size.y / 2;
 
     if (this.showY) {
       // Основная вертикальная линия
