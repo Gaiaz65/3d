@@ -1,0 +1,17 @@
+<div class="items-list__container">
+  @for (type of items; track type.type) {
+    <p-panel [header]="type.title" [toggleable]="true" class="full-width">
+      @for (item of type.items; track item) {
+        <div cdkDropList cdkDropListConnectedTo="canvas"
+             cdkDropListSortingDisabled
+             cdkDropListHasAnchor>
+        <app-item [imgSrc]="item.imageUrl"
+                  [imgTitle]="item.title"
+                  [configuration]="item"
+                  (dragEvent)="handleDragClass($event)"
+        ></app-item>
+        </div>
+      }
+    </p-panel>
+  }
+</div>

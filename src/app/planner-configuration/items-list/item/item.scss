@@ -1,0 +1,11 @@
+.item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+
+.drag-preview__custom {
+  display: none;
+  cursor: move;
+}

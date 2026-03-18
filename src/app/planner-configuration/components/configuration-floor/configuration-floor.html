@@ -1,0 +1,13 @@
+<p-panel header="Пол" [toggleable]="true" class="full-width configuration-container">
+  <div class="configuration-list__container">
+    @for (floor of floor; track floor.title) {
+      <div class="configuration-list__item">
+        <div class="configuration-list__item-title" [innerText]="floor.title"></div>
+        <img [src]="floor.url">
+        <p-button (click)="selectFloor(floor)"
+                  [disabled]="currentFloor.id === floor.id"
+                  [label]="currentFloor.id === floor.id ?'Выбрано' : 'Выбрать'"></p-button>
+      </div>
+    }
+  </div>
+</p-panel>

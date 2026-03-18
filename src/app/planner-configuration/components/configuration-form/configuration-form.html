@@ -1,0 +1,26 @@
+<p-panel header="Размеры помещения" [toggleable]="true" class="full-width configuration-container">
+  <form [formGroup]="form">
+    @for (config of formConfig; track config.controlName) {
+      <div class="configuration-item">
+        <div>{{ config.label }}, мм:</div>
+        <p-inputnumber [formControlName]="config.controlName"
+                       [showButtons]="true"
+                       buttonLayout="horizontal"
+                       [step]="1"
+                       [max]="config.max"
+                       [min]="config.min"
+                       (onBlur)="checkOnBlur(config.controlName, config.min)">
+          <ng-template>
+            <span class="pi pi-plus"></span>
+          </ng-template>
+          <ng-template>
+            <i class="pi pi-minus"></i>
+          </ng-template>
+        </p-inputnumber>
+        <p-slider [formControlName]="config.controlName"
+                  [max]="config.max"
+                  [min]="config.min"/>
+      </div>
+    }
+  </form>
+</p-panel>

@@ -1,7 +1,7 @@
-import {Directive, OnInit, OnDestroy, inject, NgZone, ElementRef, EventEmitter, Output} from '@angular/core';
+import {Directive, OnInit, OnDestroy, inject, NgZone, ElementRef, EventEmitter, Output, Input} from '@angular/core';
 import * as THREE from 'three';
 import {injectStore} from 'angular-three';
-import {fromEvent, Subject, takeUntil} from 'rxjs';
+import {filter, fromEvent, Subject, takeUntil} from 'rxjs';
 import {ConfigurationStore} from '../../store/store';
 import {getObjectSize} from '../utils/object.utils';
 
@@ -11,6 +11,8 @@ import {getObjectSize} from '../utils/object.utils';
 })
 export class DraggableDirective implements OnInit, OnDestroy {
   @Output() dargging: EventEmitter<any> = new EventEmitter();
+  @Output() dragEndEvent: EventEmitter<any> = new EventEmitter();
+  @Input() readyToDrag: boolean = false;
   private host = inject<ElementRef<THREE.Mesh>>(ElementRef);
   private store = injectStore();
   private configStore = inject(ConfigurationStore);
@@ -45,9 +47,12 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
       // Подписываемся на mousedown один раз
       fromEvent(canvas, 'mousedown')
-        .pipe(takeUntil(this.destroy$))
+        .pipe(
+          takeUntil(this.destroy$),
+          filter(() => this.readyToDrag)
+        )
         .subscribe((e) => {
-          this.onMouseDown(e as MouseEvent);
+            this.onMouseDown(e as MouseEvent);
         });
     });
   }
@@ -158,15 +163,16 @@ export class DraggableDirective implements OnInit, OnDestroy {
   private onMouseUp() {
     this.isDragging = false;
     this.toggleControls(true);
+    this.dragEndEvent.emit();
     // Завершаем подписки на drag
     this.dragDestroy$.next();
   }
 
   private toggleControls(flag: boolean) {
-    const controls = this.store().controls;
-    if (controls) {
-      (controls as any).enabled = flag;
-    }
+    // const controls = this.store().controls;
+    // if (controls) {
+    //   (controls as any).enabled = flag;
+    // }
   }
 
   private calculateSize(): void {

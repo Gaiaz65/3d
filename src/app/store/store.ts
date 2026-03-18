@@ -4,6 +4,7 @@ import {
   withMethods,
   patchState,
 } from '@ngrx/signals';
+import {IWall} from '../planner-scene/interfaces/configuration';
 
 type State = {
   roomParameters: {
@@ -12,7 +13,9 @@ type State = {
       y: number,
       z: number,
     }
-  }
+  },
+  currentWall: IWall,
+  currentFloor: IWall,
 };
 
 const initialState: State = {
@@ -22,7 +25,17 @@ const initialState: State = {
       y: 2.5,
       z: 4,
     }
-  }
+  },
+  currentWall: {
+    id: 2,
+    url: 'assets/walls/greenWall.jpg',
+    title: 'Зеленые обои',
+  },
+  currentFloor: {
+    id: 3,
+    url: 'assets/floor/whiteFloor.png',
+    title: 'Белое дерево',
+  },
 };
 
 export const ConfigurationStore = signalStore(
@@ -31,6 +44,12 @@ export const ConfigurationStore = signalStore(
   withMethods((store) => ({
     updateRoomSize(roomParameters: any) {
       patchState(store, {roomParameters});
+    },
+    setCurrentWall(wall: IWall) {
+      patchState(store, {currentWall: wall});
+    },
+    setCurrentFloor(floor: IWall) {
+      patchState(store, {currentFloor: floor});
     },
   })),
 );
