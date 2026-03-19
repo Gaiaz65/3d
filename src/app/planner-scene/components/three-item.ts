@@ -33,8 +33,8 @@ export class ThreeItemComponent {
   @ViewChild('mesh') parentMeshRef!: ElementRef<THREE.Mesh>;
 
   public meshPosition = signal(new THREE.Vector3(0, 0, 0));
-  position = new THREE.Vector3(Math.random(), 0.25, Math.random());
-  size = [0.5, 0.5, 0.5];
+  position = new THREE.Vector3((Math.random() - 0.5) * 2000, 250, (Math.random() - 0.5) * 2000);
+  size = [500, 500, 500];
 
   public onDrag(mesh: NgtThreeElement<typeof THREE.Mesh>): void {
     this.meshPosition.set(new THREE.Vector3(...(mesh.position as any)));

@@ -11,12 +11,12 @@ extend(THREE);
 @Component({
   selector: "app-scene-graph",
   template: `
-    <ngts-perspective-camera [options]="{ makeDefault: true, fov: 50, position: [1, 5, -5], resolution: 128 }"/>
-    <ngts-orbit-controls [options]="{ zoomSpeed: 0.2, makeDefault: true, minDistance: 5, maxDistance: 15 }" ></ngts-orbit-controls>
+    <ngts-perspective-camera [options]="{ makeDefault: true, fov: 50, position: [1000, 5000, -5000], resolution: 128 }"/>
+    <ngts-orbit-controls [options]="{ zoomSpeed: 0.2, makeDefault: true, minDistance: 500, maxDistance: 15000 }" ></ngts-orbit-controls>
     <ngt-color *args="['#c1c1c1']" attach="background"/>
     <ngt-ambient-light [intensity]="1"/>
     <ngt-spot-light
-      [position]="[50, 50, -50]"
+      [position]="[50000, 50000, -50000]"
       [intensity]="0.5 * Math.PI"
       [angle]="0.5"
       [penumbra]="1"
@@ -24,7 +24,7 @@ extend(THREE);
       castShadow/>
 
     <ngt-spot-light
-      [position]="[-50, -50, 50]"
+      [position]="[-50000, -50000, 50000]"
       [intensity]="0.3 * Math.PI"
       [angle]="0.5"
       [penumbra]="1"
@@ -40,8 +40,8 @@ extend(THREE);
         <ngts-gizmo-viewcube  [options]="{faces: ['Право','Лево','Вверх','Низ','Перед', 'Зад']}"/>
       </ng-template>
     </ngts-gizmo-helper>
-    <ngt-axes-helper *args="[10]"></ngt-axes-helper>
-    <ngt-grid-helper *args="[30, 30]" [position]="[0, -0.1, 0]"/>
+    <ngt-axes-helper *args="[10000]"></ngt-axes-helper>
+    <ngt-grid-helper *args="[30000, 30]" [position]="[0, -100, 0]"/>
   `,
   imports: [NgtArgs, RoomComponent, NgtsOrbitControls, NgtsOrbitControls, NgtsPerspectiveCamera, NgtsGizmoHelperImpl, NgtsGizmoViewcube, NgtsGizmoHelperContent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -53,8 +53,9 @@ export class SceneGraph {
   constructor() {
     effect(() => {
       const camera = this.store.camera();
-      camera.far = 100;
-      camera.position.set(2, 5, 5);
+      camera.near = 10;
+      camera.far = 100000;
+      camera.position.set(2000, 5000, 5000);
       camera.updateProjectionMatrix();
     });
   }

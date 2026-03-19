@@ -29,13 +29,16 @@ import {beforeRender, injectStore} from 'angular-three';
                      [options]="{
                  position: text.position,
                  rotation: text.rotation,
-                 fontSize: 0.1,
+                 fontSize: 100,
                  outlineColor: 'black',
                  color: 'black',
+                 font: 'assets/fonts/rubik/Rubik-VariableFont_wght.ttf',
+                 renderOrder: 1,
+                 depthOffset: -1,
                  }">
           </ngts-text>
         }
-        <ngts-line [points]="line.points" [options]="{ color: 'black', lineWidth: 1.5 }"/>
+        <ngts-line [points]="line.points" [options]="{ color: 'black', lineWidth: 1.5, depthTest: true }"/>
       }
     }
   `
@@ -52,7 +55,7 @@ export class MeshSizeLine implements OnInit {
 
   private cameraDir = new THREE.Vector3();
   private textDir = new THREE.Vector3();
-  private offset = 0.05;
+  private offset = 50;
   private linesConfig: Record<string, any> = {};
 
   constructor() {
@@ -75,11 +78,9 @@ export class MeshSizeLine implements OnInit {
       if (!rotation) return;
 
       const visible = this.isTextFacingCamera(rotation);
-
       if (this.textReadable() !== visible) {
         this.textReadable.set(visible);
       }
-
     });
   }
 
@@ -310,6 +311,6 @@ export class MeshSizeLine implements OnInit {
   }
 
   private prepareText(value: number) {
-    return (value * 1000).toString();
+    return Math.round(value).toString();
   }
 }

@@ -270,15 +270,20 @@ export class DraggableDirective implements OnInit, OnDestroy {
       transparent: true,
       opacity: 0.35,
       depthWrite: false,
+      depthTest: false,
       side: THREE.DoubleSide,
     });
 
     // Добавляем рёбра для чёткости контура
     const edgesGeo = new THREE.EdgesGeometry(geometry);
-    const edgesMat = new THREE.LineBasicMaterial({color: 0xff6666});
+    const edgesMat = new THREE.LineBasicMaterial({
+      color: 0xff6666,
+      depthTest: false,
+    });
     const edges = new THREE.LineSegments(edgesGeo, edgesMat);
 
     this.ghost = new THREE.Mesh(geometry, material);
+    this.ghost.renderOrder = 999;
     this.ghost.add(edges);
     this.ghost.userData['isGhost'] = true;
     this.ghost.visible = false;

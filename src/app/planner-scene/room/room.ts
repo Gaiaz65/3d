@@ -1,6 +1,7 @@
 import {Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, signal, WritableSignal} from '@angular/core';
 import {loaderResource, NgtArgs} from 'angular-three';
 import {SizeLinesDirective} from '../directives/size-lines.directive';
+import * as THREE from 'three';
 import {TextureLoader} from 'three';
 import {WallOpacityDirective} from '../directives/wall-opacity.directive';
 import {ConfigurationStore} from '../../store/store';
@@ -64,7 +65,7 @@ export class RoomComponent {
   public roomHeight: WritableSignal<number> = signal(0);
   public roomDepth: WritableSignal<number> = signal(0);
   public roomWidth: WritableSignal<number> = signal(0);
-  public readonly wallThickness = 0.01;
+  public readonly wallThickness = 10;
 
   public readonly ceiling = computed(() => ({
     rotation: [-Math.PI / 2, 0, 0],
@@ -93,6 +94,24 @@ export class RoomComponent {
       this.roomHeight.set(y);
       this.roomDepth.set(z);
       this.roomWidth.set(x);
+    });
+
+    // Повторяем текстуры каждые 1000 мм (1 м) по каждой оси
+    const TILE = 1000;
+    effect(() => {
+      const tex = this.wallTexture.value();
+      if (!tex) return;
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(this.roomWidth() / TILE, this.roomHeight() / TILE);
+      tex.needsUpdate = true;
+    });
+
+    effect(() => {
+      const tex = this.floorTexture.value();
+      if (!tex) return;
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(this.roomWidth() / TILE, this.roomDepth() / TILE);
+      tex.needsUpdate = true;
     });
   };
 }

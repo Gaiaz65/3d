@@ -21,9 +21,9 @@ type State = {
 const initialState: State = {
   roomParameters: {
     size: {
-      x: 5,
-      y: 2.5,
-      z: 4,
+      x: 5000,
+      y: 2500,
+      z: 4000,
     }
   },
   currentWall: {

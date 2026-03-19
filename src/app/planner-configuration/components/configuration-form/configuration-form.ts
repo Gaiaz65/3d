@@ -49,9 +49,9 @@ export class ConfigurationForm implements OnInit {
         (val: Record<string, number>) => {
           this.form.patchValue({...val});
           this.configurationStore.updateRoomSize({size:{
-              x: val['width'] / 1000,
-              y: val['height'] / 1000,
-              z: val['depth'] / 1000,
+              x: val['width'],
+              y: val['height'],
+              z: val['depth'],
             }})
         }
       );
