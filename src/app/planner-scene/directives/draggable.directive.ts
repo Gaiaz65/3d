@@ -11,9 +11,9 @@ import {SurfaceService} from '../services/surface.service';
   standalone: true
 })
 export class DraggableDirective implements OnInit, OnDestroy {
-  @Output() dargging = new EventEmitter<void>();
-  @Output() dragEndEvent = new EventEmitter<void>();
-  @Output() focusChange = new EventEmitter<boolean>();
+  @Output() public dargging = new EventEmitter<void>();
+  @Output() public dragEndEvent = new EventEmitter<void>();
+  @Output() public focusChange = new EventEmitter<boolean>();
 
   public focused = signal(false);
 
@@ -108,6 +108,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
       // Клик в пустом месте — снимаем выбор
       this.setFocused(false);
     }
+    this.store().invalidate();
   }
 
   private setFocused(value: boolean): void {
@@ -244,6 +245,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
         this.hideGhost();
       }
 
+      this.store().invalidate();
       this.dargging.emit();
     }
   }

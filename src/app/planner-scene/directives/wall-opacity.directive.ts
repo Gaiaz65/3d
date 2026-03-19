@@ -1,73 +1,37 @@
-import { Directive, ElementRef, inject, OnDestroy, OnInit } from "@angular/core";
-import * as THREE from "three";
-import { injectStore } from 'angular-three';
+import {Directive, ElementRef, inject} from '@angular/core';
+import * as THREE from 'three';
+import {beforeRender, injectStore} from 'angular-three';
 
 @Directive({
-  selector: "[wallOpacity]",
-  standalone: true
+  selector: '[wallOpacity]',
+  standalone: true,
 })
-export class WallOpacityDirective implements OnInit, OnDestroy {
-  // TODO не нужна для plane geometry, однако может понадобиться при реализации drag and drop
-  private store = injectStore();
-  private host = inject<ElementRef<THREE.Mesh>>(ElementRef);
-  private objectNormal = new THREE.Vector3();
-  private toCamera = new THREE.Vector3();
-  private animationFrame: number | null = null;
-  private hiddenOpacity = 0;
+export class WallOpacityDirective {
+  private readonly store = injectStore();
+  private readonly host = inject<ElementRef<THREE.Mesh>>(ElementRef);
 
-  ngOnInit(): void {
-    this.startChecking();
-  }
+  private readonly objectNormal = new THREE.Vector3();
+  private readonly toCamera = new THREE.Vector3();
 
-  ngOnDestroy(): void {
-    if (this.animationFrame) {
-      cancelAnimationFrame(this.animationFrame);
-    }
-  }
+  constructor() {
+    beforeRender(() => {
+      const mesh = this.host.nativeElement;
+      const camera = this.store.camera();
+      if (!camera || !mesh) return;
 
-  private startChecking(): void {
-    const check = () => {
-      this.updateOpacity();
-      this.animationFrame = requestAnimationFrame(check);
-    };
-    check();
-  }
+      mesh.getWorldDirection(this.objectNormal);
+      this.toCamera.copy(camera.position).sub(mesh.position).normalize();
 
-  private updateOpacity(): void {
-    const mesh = this.host.nativeElement;
-    const camera = this.store.camera();
-
-    if (!camera || !mesh) return;
-
-    // Получаем мировую нормаль объекта (направление "вперед" от объекта)
-    // Для стены это направление ее лицевой стороны
-    mesh.getWorldDirection(this.objectNormal);
-
-    // Вектор от объекта к камере
-    this.toCamera.copy(camera.position).sub(mesh.position).normalize();
-
-    // Скалярное произведение нормали и направления на камеру
-    // > 0: камера смотрит на лицевую сторону
-    // < 0: камера смотрит на обратную сторону
-    const dotProduct = this.objectNormal.dot(this.toCamera);
-
-    // Если смотрим на лицевую сторону - делаем прозрачным
-    // Если на обратную - оставляем видимым
-    const opacity = dotProduct > 0 ? 1 : this.hiddenOpacity;
-
-    this.setOpacity(opacity);
+      const opacity = this.objectNormal.dot(this.toCamera) > 0 ? 1 : 0;
+      this.setOpacity(opacity);
+    });
   }
 
   private setOpacity(opacity: number): void {
     const material = this.host.nativeElement.material;
-
     if (Array.isArray(material)) {
-      material.forEach(mat => {
-        if (mat.transparent) {
-          mat.opacity = opacity;
-        }
-      });
-    } else if (material && material.transparent) {
+      material.forEach(mat => { if (mat.transparent) mat.opacity = opacity; });
+    } else if (material?.transparent) {
       material.opacity = opacity;
     }
   }

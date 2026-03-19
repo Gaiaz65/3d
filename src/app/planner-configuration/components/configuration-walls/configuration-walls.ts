@@ -45,6 +45,11 @@ export class ConfigurationWalls {
       url: 'assets/walls/whiteWall.jpg',
       title: 'Белые обои',
     },
+    {
+      id: 5,
+      url: 'assets/walls/pictureWall.jpg',
+      title: 'Обои с рисунком',
+    },
   ];
   public currentWall!: IWall;
 

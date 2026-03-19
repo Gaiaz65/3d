@@ -7,7 +7,7 @@ import {NgtsStats} from 'angular-three-soba/stats';
   selector: 'app-scene',
   imports: [NgtCanvas, SceneGraph, NgtCanvasImpl, NgtCanvasContent, NgtsStats],
   template: `
-        <ngt-canvas stats>
+        <ngt-canvas stats frameloop="demand">
             <app-scene-graph  *canvasContent />
         </ngt-canvas>
     `,

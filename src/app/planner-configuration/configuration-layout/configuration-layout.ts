@@ -10,6 +10,7 @@ import {ConfigurationStore} from '../../store/store';
 import {ConfigurationForm} from '../components/configuration-form/configuration-form';
 import {ConfigurationFloor} from '../components/configuration-floor/configuration-floor';
 import {ConfigurationWalls} from '../components/configuration-walls/configuration-walls';
+import {ConfigurationContextMenu} from '../components/cofiguration-context-menu/configuration-context-menu';
 
 
 @Component({
@@ -20,6 +21,7 @@ import {ConfigurationWalls} from '../components/configuration-walls/configuratio
     ConfigurationForm,
     ConfigurationFloor,
     ConfigurationWalls,
+    ConfigurationContextMenu,
   ],
   providers: [],
   templateUrl: './configuration-layout.html',

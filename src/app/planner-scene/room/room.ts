@@ -1,41 +1,43 @@
 import {Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, signal, WritableSignal} from '@angular/core';
-import {loaderResource, NgtArgs} from 'angular-three';
-import {SizeLinesDirective} from '../directives/size-lines.directive';
+import {injectStore, loaderResource, NgtArgs} from 'angular-three';
 import * as THREE from 'three';
 import {TextureLoader} from 'three';
 import {WallOpacityDirective} from '../directives/wall-opacity.directive';
 import {ConfigurationStore} from '../../store/store';
 import {ThreeItemComponent} from '../components/three-item';
+import {WallSizeLines} from '../components/wall-size-lines';
 
 @Component({
   selector: 'app-room',
   imports: [
     NgtArgs,
-    SizeLinesDirective,
     WallOpacityDirective,
     ThreeItemComponent,
+    WallSizeLines,
   ],
   template: `
     <ngt-group>
       @for (wall of wallPositions(); track wall.type) {
-        <ngt-mesh sizeLines
-                  [wallSize]="[
-                  wall.type=== 'left' || wall.type === 'right' ? roomDepth() : roomWidth(),
-                  roomHeight(),
-                  wallThickness
-                  ]"
+        <ngt-mesh #wallMesh
                   [userData]="{type: 'wall', wallType: wall.type}"
                   wallOpacity
                   [position]="[wall.pos.x, wall.pos.y, wall.pos.z]"
                   [rotation]="[0, wall.rotation, 0]">
-          <ngt-plane-geometry #geometry *args="[
-          wall.type=== 'left' || wall.type === 'right' ? roomDepth() : roomWidth(),
-          roomHeight(),
+          <ngt-plane-geometry *args="[
+            wall.type === 'left' || wall.type === 'right' ? roomDepth() : roomWidth(),
+            roomHeight()
           ]"/>
           <ngt-mesh-standard-material color="0xF5F0E6"
                                       [map]="wallTexture.value()"
-                                      [transparent]="true"
-          />
+                                      [transparent]="true"/>
+
+          <app-wall-size-lines
+            [wall]="wallMesh"
+            [wallSize]="[
+              wall.type === 'left' || wall.type === 'right' ? roomDepth() : roomWidth(),
+              roomHeight(),
+              wallThickness
+            ]"/>
         </ngt-mesh>
       }
 
@@ -78,15 +80,17 @@ export class RoomComponent {
     position: [0, this.wallThickness, 0],
   }));
   public wallPositions = computed(() => ([
-    {pos: {x: 0, y: this.roomHeight() / 2, z: -this.roomDepth() / 2}, rotation: 0, type: 'back'},
-    {pos: {x: 0, y: this.roomHeight() / 2, z: this.roomDepth() / 2}, rotation: Math.PI, type: 'front'},
-    {pos: {x: -this.roomWidth() / 2, y: this.roomHeight() / 2, z: 0}, rotation: Math.PI / 2, type: 'left'},
-    {pos: {x: this.roomWidth() / 2, y: this.roomHeight() / 2, z: 0}, rotation: -Math.PI / 2, type: 'right'}
+    {pos: {x: 0, y: this.roomHeight() / 2, z: -this.roomDepth() / 2}, rotation: 0,            type: 'back'},
+    {pos: {x: 0, y: this.roomHeight() / 2, z:  this.roomDepth() / 2}, rotation: Math.PI,      type: 'front'},
+    {pos: {x: -this.roomWidth() / 2, y: this.roomHeight() / 2, z: 0}, rotation:  Math.PI / 2, type: 'left'},
+    {pos: {x:  this.roomWidth() / 2, y: this.roomHeight() / 2, z: 0}, rotation: -Math.PI / 2, type: 'right'},
   ]));
+
   protected floorTexture = loaderResource(() => TextureLoader, () => this.configurationStore.currentFloor().url);
-  protected wallTexture = loaderResource(() => TextureLoader, () => this.configurationStore.currentWall().url);
+  protected wallTexture  = loaderResource(() => TextureLoader, () => this.configurationStore.currentWall().url);
 
   private configurationStore = inject(ConfigurationStore);
+  private store = injectStore();
 
   constructor() {
     effect(() => {
@@ -94,9 +98,9 @@ export class RoomComponent {
       this.roomHeight.set(y);
       this.roomDepth.set(z);
       this.roomWidth.set(x);
+      this.store().invalidate();
     });
 
-    // Повторяем текстуры каждые 1000 мм (1 м) по каждой оси
     const TILE = 1000;
     effect(() => {
       const tex = this.wallTexture.value();
@@ -104,6 +108,7 @@ export class RoomComponent {
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
       tex.repeat.set(this.roomWidth() / TILE, this.roomHeight() / TILE);
       tex.needsUpdate = true;
+      this.store().invalidate();
     });
 
     effect(() => {
@@ -112,6 +117,7 @@ export class RoomComponent {
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
       tex.repeat.set(this.roomWidth() / TILE, this.roomDepth() / TILE);
       tex.needsUpdate = true;
+      this.store().invalidate();
     });
-  };
+  }
 }
