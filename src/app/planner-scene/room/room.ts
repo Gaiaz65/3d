@@ -39,7 +39,7 @@ import {ThreeItemComponent} from '../components/three-item';
       }
 
       <app-three-item></app-three-item>
-      <app-three-item ></app-three-item>
+      <app-three-item></app-three-item>
 
       <ngt-mesh [position]="floor().position"
                 [userData]="{type: 'wall', wallType: 'floor'}"
