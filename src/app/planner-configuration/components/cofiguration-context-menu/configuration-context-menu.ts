@@ -1,6 +1,7 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {SpeedDial} from 'primeng/speeddial';
 import {MenuItem} from 'primeng/api';
+import {ConfigurationStore} from '../../../store/store';
 
 @Component({
   selector: 'app-configuration-context-menu',
@@ -13,6 +14,7 @@ import {MenuItem} from 'primeng/api';
 export class ConfigurationContextMenu implements OnInit {
   @ViewChild('dial') dial!: SpeedDial;
   public items: MenuItem[] | null = null;
+  private configStore = inject(ConfigurationStore);
 
   ngOnInit(): void {
     this.items = [
@@ -38,7 +40,7 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Показать/скрыть размерные линии',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log('penc')
+          this.configStore.toggleSizeLines(!this.configStore.showSizeLines());
         }
       },
       {
@@ -53,8 +55,7 @@ export class ConfigurationContextMenu implements OnInit {
         icon: 'pi pi-eraser',
         label: 'Удалить все',
         command: () => {
-          setTimeout(() => this.dial.show());
-          console.log('3')
+          this.configStore.clearItems();
         }
       },
       {
@@ -90,9 +91,5 @@ export class ConfigurationContextMenu implements OnInit {
         }
       },
     ];
-  }
-
-  check($e: any): void {
-
   }
 }

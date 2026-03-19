@@ -41,8 +41,9 @@ import {WallSizeLines} from '../components/wall-size-lines';
         </ngt-mesh>
       }
 
-      <app-three-item></app-three-item>
-      <app-three-item></app-three-item>
+      @for (item of configurationStore.items(); track item.id) {
+        <app-three-item/>
+      }
 
       <ngt-mesh [position]="floor().position"
                 [userData]="{type: 'wall', wallType: 'floor'}"
@@ -89,7 +90,7 @@ export class RoomComponent {
   protected floorTexture = loaderResource(() => TextureLoader, () => this.configurationStore.currentFloor().url);
   protected wallTexture  = loaderResource(() => TextureLoader, () => this.configurationStore.currentWall().url);
 
-  private configurationStore = inject(ConfigurationStore);
+  protected configurationStore = inject(ConfigurationStore);
   private store = injectStore();
 
   constructor() {

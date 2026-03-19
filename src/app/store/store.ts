@@ -6,6 +6,8 @@ import {
 } from '@ngrx/signals';
 import {IWall} from '../planner-scene/interfaces/configuration';
 
+export type SceneItem = { id: number };
+
 type State = {
   roomParameters: {
     size: {
@@ -16,6 +18,8 @@ type State = {
   },
   currentWall: IWall,
   currentFloor: IWall,
+  showSizeLines: boolean,
+  items: SceneItem[],
 };
 
 const initialState: State = {
@@ -36,6 +40,8 @@ const initialState: State = {
     url: 'assets/floor/whiteFloor.png',
     title: 'Белое дерево',
   },
+  showSizeLines: true,
+  items: [{id: 1}, {id: 2}],
 };
 
 export const ConfigurationStore = signalStore(
@@ -50,6 +56,12 @@ export const ConfigurationStore = signalStore(
     },
     setCurrentFloor(floor: IWall) {
       patchState(store, {currentFloor: floor});
+    },
+    toggleSizeLines(flag: boolean) {
+      patchState(store, {showSizeLines: flag});
+    },
+    clearItems() {
+      patchState(store, {items: []});
     },
   })),
 );

@@ -2,7 +2,7 @@ import {
   Component,
   computed,
   CUSTOM_ELEMENTS_SCHEMA,
-  effect,
+  effect, inject,
   input,
   OnInit,
   signal,
@@ -12,6 +12,7 @@ import * as THREE from "three";
 import {getObjectSize} from '../utils/object.utils';
 import {NgtsLine, NgtsText} from 'angular-three-soba/abstractions';
 import {beforeRender, injectStore} from 'angular-three';
+import {ConfigurationStore} from '../../store/store';
 
 @Component({
   selector: 'app-mesh-size-lines',
@@ -22,7 +23,7 @@ import {beforeRender, injectStore} from 'angular-three';
     NgtsText,
   ],
   template: `
-    @if (textReadable()) {
+    @if (configStore.showSizeLines() && textReadable()) {
       @for (line of lines(); track $index) {
         @for (text of line.texts; track $index) {
           <ngts-text [text]="text.label"
@@ -57,6 +58,7 @@ export class MeshSizeLine implements OnInit {
   private textDir = new THREE.Vector3();
   private offset = 50;
   private linesConfig: Record<string, any> = {};
+  public configStore: ConfigurationStore = inject(ConfigurationStore);
 
   constructor() {
     effect(() => {

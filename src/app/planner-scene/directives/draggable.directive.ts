@@ -189,6 +189,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     this.toggleControls(false);
     this.lastValidPosition.copy(this.draggableObject.position);
     this.dragOffset.copy(this.draggableObject.position).sub(firstIntersect.point);
+    this.updateDragPlane();
     this.createGhost();
 
     this.dragDestroy$.next();
@@ -214,6 +215,10 @@ export class DraggableDirective implements OnInit, OnDestroy {
     this.normalizeMouseCoordinates(event);
     this.raycaster.setFromCamera(this.mouse, camera);
     const intersection = new THREE.Vector3();
+
+    // Если плоскость стала плохой (камера переместилась), пересчитываем
+    const rayPlaneDot = Math.abs(this.raycaster.ray.direction.dot(this.dragPlane.normal));
+    if (rayPlaneDot < 0.05) this.updateDragPlane();
 
     if (this.raycaster.ray.intersectPlane(this.dragPlane, intersection)) {
       const positionClone = intersection.clone().add(this.dragOffset);
@@ -254,6 +259,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     this.isDragging = false;
     this.removeGhost();
     this.toggleControls(true);
+    this.store().invalidate();
     this.dragEndEvent.emit();
     this.dragDestroy$.next();
   }
@@ -323,6 +329,21 @@ export class DraggableDirective implements OnInit, OnDestroy {
     const controls = this.store().controls;
     if (controls) {
       (controls as any).enabled = enabled;
+    }
+  }
+
+  /** Выбирает горизонтальную или вертикальную плоскость в зависимости от угла камеры */
+  private updateDragPlane(): void {
+    const camera = this.store().camera;
+    const cameraDir = new THREE.Vector3();
+    camera.getWorldDirection(cameraDir);
+
+    // Если камера смотрит почти горизонтально (|y| < 0.1) — используем вертикальную плоскость
+    if (Math.abs(cameraDir.y) < 0.1) {
+      const normal = new THREE.Vector3(cameraDir.x, 0, cameraDir.z).normalize().negate();
+      this.dragPlane.setFromNormalAndCoplanarPoint(normal, this.draggableObject.position);
+    } else {
+      this.dragPlane.set(new THREE.Vector3(0, 1, 0), -this.draggableObject.position.y);
     }
   }
 
