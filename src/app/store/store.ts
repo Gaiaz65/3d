@@ -6,7 +6,13 @@ import {
 } from '@ngrx/signals';
 import {IWall} from '../planner-scene/interfaces/configuration';
 
-export type SceneItem = { id: number };
+export type SceneItemPosition = {x: number; y: number; z: number};
+export type SceneItem = {
+  id: number;
+  rotation: number;
+  size: [number, number, number];
+  position: SceneItemPosition;
+};
 
 type State = {
   roomParameters: {
@@ -41,7 +47,10 @@ const initialState: State = {
     title: 'Белое дерево',
   },
   showSizeLines: true,
-  items: [{id: 1}, {id: 2}],
+  items: [
+    {id: 1, rotation: 0, size: [500, 500, 500], position: {x:  500, y: 250, z:  500}},
+    {id: 2, rotation: 0, size: [500, 500, 500], position: {x: -500, y: 250, z: -500}},
+  ],
 };
 
 export const ConfigurationStore = signalStore(
@@ -63,8 +72,22 @@ export const ConfigurationStore = signalStore(
     clearItems() {
       patchState(store, {items: []});
     },
+    copyItem(id: number, position: SceneItemPosition) {
+      const item = store.items().find(i => i.id === id);
+      if (!item) return;
+      const newId = Math.max(...store.items().map(i => i.id)) + 1;
+      patchState(store, {items: [...store.items(), {...item, id: newId, position}]});
+    },
+    removeItem(id: number) {
+      patchState(store, {items: store.items().filter(i => i.id !== id)});
+    },
+    setItemRotation(id: number, rotation: number) {
+      patchState(store, {items: store.items().map(i => i.id === id ? {...i, rotation} : i)});
+    },
+    setItemPosition(id: number, position: SceneItemPosition) {
+      patchState(store, {items: store.items().map(i => i.id === id ? {...i, position} : i)});
+    },
   })),
 );
 
 export type ConfigurationStore = InstanceType<typeof ConfigurationStore>;
-

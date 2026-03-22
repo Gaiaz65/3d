@@ -91,7 +91,6 @@ export class MeshSizeLine implements OnInit {
   }
 
   private isTextFacingCamera(rotation: number[]) {
-
     const camera = this.store.camera();
     if (!camera) return true;
 
@@ -101,9 +100,15 @@ export class MeshSizeLine implements OnInit {
       .set(0, 0, 1)
       .applyEuler(new THREE.Euler(rotation[0], rotation[1], rotation[2]));
 
-    const dot = this.textDir.dot(this.cameraDir);
+    // Учитываем world rotation родительского меша
+    const parent = this.targetObject()?.nativeElement as THREE.Object3D | undefined;
+    if (parent) {
+      const parentQuat = new THREE.Quaternion();
+      parent.getWorldQuaternion(parentQuat);
+      this.textDir.applyQuaternion(parentQuat);
+    }
 
-    return dot < 0;
+    return this.textDir.dot(this.cameraDir) < 0;
   }
 
   private definePossibleLines(): void {

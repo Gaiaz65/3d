@@ -42,7 +42,7 @@ import {WallSizeLines} from '../components/wall-size-lines';
       }
 
       @for (item of configurationStore.items(); track item.id) {
-        <app-three-item/>
+        <app-three-item [itemId]="item.id"/>
       }
 
       <ngt-mesh [position]="floor().position"

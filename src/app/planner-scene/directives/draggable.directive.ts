@@ -113,11 +113,14 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   private setFocused(value: boolean): void {
     if (value) {
-      // Уведомляем сервис — он сообщит другим директивам снять фокус
       this.surfaceService.setFocus(this.draggableObject);
-      this.focused.set(true);
-      this.focusChange.emit(true);
       this.createSelectionBox();
+      // Signal-обновления и output-эмиты — внутри NgZone,
+      // чтобы Angular change detection не запускался во время RAF/Three.js рендера
+      this.ngZone.run(() => {
+        this.focused.set(true);
+        this.focusChange.emit(true);
+      });
     } else {
       this.unfocusSilently();
     }
@@ -125,10 +128,12 @@ export class DraggableDirective implements OnInit, OnDestroy {
 
   /** Снять фокус без уведомления сервиса (чтобы не создавать циклов) */
   private unfocusSilently(): void {
-    this.focused.set(false);
-    this.focusChange.emit(false);
     this.removeSelectionBox();
     this.toggleControls(true);
+    this.ngZone.run(() => {
+      this.focused.set(false);
+      this.focusChange.emit(false);
+    });
   }
 
   // ── Selection box ──────────────────────────────────────────────────────────
@@ -291,6 +296,7 @@ export class DraggableDirective implements OnInit, OnDestroy {
     const edges = new THREE.LineSegments(edgesGeo, edgesMat);
 
     this.ghost = new THREE.Mesh(geometry, material);
+    this.ghost.rotation.copy(mesh.rotation);
     this.ghost.renderOrder = 999;
     this.ghost.add(edges);
     this.ghost.userData['isGhost'] = true;

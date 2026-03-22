@@ -37,7 +37,7 @@ extend(THREE);
       margin: [80, 80],
        }">
       <ng-template gizmoHelperContent>
-        <ngts-gizmo-viewcube  [options]="{faces: ['Право','Лево','Вверх','Низ','Перед', 'Зад']}"/>
+        <ngts-gizmo-viewcube  [options]="{faces: ['Право','Лево','Верх','Низ','Перед', 'Зад']}"/>
       </ng-template>
     </ngts-gizmo-helper>
     <ngt-axes-helper *args="[10000]"></ngt-axes-helper>
