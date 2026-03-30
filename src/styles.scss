@@ -1,6 +1,13 @@
 @import "primeicons/primeicons.css";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .full-width {
   width: 100%;
@@ -13,3 +20,63 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .p-tooltip .p-tooltip-text {
   font-size: 10px;
 }
+
+.p-tabpanels {
+  padding: 0 !important;
+}
+
+
+.configuration {
+
+  &-sections {
+    display: flex;
+    flex-direction: column;
+    min-width: 315px;
+    gap: 10px;
+  }
+
+  &-list {
+    &__container {
+      max-width: 300px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 5px;
+      padding: 10px;
+
+      &-title {
+        font-size: 12px;
+        height: 35px;
+        font-weight: 500;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;      /* количество строк */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      img, .color {
+        height: 120px;
+        width: 100px;
+        overflow: hidden;
+        border: 1px solid black;
+        border-radius: 4px;
+      }
+
+      height: 200px;
+      width: 130px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  }
+}
+

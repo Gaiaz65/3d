@@ -1,15 +1,29 @@
 import {Component, inject, signal} from '@angular/core';
-import {ItemFocusService} from '../../../planner-scene/services/item-focus.service';
-import {ConfigurationStore} from '../../../store/store';
+import {ItemFocusService} from '../../planner-scene/services/item-focus.service';
+import {ConfigurationStore} from '../../store/store';
 import {Button} from 'primeng/button';
-import {ItemPropertiesSidebar} from '../item-properties-sidebar/item-properties-sidebar';
-import {ItemSpecModal} from '../item-spec-modal/item-spec-modal';
+import {ItemPropertiesSidebar} from './item-properties-sidebar';
+import {ItemSpecModal} from './item-spec-modal';
 
 @Component({
   selector: 'app-item-context-menu',
   standalone: true,
   imports: [Button, ItemPropertiesSidebar, ItemSpecModal],
-  styleUrl: './item-context-menu.scss',
+  styles: `
+    .item-ctx-menu {
+      position: fixed;
+      z-index: 1000;
+      display: flex;
+      flex-direction: row;
+      gap: 2px;
+      background: var(--p-surface-overlay, #fff);
+      opacity: 0.7;
+      border: 1px solid var(--p-surface-border, #ddd);
+      border-radius: 8px;
+      padding: 4px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.15);
+    }
+  `,
   template: `
     @if (focusService.focusedItemId() !== null && !focusService.isDragging()) {
       <div class="item-ctx-menu"

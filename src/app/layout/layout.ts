@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {SceneComponent} from '../planner-scene/scene/scene';
 import {ConfigurationLayout} from '../planner-configuration/configuration-layout/configuration-layout';
-import {ItemContextMenuComponent} from '../planner-configuration/components/item-context-menu/item-context-menu';
+import {ItemContextMenuComponent} from '../planner-configuration/components/item-context-menu';
 import {Toast} from 'primeng/toast';
 
 @Component({

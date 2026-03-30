@@ -25,7 +25,8 @@ type State = {
   currentWall: IWall,
   currentFloor: IWall,
   showSizeLines: boolean,
-  items: SceneItem[],
+  items: any[],
+  facades: Record<string, any>,
 };
 
 const initialState: State = {
@@ -47,10 +48,8 @@ const initialState: State = {
     title: 'Белое дерево',
   },
   showSizeLines: true,
-  items: [
-    {id: 1, rotation: 0, size: [500, 500, 500], position: {x:  500, y: 250, z:  500}},
-    {id: 2, rotation: 0, size: [500, 500, 500], position: {x: -500, y: 250, z: -500}},
-  ],
+  items: [],
+  facades: {},
 };
 
 export const ConfigurationStore = signalStore(
@@ -86,6 +85,22 @@ export const ConfigurationStore = signalStore(
     },
     setItemPosition(id: number, position: SceneItemPosition) {
       patchState(store, {items: store.items().map(i => i.id === id ? {...i, position} : i)});
+    },
+    setFacadeStyle(facade: any) {
+      patchState(store, {facades: facade})
+    },
+    addItem(configuration: any, initialY?: number) {
+      const ids = store.items().map(i => i.id);
+      const newId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+      patchState(store, {
+        items: [...store.items(), {
+          ...configuration,
+          id: newId,
+          rotation: 0,
+          size: configuration.size,
+          position: {x: 0, y: initialY ?? configuration.size.y / 2, z: 0},
+        }],
+      });
     },
   })),
 );

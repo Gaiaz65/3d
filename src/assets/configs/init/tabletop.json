@@ -1,0 +1,1325 @@
+[
+  {
+    "id": "granit-bavaria",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/granit-bavaria/map.jpg",
+    "title": "Гранит Бавария",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/granit-bavaria/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "granit-black-glianec",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/granit-black-glianec/map.jpg",
+    "title": "Гранит черный",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/granit-black-glianec/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "kanadskiy-dub",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/kanadskiy-dub/map.jpg",
+    "title": "Канадский дуб",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/kanadskiy-dub/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-markvina-white",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/mramor-markvina-white/map.jpg",
+    "title": "Мрамор марквина белый",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/mramor-markvina-white/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramorniy-bereg",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/mramorniy-bereg/map.jpg",
+    "title": "Мраморный берег",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/mramorniy-bereg/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "oliva-zhemchuzhina-glianec",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/oliva-zhemchuzhina-glianec/map.jpg",
+    "title": "Олива жемчужная",
+    "materialType": "dsp",
+    "type": "collections",
+    "isDefault": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/oliva-zhemchuzhina-glianec/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "oreh-pekan",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/oreh-pekan/map.jpg",
+    "title": "Орех Пекан",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/oreh-pekan/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "dub-votan",
+    "height": 26,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/dub-votan/map.jpg",
+    "title": "Дуб Вотан",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/dub-votan/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "laval",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/laval/map.jpg",
+    "title": "Лавал",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/laval/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-bernini",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/mramor-bernini/map.jpg",
+    "title": "Мрамор Бернини",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/mramor-bernini/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-grecheskiy",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/mramor-grecheskiy/map.jpg",
+    "title": "Мрамор Греческий",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/mramor-grecheskiy/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "etna",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/etna/map.jpg",
+    "title": "Этна",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/etna/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "belyj-glyanec",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/belyj-glyanec/map.jpg",
+    "title": "Белый глянец",
+    "materialType": "dsp",
+    "type": "collections",
+    "isDefault": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/belyj-glyanec/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "vintazhnaya-sosna",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/vintazhnaya-sosna/map.jpg",
+    "title": "Винтажная сосна",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/vintazhnaya-sosna/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "galiya",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/galiya/map.jpg",
+    "title": "Галия",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/galiya/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "granit-belyj",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/granit-belyj/map.jpg",
+    "title": "Гранит белый",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/granit-belyj/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "dub-bunratti",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/dub-bunratti/map.jpg",
+    "title": "Дуб Бунратти",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/dub-bunratti/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "dub-kera",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/dub-kera/map.jpg",
+    "title": "Дуб Кера",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/dub-kera/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "dub-klassicheskij",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/dub-klassicheskij/map.jpg",
+    "title": "Дуб классический",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/dub-klassicheskij/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "kastillo-temnyj",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/kastillo-temnyj/map.jpg",
+    "title": "Кастилло темный",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/kastillo-temnyj/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "korolevskij-opal-svetlyj",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/korolevskij-opal-svetlyj/map.jpg",
+    "title": "Королевский опал светлый",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/korolevskij-opal-svetlyj/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "korolevskij-opal",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/korolevskij-opal/map.jpg",
+    "title": "Королевский опал",
+    "needVisual": true,
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/korolevskij-opal/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-bergamo",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramor-bergamo/map.jpg",
+    "title": "Мрамор Бергамо",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramor-bergamo/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-markvina-seryj",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramor-markvina-seryj/map.jpg",
+    "title": "Мрамор Марквина серый",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramor-markvina-seryj/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "semolina-bezhevaya",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/semolina-bezhevaya/map.jpg",
+    "title": "Семолина бежевая",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/semolina-bezhevaya/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "black",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/black/map.jpg",
+    "title": "Черный",
+    "materialType": "dsp",
+    "type": "collections",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/black/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0004,
+          "y": 0.0016
+        },
+        "offset": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-imperial",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramor-imperial/map.jpg",
+    "title": "Мрамор империал",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramor-imperial/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-korolevskiy",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramor-korolevskiy/map.jpg",
+    "title": "Мрамор королевский",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramor-korolevskiy/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "semolinaBeige",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/semolinaBeige/map.jpg",
+    "title": "Семолина бежевая",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/semolinaBeige/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "dubMokko",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/dubMokko/map.jpg",
+    "title": "Дуб мокко",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/dubMokko/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-nuvolato",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramor-nuvolato/map.jpg",
+    "title": "Мрамор нуволато",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramor-nuvolato/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "dubHarbor",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/dubHarbor/map.jpg",
+    "title": "Дуб харбор",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/dubHarbor/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "kaspiyZolotoy",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/kaspiyZolotoy/map.jpg",
+    "title": "Каспий золотой",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/kaspiyZolotoy/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "blackIney",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/blackIney/map.jpg",
+    "title": "Черный иней",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/blackIney/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "blackBronza",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/blackBronza/map.jpg",
+    "title": "Черная бронза",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/blackBronza/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "paladinaSvetlaya",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/paladinaSvetlaya/map.jpg",
+    "title": "Паладина светлая",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/paladinaSvetlaya/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "paladina",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/paladina/map.jpg",
+    "title": "Паладина",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/paladina/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "skalaUltra",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/skalaUltra/map.jpg",
+    "title": "Скала ультра",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/skalaUltra/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "kalakatta",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/kalakatta/map.jpg",
+    "title": "Калакатта",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/kalakatta/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "laos",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/laos/map.jpg",
+    "title": "Лаос",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/laos/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "chernoeSerebro",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/chernoeSerebro/map.jpg",
+    "title": "Черное серебро",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/chernoeSerebro/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramorLeGrand",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramorLeGrand/map.jpg",
+    "title": "Мрамор ле гранд",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramorLeGrand/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramorWhite",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramorWhite/map.jpg",
+    "title": "Мрамор белый",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramorWhite/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramorniy-bereg",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramorniy-bereg/map.jpg",
+    "title": "Мраморный берег",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramorniy-bereg/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-ital",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramor-ital/map.jpg",
+    "title": "Мрамор итальянский",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramor-ital/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "mramor-markvina-white",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/mramor-markvina-white/map.jpg",
+    "title": "Мрамор марквина белый",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/mramor-markvina-white/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "stroboli-gray",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/stroboli-gray/map.jpg",
+    "title": "Стромболи грей",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/stroboli-gray/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "oreh-pekan",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/oreh-pekan/map.jpg",
+    "title": "Орех Пекан",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/oreh-pekan/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "rigoletto",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/rigoletto/map.jpg",
+    "title": "Риголетто",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/rigoletto/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "dsn",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/dsn/map.jpg",
+    "title": "Дуб Сонома",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/dsn/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "superBeliy",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/superBeliy/map.jpg",
+    "title": "Супер белый",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/superBeliy/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "wenge",
+    "height": 38,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/wenge/map.jpg",
+    "title": "Венге",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/wenge/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "brilliantSvetliy",
+    "height": 38,
+    "heights": [
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/brilliantSvetliy/map.jpg",
+    "title": "Бриллиант светлый",
+    "materialType": "dsp",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/brilliantSvetliy/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.001,
+          "y": 0.001
+        }
+      }
+    ]
+  },
+  {
+    "id": "tabletopNotPrice",
+    "height": 26,
+    "heights": [
+      26,
+      38
+    ],
+    "image": "/static-files/tabletop/surskaya/tabletopNotPrice/map.jpg",
+    "title": "Столешница (НЕ УЧИТЫВАТЬ В СПЕЦИФИКАЦИИ)",
+    "materialType": "mdf",
+    "notPrice": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/tabletop/surskaya/tabletopNotPrice/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.0001,
+          "y": 0.0001
+        }
+      }
+    ]
+  }
+]

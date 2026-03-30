@@ -2,8 +2,8 @@ import {ChangeDetectorRef, Component, computed, effect, inject, model, signal, u
 import {Drawer} from 'primeng/drawer';
 import {SelectButton} from 'primeng/selectbutton';
 import {FormsModule} from '@angular/forms';
-import {ItemFocusService} from '../../../planner-scene/services/item-focus.service';
-import {ConfigurationStore} from '../../../store/store';
+import {ItemFocusService} from '../../planner-scene/services/item-focus.service';
+import {ConfigurationStore} from '../../store/store';
 
 @Component({
   selector: 'app-item-properties-sidebar',

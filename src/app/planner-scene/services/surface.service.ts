@@ -139,13 +139,16 @@ export class SurfaceService {
    */
   private getGeometryBox(object: THREE.Object3D): THREE.Box3 {
     const mesh = object as THREE.Mesh;
-    if (!mesh.geometry) return new THREE.Box3();
-
-    mesh.geometry.computeBoundingBox();
-    const geomBox = mesh.geometry.boundingBox;
-    if (!geomBox) return new THREE.Box3();
-
-    mesh.updateWorldMatrix(true, false);
-    return geomBox.clone().applyMatrix4(mesh.matrixWorld);
+    if (mesh.geometry) {
+      mesh.geometry.computeBoundingBox();
+      const geomBox = mesh.geometry.boundingBox;
+      if (geomBox) {
+        mesh.updateWorldMatrix(true, false);
+        return geomBox.clone().applyMatrix4(mesh.matrixWorld);
+      }
+    }
+    // Group or object without own geometry — use full subtree AABB
+    object.updateWorldMatrix(true, true);
+    return new THREE.Box3().setFromObject(object);
   }
 }

@@ -1,0 +1,1317 @@
+[
+  {
+    "id": "doors",
+    "title": "Двери и проемы",
+    "sort": 0,
+    "icon": "doors",
+    "isGroup": true,
+    "groupType": "doors",
+    "items": [
+      {
+        "uid": "door",
+        "catalogCode": "door",
+        "title": "Дверь",
+        "image": "",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "bottom",
+        "svgImage": "newDoor",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveDoor",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "defaultValue": 800,
+                "min": 100,
+                "max": 1500,
+                "sort": 2,
+                "title": "Ширина проема",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "defaultValue": 2000,
+                "sort": 2,
+                "min": 1000,
+                "max": 3000,
+                "title": "Высота проема",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "value": 20,
+                "sort": 1,
+                "title": "Толщина",
+                "type": "hiddenNumber"
+              }
+            ]
+          },
+          {
+            "id": "frames",
+            "defaultValue": true,
+            "type": "checkbox",
+            "title": "Строить наличники",
+            "sort": 4
+          },
+          {
+            "id": "includeSizeFrames",
+            "defaultValue": true,
+            "type": "checkbox",
+            "title": "Учитывать наличники в габаритах",
+            "sort": 4
+          },
+          {
+            "id": "frameWidth",
+            "defaultValue": 70,
+            "sort": 2,
+            "min": 10,
+            "max": 200,
+            "title": "Ширина наличника",
+            "type": "range"
+          }
+        ]
+      },
+      {
+        "uid": "doorway",
+        "catalogCode": "doorway",
+        "title": "Дверной проём",
+        "image": "",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "bottom",
+        "svgImage": "newDoorway",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveDoorway",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "defaultValue": 800,
+                "min": 100,
+                "max": 1500,
+                "sort": 2,
+                "title": "Ширина проема",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "defaultValue": 2000,
+                "sort": 2,
+                "min": 1000,
+                "max": 3000,
+                "title": "Высота проема",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "value": 20,
+                "sort": 1,
+                "title": "Толщина",
+                "type": "hiddenNumber"
+              }
+            ]
+          },
+          {
+            "id": "frames",
+            "defaultValue": true,
+            "type": "checkbox",
+            "title": "Строить наличники",
+            "sort": 4
+          },
+          {
+            "id": "includeSizeFrames",
+            "defaultValue": true,
+            "type": "checkbox",
+            "title": "Учитывать наличники в габаритах",
+            "sort": 4
+          },
+          {
+            "id": "frameWidth",
+            "defaultValue": 70,
+            "sort": 2,
+            "min": 10,
+            "max": 200,
+            "title": "Ширина наличника",
+            "type": "range"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "windows",
+    "title": "Окна",
+    "sort": 0,
+    "icon": "windows",
+    "isGroup": true,
+    "groupType": "windows",
+    "items": [
+      {
+        "uid": "window",
+        "catalogCode": "window",
+        "title": "Окно",
+        "image": "",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "bottom",
+        "svgImage": "newWindow",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveWindow",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "defaultValue": 1470,
+                "min": 100,
+                "max": 3000,
+                "sort": 2,
+                "title": "Ширина проема",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "defaultValue": 1420,
+                "sort": 2,
+                "min": 100,
+                "max": 3000,
+                "title": "Высота проема",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "value": 20,
+                "sort": 1,
+                "title": "Толщина",
+                "type": "hiddenNumber"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pillars",
+    "title": "Колонны/перегородки",
+    "sort": 0,
+    "icon": "pillars",
+    "isGroup": true,
+    "groupType": "pillars",
+    "items": [
+      {
+        "uid": "pillarVertical",
+        "catalogCode": "pillarVertical",
+        "title": "Колонна",
+        "image": "",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "bottom",
+        "svgImage": "newColumn",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructivePillar",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "pillarType",
+            "value": "vertical",
+            "sort": 4,
+            "title": "Тип колонны",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "defaultValue": 300,
+                "min": 1,
+                "max": 10000,
+                "sort": 2,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "value": 1000,
+                "sort": 3,
+                "title": "Высота",
+                "type": "hiddenNumber"
+              },
+              {
+                "id": "depth",
+                "defaultValue": 300,
+                "sort": 2,
+                "min": 1,
+                "max": 10000,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "pillar",
+        "catalogCode": "pillar",
+        "title": "Препятствие",
+        "image": "",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "bottom",
+        "svgImage": "newBarrier",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructivePillar",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "pillarType",
+            "value": "default",
+            "sort": 4,
+            "title": "Тип колонны",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "defaultValue": 1000,
+                "min": 1,
+                "max": 10000,
+                "sort": 2,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "defaultValue": 1000,
+                "sort": 2,
+                "min": 1,
+                "max": 10000,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "defaultValue": 1000,
+                "sort": 2,
+                "min": 1,
+                "max": 10000,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "wallIsland",
+        "catalogCode": "wallIsland",
+        "title": "Перегородка",
+        "image": "",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "bottom",
+        "svgImage": "newWallIsland",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveWallIsland",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "defaultValue": 50,
+                "min": 50,
+                "max": 10000,
+                "sort": 2,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "defaultValue": 1000,
+                "min": 50,
+                "max": 10000,
+                "sort": 2,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "decor",
+    "title": "Декор",
+    "sort": 0,
+    "icon": "decor",
+    "isGroup": true,
+    "groupType": "decor",
+    "items": [
+      {
+        "uid": "topConstructive1",
+        "catalogCode": "ConstructiveGasBoiler",
+        "title": "Газовый котел",
+        "image": "/static-files/constructiveScreen/ConstructiveGasBoiler.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveGasBoiler",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "gasBoiler",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 0,
+                "defaultValue": 400,
+                "min": 100,
+                "max": 800,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 1,
+                "defaultValue": 900,
+                "min": 100,
+                "max": 1500,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 2,
+                "defaultValue": 300,
+                "min": 100,
+                "max": 600,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive2",
+        "catalogCode": "ConstructiveGasMeter",
+        "title": "Газовый счетчик",
+        "image": "/static-files/constructiveScreen/ConstructiveGasMeter.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveGasMeter",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "gasMeter",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 0,
+                "defaultValue": 200,
+                "min": 100,
+                "max": 400,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 1,
+                "defaultValue": 300,
+                "min": 100,
+                "max": 400,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 2,
+                "defaultValue": 150,
+                "min": 10,
+                "max": 400,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive3",
+        "catalogCode": "ConstructiveVentilation",
+        "title": "Вентиляция",
+        "image": "/static-files/constructiveScreen/ConstructiveVentilation.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveVentilation",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "ventilation",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 0,
+                "defaultValue": 160,
+                "min": 50,
+                "max": 300,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 1,
+                "defaultValue": 160,
+                "min": 50,
+                "max": 300,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 2,
+                "defaultValue": 10,
+                "min": 1,
+                "max": 100,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive4",
+        "catalogCode": "ConstructiveWaterHeaterHorizontal",
+        "title": "Водонагреватель (горизонтальный)",
+        "image": "/static-files/constructiveScreen/ConstructiveWaterHeaterHorizontal.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveWaterHeaterHorizontal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "waterHeaterHorizontal",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 0,
+                "defaultValue": 900,
+                "min": 100,
+                "max": 1500,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 450,
+                "min": 100,
+                "max": 600,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 450,
+                "min": 100,
+                "max": 600,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive5",
+        "catalogCode": "ConstructiveWaterHeaterVertical",
+        "title": "Водонагреватель (вертикальный)",
+        "image": "/static-files/constructiveScreen/ConstructiveWaterHeaterVertical.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveWaterHeaterVertical",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "waterHeaterVertical",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 0,
+                "defaultValue": 450,
+                "min": 100,
+                "max": 600,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 700,
+                "min": 100,
+                "max": 1500,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 450,
+                "min": 100,
+                "max": 600,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive6",
+        "catalogCode": "ConstructiveSocket",
+        "title": "Розетка",
+        "image": "/static-files/constructiveScreen/ConstructiveSocket.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveSocket",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "socket",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 30,
+                "min": 10,
+                "max": 150,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive6.2",
+        "catalogCode": "socket2",
+        "title": "Розетка двойная",
+        "image": "/static-files/constructiveScreen/ConstructiveSocket2.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveSocket",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "socket2",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 110,
+                "min": 10,
+                "max": 195,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 30,
+                "min": 10,
+                "max": 150,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive6.3",
+        "catalogCode": "socket3",
+        "title": "Розетка тройная",
+        "image": "/static-files/constructiveScreen/ConstructiveSocket3.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveSocket",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "socket3",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 150,
+                "min": 10,
+                "max": 235,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 30,
+                "min": 10,
+                "max": 150,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive6.4",
+        "catalogCode": "socket2",
+        "title": "Розетка двойная вертикальная",
+        "image": "/static-files/constructiveScreen/ConstructiveSocketVertical2.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveSocket",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "socket2",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 110,
+                "min": 10,
+                "max": 195,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 30,
+                "min": 10,
+                "max": 150,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive6.5",
+        "catalogCode": "socket3",
+        "title": "Розетка тройная вертикальная",
+        "image": "/static-files/constructiveScreen/ConstructiveSocketVertical3.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveSocket",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "socket3",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 150,
+                "min": 10,
+                "max": 235,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 30,
+                "min": 10,
+                "max": 150,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive7",
+        "catalogCode": "ConstructiveSwitch",
+        "title": "Выключатель",
+        "image": "/static-files/constructiveScreen/ConstructiveSwitch.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveSwitch",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "switch",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 65,
+                "min": 10,
+                "max": 150,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 30,
+                "min": 10,
+                "max": 150,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "topConstructive8",
+        "catalogCode": "ConstructiveRadiatorSection",
+        "title": "Радиатор отопления",
+        "image": "/static-files/constructiveScreen/ConstructiveRadiatorSection.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "top",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveRadiatorSection",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "radiatorSection",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "pillarType",
+            "value": "vertical",
+            "sort": 4,
+            "title": "Тип колонны",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "defaultValue": "400",
+                "items": [
+                  {
+                    "id": "300",
+                    "title": "300 мм"
+                  },
+                  {
+                    "id": "400",
+                    "title": "400 мм"
+                  },
+                  {
+                    "id": "500",
+                    "title": "500 мм"
+                  },
+                  {
+                    "id": "600",
+                    "title": "600 мм"
+                  },
+                  {
+                    "id": "800",
+                    "title": "800 мм"
+                  }
+                ],
+                "sort": 2,
+                "title": "Ширина",
+                "type": "radioButton"
+              },
+              {
+                "id": "height",
+                "value": 570,
+                "sort": 3,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "value": 82,
+                "sort": 2,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "bottomConstructive9",
+        "catalogCode": "ConstructiveCooler",
+        "title": "Кулер",
+        "image": "/static-files/constructiveScreen/ConstructiveCooler.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "bottom",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructiveCooler",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "model",
+            "value": "cooler",
+            "sort": 4,
+            "title": "3д модель",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 300,
+                "min": 100,
+                "max": 600,
+                "title": "Ширина",
+                "type": "range"
+              },
+              {
+                "id": "height",
+                "sort": 2,
+                "defaultValue": 1300,
+                "min": 100,
+                "max": 2000,
+                "title": "Высота",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 300,
+                "min": 100,
+                "max": 600,
+                "title": "Глубина",
+                "type": "range"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "bottomConstructive10",
+        "catalogCode": "ConstructivePipe",
+        "title": "Труба",
+        "image": "/static-files/constructiveScreen/ConstructivePipe.jpg",
+        "notPrice": true,
+        "widthText": "",
+        "heightText": "",
+        "depthText": "",
+        "level": "none",
+        "options": [
+          {
+            "id": "className",
+            "value": "ConstructivePipe",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "width",
+                "sort": 1,
+                "defaultValue": 500,
+                "min": 10,
+                "max": 10000,
+                "title": "Длина",
+                "type": "range"
+              },
+              {
+                "id": "depth",
+                "sort": 3,
+                "defaultValue": 25,
+                "min": 10,
+                "max": 300,
+                "title": "Диаметр",
+                "type": "range"
+              }
+            ]
+          },
+          {
+            "id": "axis",
+            "defaultValue": "y",
+            "items": [
+              {
+                "id": "y",
+                "title": "вертикальное"
+              },
+              {
+                "id": "x",
+                "title": "горизонтальное"
+              },
+              {
+                "id": "z",
+                "title": "перпендикулярное"
+              }
+            ],
+            "sort": 2,
+            "title": "Расположение",
+            "type": "radioButton"
+          }
+        ]
+      }
+    ]
+  }
+]

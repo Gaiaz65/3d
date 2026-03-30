@@ -1,0 +1,778 @@
+[
+  {
+    "id": "island-silk",
+    "title": "Айленд Силк",
+    "image": "/static-files/material/surskaya/island-silk/island-silk.jpg",
+    "color": "#d8dad9",
+    "emissiveColor": "#b6b6b6",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "gainsborough-silk",
+    "title": "Гейнсборо Силк",
+    "color": "#9da09c",
+    "emissiveColor": "#7a7b78",
+    "textures": []
+  },
+  {
+    "id": "marengo-silk",
+    "title": "Маренго Силк",
+    "color": "#5b5b5b",
+    "emissiveColor": "#4b4b4b",
+    "textures": []
+  },
+  {
+    "id": "white-soft",
+    "title": "Белый софт",
+    "color": "#ffffff",
+    "emissiveColor": "#c9c9c9",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "black-truffle",
+    "title": "Черный трюфель",
+    "color": "#242424",
+    "emissiveColor": "#333333",
+    "textures": []
+  },
+  {
+    "id": "atlas-grey",
+    "title": "Атласный серый",
+    "color": "#AAA190",
+    "emissiveColor": "#928d83",
+    "textures": []
+  },
+  {
+    "id": "japanese-silk",
+    "title": "Японский шёлк",
+    "color": "#ffeded",
+    "emissiveColor": "#b1b1b1",
+    "textures": []
+  },
+  {
+    "id": "oak-textured-olive",
+    "title": "Дуб фактурный оливковый",
+    "image": "/static-files/material/oak-textured-olive/map.jpg",
+    "isDefault": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/oak-textured-olive/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 2
+        }
+      }
+    ],
+    "emissiveColor": "#417f00"
+  },
+  {
+    "id": "oak-textured-grey",
+    "title": "Дуб фактурный серый",
+    "image": "/static-files/material/oak-textured-grey/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/oak-textured-grey/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 2
+        }
+      }
+    ],
+    "emissiveColor": "#5c6e76"
+  },
+  {
+    "id": "oak-textured-cream",
+    "title": "Дуб фактурный кремовый",
+    "image": "/static-files/material/oak-textured-cream/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/oak-textured-cream/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 2
+        }
+      }
+    ],
+    "emissiveColor": "#aa9b8f"
+  },
+  {
+    "id": "blanco",
+    "title": "Blanco",
+    "color": "#f2f3f5",
+    "emissiveColor": "#c5c5c5",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "omnia",
+    "title": "Omnia",
+    "color": "#ae9c92",
+    "emissiveColor": "#7a716c",
+    "textures": []
+  },
+  {
+    "id": "magnum",
+    "title": "Magnum",
+    "color": "#9a938d",
+    "emissiveColor": "#777676",
+    "textures": []
+  },
+  {
+    "id": "white-tree",
+    "title": "Белое дерево",
+    "image": "/static-files/material/white-tree/map.jpg",
+    "isDefault": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/white-tree/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 2
+        }
+      }
+    ],
+    "emissiveColor": "#9c9c9c"
+  },
+  {
+    "id": "wenge-premium",
+    "title": "Венге премиум",
+    "image": "/static-files/material/wenge-premium/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/wenge-premium/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 2
+        }
+      }
+    ]
+  },
+  {
+    "id": "vanilla",
+    "title": "Ваниль",
+    "image": "/static-files/material/vanilla/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/vanilla/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 3,
+          "y": 5
+        }
+      }
+    ],
+    "emissiveColor": "#a4a486"
+  },
+  {
+    "id": "blue",
+    "title": "Голубой",
+    "image": "/static-files/material/blue/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/blue/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 3,
+          "y": 5
+        }
+      }
+    ],
+    "emissiveColor": "#567070"
+  },
+  {
+    "id": "grey",
+    "title": "Серый",
+    "image": "/static-files/material/grey/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/grey/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 3,
+          "y": 5
+        }
+      }
+    ]
+  },
+  {
+    "id": "white-gloss",
+    "title": "Белый глянец",
+    "color": "#ffffff",
+    "emissiveColor": "#c5c5c5",
+    "isDefault": true,
+    "textures": [],
+    "metalness": 0.4,
+    "roughness": 0
+  },
+  {
+    "id": "wenge",
+    "title": "Венге",
+    "image": "/static-files/material/wenge/preview.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/wenge/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "cappuccino-gloss",
+    "title": "Капучино глянец",
+    "color": "#8a8077",
+    "emissiveColor": "#777371",
+    "textures": [],
+    "metalness": 0.4,
+    "roughness": 0
+  },
+  {
+    "id": "anchor",
+    "title": "Анкор",
+    "image": "/static-files/material/anchor/map.jpg",
+    "isDefault": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/anchor/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ],
+    "emissiveColor": "#939393"
+  },
+  {
+    "id": "wotan",
+    "title": "Вотан",
+    "image": "/static-files/material/wotan/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/wotan/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "concrete",
+    "title": "Бетон",
+    "image": "/static-files/material/concrete/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/concrete/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ],
+    "emissiveColor": "#002030"
+  },
+  {
+    "id": "magnolia",
+    "title": "Магнолия",
+    "color": "#fcfcfc",
+    "emissiveColor": "#b5b5b5",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "sienna",
+    "title": "Сиенна",
+    "color": "#ab9d94",
+    "emissiveColor": "#827e7c",
+    "textures": []
+  },
+  {
+    "id": "silver",
+    "title": "Силвер",
+    "color": "#59595b",
+    "emissiveColor": "#4C4C4E",
+    "textures": []
+  },
+  {
+    "id": "white-metallic",
+    "title": "Белый металлик",
+    "image": "/static-files/material/white-metallic/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/white-metallic/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ],
+    "emissiveColor": "#bcbcbc"
+  },
+  {
+    "id": "black-rain-metallic",
+    "title": "Черный дождь металлик",
+    "image": "/static-files/material/black-rain-metallic/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/black-rain-metallic/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "silver-rain-metallic",
+    "title": "Серебряный дождь металлик",
+    "image": "/static-files/material/silver-rain-metallic/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/silver-rain-metallic/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ],
+    "emissiveColor": "#969696"
+  },
+  {
+    "id": "vanilla-gloss",
+    "title": "Ваниль глянец",
+    "color": "#f5e4b9",
+    "emissiveColor": "#cbc1a9",
+    "textures": [],
+    "metalness": 0.4,
+    "roughness": 0
+  },
+  {
+    "id": "grifelno-gray",
+    "title": "Грифельно-серый",
+    "color": "#45494E",
+    "emissiveColor": "#46494d",
+    "textures": []
+  },
+  {
+    "id": "sky-blue",
+    "title": "Небесно-голубой",
+    "color": "#d0dde3",
+    "emissiveColor": "#9fabb4",
+    "textures": []
+  },
+  {
+    "id": "monblan-soft",
+    "title": "Монблан софт",
+    "color": "#7c8089",
+    "emissiveColor": "#696d77",
+    "textures": []
+  },
+  {
+    "id": "albion",
+    "title": "Альбион",
+    "color": "#C1C2C4",
+    "emissiveColor": "#a1a2a4",
+    "textures": []
+  },
+  {
+    "id": "albion-soft",
+    "title": "Альбион софт",
+    "color": "#C1C2C4",
+    "emissiveColor": "#a1a2a4",
+    "textures": []
+  },
+  {
+    "id": "kvarc-grey",
+    "title": "Кварц грей",
+    "image": "/static-files/material/surskaya/kvarc-grey/kvarc-grey.jpg",
+    "color": "#ffffff",
+    "emissiveColor": "#7e7e7e",
+    "textures": []
+  },
+  {
+    "id": "koko-fatal",
+    "title": "Коко Фаталь",
+    "color": "#232323",
+    "emissiveColor": "#3a3a3a",
+    "textures": []
+  },
+  {
+    "id": "magnolia-mat",
+    "title": "Магнолия матовая",
+    "color": "#f1f1f3",
+    "emissiveColor": "#d3d3d3",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "port-poyal",
+    "title": "Порт-Ройал",
+    "color": "#a2a496",
+    "emissiveColor": "#8a8b83",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "reflection-wood",
+    "title": "Рефлекшен вуд",
+    "image": "/static-files/material/reflection-wood/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/reflection-wood/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ],
+    "emissiveColor": "#5f4324"
+  },
+  {
+    "id": "kalyari-oak",
+    "title": "Дуб Кальяри",
+    "image": "/static-files/material/kalyari-oak/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/kalyari-oak/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "nyar",
+    "title": "Нуар",
+    "color": "#434345",
+    "emissiveColor": "#363638",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "oylving",
+    "title": "Оулвинг",
+    "color": "#b0b0ae",
+    "emissiveColor": "#989898",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "roze",
+    "title": "Розе",
+    "color": "#ffe9eb",
+    "emissiveColor": "#ece0e1",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "lagunaSoft",
+    "title": "Лагуна софт",
+    "color": "#90B2B4",
+    "emissiveColor": "#5c797b",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "monblan",
+    "title": "Монблан",
+    "color": "#7d818a",
+    "emissiveColor": "#666972",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "mistiGrin",
+    "title": "Мисти грин",
+    "color": "#899496",
+    "emissiveColor": "#6c7678",
+    "textures": []
+  },
+  {
+    "id": "golfclub",
+    "title": "Golf club",
+    "color": "#203a31",
+    "emissiveColor": "#1a2f28",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "frenchGray",
+    "title": "French Gray",
+    "color": "#d7dcdf",
+    "emissiveColor": "#b0b4b8",
+    "isDefault": true,
+    "textures": []
+  },
+  {
+    "id": "dubBurbon",
+    "title": "Дуб Бурбон",
+    "image": "/static-files/material/burbon-oak/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/burbon-oak/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "dubShampan",
+    "title": "Дуб Шампань",
+    "image": "/static-files/material/shampan-oak/map.jpg",
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/shampan-oak/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ],
+    "emissiveColor": "#3d280a"
+  },
+  {
+    "id": "myataSoft",
+    "title": "Мята софт",
+    "color": "#E6F2F2",
+    "emissiveColor": "#a7c3c3",
+    "textures": []
+  },
+  {
+    "id": "gorchitsaSoft",
+    "title": "ГОРЧИЦА/СОФТ",
+    "color": "#C3A350",
+    "emissiveColor": "#856c2a",
+    "textures": []
+  },
+  {
+    "id": "platinumGray",
+    "title": "PLATINUM GREY",
+    "color": "#b3b3b5",
+    "emissiveColor": "#8c8c8c",
+    "textures": []
+  },
+  {
+    "id": "grifSer",
+    "title": "ГРИФ/СЕР",
+    "color": "#68686a",
+    "emissiveColor": "#545455",
+    "textures": []
+  },
+  {
+    "id": "white",
+    "title": "Белый",
+    "color": "#ffffff",
+    "emissiveColor": "#414141",
+    "isCustom": true,
+    "textures": []
+  },
+  {
+    "id": "dub-wotan",
+    "title": "Дуб Вотан",
+    "image": "/static-files/corpus/dub-wotan/map.jpg",
+    "isCustom": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/corpus/dub-wotan/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.5,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "dub-сagliary",
+    "title": "Дуб Кальяри",
+    "image": "/static-files/corpus/dub-сagliary/map.jpg",
+    "isCustom": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/corpus/dub-сagliary/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 0.5,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "bezheviy",
+    "title": "Бежевый Q2",
+    "image": "/static-files/material/surskaya/bezheviy/map.jpg",
+    "isCustom": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/surskaya/bezheviy/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "pesochnyj",
+    "title": "Песочный Q5",
+    "image": "/static-files/material/surskaya/pesochnyj/map.jpg",
+    "isCustom": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/surskaya/pesochnyj/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "hlopok",
+    "title": "Хлопок Q7",
+    "image": "/static-files/material/surskaya/hlopok/map.jpg",
+    "isCustom": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/surskaya/hlopok/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "blackGranit",
+    "title": "Черный Q4",
+    "image": "/static-files/material/surskaya/blackGranit/map.jpg",
+    "isCustom": true,
+    "textures": [
+      {
+        "type": "texture",
+        "path": "/static-files/material/surskaya/blackGranit/map.jpg",
+        "extension": "jpg",
+        "file": "map.jpg",
+        "repeat": {
+          "x": 1,
+          "y": 1
+        }
+      }
+    ]
+  },
+  {
+    "id": "zolotoAlum",
+    "title": "Золото",
+    "color": "#e8bd78",
+    "emissiveColor": "#b5996c",
+    "textures": []
+  },
+  {
+    "id": "blackAlum",
+    "title": "Черная",
+    "color": "#101010",
+    "textures": []
+  },
+  {
+    "id": "fantomGrey",
+    "title": "Фантом Грей",
+    "color": "#a0a1a6",
+    "emissiveColor": "#87888c",
+    "textures": []
+  },
+  {
+    "id": "forestGreen",
+    "title": "Форест Грин",
+    "color": "#42564a",
+    "emissiveColor": "#25352c",
+    "textures": []
+  },
+  {
+    "id": "newMoon",
+    "title": "Нью Мун",
+    "color": "#eef2fb",
+    "emissiveColor": "#bec3cf",
+    "textures": []
+  },
+  {
+    "id": "tantraGrey",
+    "title": "Тантра Грей",
+    "color": "#595959",
+    "emissiveColor": "#4c4c4c",
+    "textures": []
+  }
+]

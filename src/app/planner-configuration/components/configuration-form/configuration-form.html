@@ -1,26 +1,98 @@
-<p-panel header="Размеры помещения" [toggleable]="true" class="full-width configuration-container">
-  <form [formGroup]="form">
-    @for (config of formConfig; track config.controlName) {
-      <div class="configuration-item">
-        <div>{{ config.label }}, мм:</div>
-        <p-inputnumber [formControlName]="config.controlName"
-                       [showButtons]="true"
-                       buttonLayout="horizontal"
-                       [step]="1"
-                       [max]="config.max"
-                       [min]="config.min"
-                       (onBlur)="checkOnBlur(config.controlName, config.min)">
-          <ng-template>
-            <span class="pi pi-plus"></span>
-          </ng-template>
-          <ng-template>
-            <i class="pi pi-minus"></i>
-          </ng-template>
-        </p-inputnumber>
-        <p-slider [formControlName]="config.controlName"
-                  [max]="config.max"
-                  [min]="config.min"/>
-      </div>
-    }
-  </form>
-</p-panel>
+<section class="configuration-sections">
+  <p-panel header="Размеры помещения"
+           class="full-width configuration-container"
+           [toggleable]="true"
+           [collapsed]="true"
+  >
+    <form [formGroup]="form" class="configuration-form">
+      @for (config of formConfig; track config.controlName) {
+        <div class="configuration-item">
+          <div>{{ config.label }}, мм:</div>
+          <p-inputnumber [formControlName]="config.controlName"
+                         [showButtons]="true"
+                         buttonLayout="horizontal"
+                         [step]="1"
+                         [max]="config.max"
+                         [min]="config.min"
+                         (onBlur)="checkOnBlur(config.controlName, config.min)">
+            <ng-template>
+              <span class="pi pi-plus"></span>
+            </ng-template>
+            <ng-template>
+              <i class="pi pi-minus"></i>
+            </ng-template>
+          </p-inputnumber>
+          <p-slider [formControlName]="config.controlName"
+                    [max]="config.max"
+                    [min]="config.min"/>
+        </div>
+      }
+    </form>
+  </p-panel>
+
+  <p-panel class="full-width configuration-container"
+           header="Двери, окна, колонны"
+           [toggleable]="true"
+           [collapsed]="true">
+    <div class="configuration-list__container">
+      @for (object of utilities(); track $index) {
+        <div class="configuration-list__item">
+          <div class="configuration-list__item-title" [innerText]="object.title"></div>
+          <img [src]="object.url">
+          <p-button (click)="createUtilityObject(object)"
+                    [label]="'Добавить'"></p-button>
+        </div>
+      }
+    </div>
+  </p-panel>
+
+  <p-panel class="full-width configuration-container"
+           header="Коммуникации"
+           [toggleable]="true"
+           [collapsed]="true">
+    <div class="configuration-list__container">
+      @for (object of communications(); track $index) {
+        <div class="configuration-list__item">
+          <div class="configuration-list__item-title" [innerText]="object.title"></div>
+          <img [src]="object.url">
+          <p-button (click)="createCommunicationObject(object)"
+                    [label]="'Добавить'"></p-button>
+        </div>
+      }
+    </div>
+  </p-panel>
+
+  <p-panel header="Пол"
+           class="full-width configuration-container"
+           [toggleable]="true"
+           [collapsed]="true">
+    <div class="configuration-list__container">
+      @for (floor of floor; track floor.title) {
+        <div class="configuration-list__item">
+          <div class="configuration-list__item-title" [innerText]="floor.title"></div>
+          <img [src]="floor.url">
+          <p-button (click)="selectFloor(floor)"
+                    [disabled]="currentFloor.id === floor.id"
+                    [label]="currentFloor.id === floor.id ?'Выбрано' : 'Выбрать'"></p-button>
+        </div>
+      }
+    </div>
+  </p-panel>
+
+  <p-panel header="Стены"
+           class="full-width configuration-container"
+           [toggleable]="true"
+           [collapsed]="true">
+    <div class="configuration-list__container">
+      @for (wall of walls; track wall.title) {
+        <div class="configuration-list__item">
+          <div class="configuration-list__item-title" [innerText]="wall.title"></div>
+          <img [src]="wall.url">
+          <p-button (click)="selectWall(wall)"
+                    [disabled]="currentWall.id === wall.id"
+                    [label]="currentWall.id === wall.id ?'Выбрано' : 'Выбрать'"></p-button>
+        </div>
+      }
+    </div>
+  </p-panel>
+</section>

@@ -1,6 +1,28 @@
+<app-configuration-context-menu></app-configuration-context-menu>
+<div style="height: 100px"></div>
 <section class="configuration-items">
-  <app-configuration-context-menu></app-configuration-context-menu>
-  <app-configuration-form></app-configuration-form>
-  <app-configuration-floor></app-configuration-floor>
-  <app-configuration-walls></app-configuration-walls>
+  <div class="tab-list">
+    @for (tab of tabs; track tab.value) {
+      <p-button
+              iconPos="top"
+              [icon]="tab.icon"
+              [disabled]="tabsValue === tab.value"
+              [pTooltip]="tab.label"
+              (click)="applyTab(tab.value)">
+      </p-button>
+    }
+  </div>
+  <p-tabs [(value)]="tabsValue">
+    <p-tabpanels>
+      <p-tabpanel value="configuration">
+        <app-configuration-form></app-configuration-form>
+      </p-tabpanel>
+      <p-tabpanel value="modules">
+        <app-configuration-utils></app-configuration-utils>
+      </p-tabpanel>
+      <p-tabpanel value="facades">
+        <app-configuration-facades></app-configuration-facades>
+      </p-tabpanel>
+    </p-tabpanels>
+  </p-tabs>
 </section>

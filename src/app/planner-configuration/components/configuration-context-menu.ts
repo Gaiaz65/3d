@@ -1,15 +1,21 @@
 import {Component, inject, OnInit, ViewChild} from '@angular/core';
 import {SpeedDial} from 'primeng/speeddial';
 import {MenuItem} from 'primeng/api';
-import {ConfigurationStore} from '../../../store/store';
+import {ConfigurationStore} from '../../store/store';
 
 @Component({
   selector: 'app-configuration-context-menu',
   imports: [
     SpeedDial
   ],
-  templateUrl: './configuration-context-menu.html',
-  styleUrl: './configuration-context-menu.scss',
+  template: `
+    <p-speeddial #dial
+                 [model]="items"
+                 [hideOnClickOutside]="false"
+                 [tooltipOptions]="{tooltipPosition: 'bottom'}"
+                 [style]="{ position: 'absolute', left: '33%', top: '1%' }"
+                 direction="right"/>
+  `,
 })
 export class ConfigurationContextMenu implements OnInit {
   @ViewChild('dial') dial!: SpeedDial;
@@ -23,8 +29,6 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Отменить действие',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log(this.dial)
-          console.log('2')
         }
       },
       {
@@ -32,7 +36,6 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Вернуть действие',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log('2')
         }
       },
       {
@@ -48,7 +51,6 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Скетч вид',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log('3')
         }
       },
       {
@@ -63,7 +65,6 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Создать проект',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log('3')
         }
       },
       {
@@ -71,7 +72,7 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Сохранить проект',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log('3')
+
         }
       },
       {
@@ -79,7 +80,7 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Поделиться проектом',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log('3')
+
         }
       },
       {
@@ -87,7 +88,6 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Экспорт спецификации',
         command: () => {
           setTimeout(() => this.dial.show());
-          console.log('3')
         }
       },
     ];

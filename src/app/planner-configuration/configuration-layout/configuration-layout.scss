@@ -1,10 +1,19 @@
 .configuration {
   &-items {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     gap: 10px;
-    padding: 10px;
+    padding: 0 10px;
     max-height: 1000px;
+    min-width: 380px;
+    max-width: 380px;
     overflow: auto;
   }
+}
+
+.tab-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
