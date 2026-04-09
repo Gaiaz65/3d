@@ -1,15 +1,14 @@
-import {Component, effect, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, inject, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Panel} from 'primeng/panel';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {Button} from 'primeng/button';
 import {ConfigurationStore} from '../../store/store';
-import {IWall} from '../../planner-scene/interfaces/configuration';
 import {HttpClient} from '@angular/common/http';
-import {UnitBuilderService} from '../../planner-scene/services/unit-builder.service';
 import {Tooltip} from 'primeng/tooltip';
 import {OptionGroup} from '../../planner-scene/interfaces/unit-config.interface';
 import {take} from 'rxjs';
+import {UnitAddModal} from './unit-add-modal';
 
 @Component({
   selector: 'app-configuration-utils',
@@ -19,6 +18,7 @@ import {take} from 'rxjs';
     InputNumberModule,
     Button,
     Tooltip,
+    UnitAddModal,
   ],
   providers: [],
   template: `
@@ -33,41 +33,55 @@ import {take} from 'rxjs';
               <div class="configuration-list__item">
                 <div class="configuration-list__item-title" [innerText]="object.title" [pTooltip]="object.title"></div>
                 <img [src]="object.url">
-                <p-button (click)="createObject(object)"
-                          [label]="'Добавить'"></p-button>
+                <p-button (click)="openAddModal(object, $index)" [label]="'Добавить'"/>
               </div>
             }
           </div>
         </p-panel>
       }
     </section>
+
+    <app-unit-add-modal #addModal/>
   `
 })
 export class ConfigurationUtilObjects implements OnInit {
+  @ViewChild('addModal') addModal!: UnitAddModal;
+
   public sections: WritableSignal<any> = signal([]);
   private filteredSections: string[] = [
     'equipments',
     'builtInEquipments',
     'topVitrinaUnits',
     'facades',
-  ]
+  ];
 
   private configStore = inject(ConfigurationStore);
   private http = inject(HttpClient);
-  private readonly builder = inject(UnitBuilderService);
 
   ngOnInit(): void {
     this.http.get('assets/configs/init/init.json')
       .pipe(take(1))
       .subscribe((res: any) => {
-        this.sections.set(res.filter((section: OptionGroup) => !this.filteredSections.includes(section.id)));
-      })
+        this.sections.set(
+          res
+            .filter((section: OptionGroup) => !this.filteredSections.includes(section.id))
+            .map((section: any) => ({
+              ...section,
+              items: (section.items ?? []).map((item: any) => ({ ...item, sectionId: section.id })),
+            }))
+        );
+        this.configStore.addItem(this.sections()[1].items[54]);
+      });
   }
 
-  public createObject(obj: any): void {
+  public openAddModal(obj: any, inx: number): void {
+      this.configStore.addItem(obj);
     console.log(obj)
-    const item = this.builder.build(obj);
-    console.log(item)
-    this.configStore.addItem(item)
+    console.log(inx)
+    // this.addModal.open(obj, (cfg, material) => {
+    //   if (material) this.configStore.setFacadeStyle(material);
+    //   this.configStore.addItem(cfg);
+    //   console.log(cfg)
+    // });
   }
 }

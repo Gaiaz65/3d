@@ -5,7 +5,6 @@ import {TextureLoader} from 'three';
 import {WallOpacityDirective} from '../directives/wall-opacity.directive';
 import {ConfigurationStore} from '../../store/store';
 import {WallSizeLines} from '../components/wall-size-lines';
-import {ResolvedUnit} from '../interfaces/unit-config.models';
 import {ThreeUnitComponent} from '../components/three-unit.component';
 
 @Component({
@@ -42,9 +41,9 @@ import {ThreeUnitComponent} from '../components/three-unit.component';
         </ngt-mesh>
       }
 
-      @for (entry of placedUnits(); track $index) {
+      @for (entry of placedUnits(); track entry.id) {
         <app-three-unit
-          [unit]="entry"
+          [unit]="entry.resolvedUnit"
           [position]="entry.position"
           [rotation]="entry.rotation"
         />
@@ -95,11 +94,7 @@ export class RoomComponent {
   protected floorTexture = loaderResource(() => TextureLoader, () => this.configurationStore.currentFloor().url);
   protected wallTexture  = loaderResource(() => TextureLoader, () => this.configurationStore.currentWall().url);
 
-  readonly placedUnits: any = computed(() => {
-    return [
-      ...this.configurationStore.items()
-    ] satisfies { unit: ResolvedUnit; position: { x: number; y: number; z: number }; rotation: number }[];
-  });
+  readonly placedUnits = computed(() => this.configurationStore.items());
 
   protected configurationStore = inject(ConfigurationStore);
   private store = injectStore();

@@ -32,7 +32,6 @@ import {TextureLoader} from 'three';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <ngt-group
-      (click)="check($event)"
       #group
       draggableGroup
       [dragLevel]="unit().level"
@@ -171,13 +170,6 @@ import {TextureLoader} from 'three';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThreeUnitComponent {
-
-  public check(event: any) {
-    event.stopPropagation();
-
-    console.log(this.unit())
-  }
-
   @ViewChild('group') groupRef!: ElementRef<THREE.Group>;
   readonly unit = input.required<ResolvedUnit>();
   readonly position = input<Vec3>({x: 0, y: 0, z: 0});
@@ -196,7 +188,7 @@ export class ThreeUnitComponent {
   readonly corpusColor = computed(() => {
     const facades = this.store.facades();
     const mat = facades['color'];
-    return mat ?? '#ddd5c0';
+    return mat ?? '#a8a8a8';
   });
 
   readonly corpusEmissiveColor = computed(() => {
@@ -228,8 +220,7 @@ export class ThreeUnitComponent {
   }
 
   plinthRotation(plinth: ResolvedPlinth): [number, number, number] {
-    if (!plinth.rotation) return [0, 0, 0];
-    return [plinth.rotation.x ?? 0, plinth.rotation.y ?? 0, plinth.rotation.z ?? 0];
+    return [plinth?.rotation?.x ?? 0, plinth?.rotation?.y ?? 0, plinth?.rotation?.z ?? 0];
   }
 
   handleRotation(handle: NonNullable<ResolvedFacade['handle']>): [number, number, number] {

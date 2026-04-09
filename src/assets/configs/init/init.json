@@ -248,7 +248,7 @@
               },
               {
                 "id": 0,
-                "positionType": "none",
+                "positionType": "front",
                 "initSizes": {
                   "length": 450
                 },
@@ -21652,7 +21652,7 @@
               },
               {
                 "id": "bottomGap",
-                "value": 100,
+                "value": 0,
                 "sort": 2,
                 "title": "Отступ снизу",
                 "type": "hidden_number"
@@ -21677,6 +21677,18 @@
                 "sort": 4,
                 "type": "json",
                 "value": [
+                  {
+                    "id": 0,
+                    "length": "=({%100} + 32)",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "100",
+                      "x": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  },
                   {
                     "id": 0,
                     "length": "=({%50} - 16)",

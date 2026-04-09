@@ -15,22 +15,13 @@ extend(THREE);
     <ngts-orbit-controls [options]="{ zoomSpeed: 0.2, makeDefault: true, minDistance: 500, maxDistance: 15000 }" ></ngts-orbit-controls>
     <ngt-color *args="['#c1c1c1']" attach="background"/>
     <ngt-ambient-light [intensity]="1"/>
-    <ngt-spot-light
-      [position]="[50000, 50000, -50000]"
-      [intensity]="0.5 * Math.PI"
-      [angle]="0.5"
-      [penumbra]="1"
-      [decay]="0"
-      castShadow/>
 
-    <ngt-spot-light
-      [position]="[-50000, -50000, 50000]"
-      [intensity]="0.3 * Math.PI"
-      [angle]="0.5"
-      [penumbra]="1"
-      [decay]="0"
-      castShadow/>
-<!--    <ngt-point-light [position]="-100" [intensity]="0.5 * Math.PI" [decay]="0"/>-->
+    <ngt-point-light [position]="-100" [intensity]="0.5 * Math.PI" [decay]="0"/>
+    <ngt-point-light [position]="[0,30000, 0]" [intensity]="0.1 * Math.PI" [decay]="0"/>
+    <ngt-point-light [position]="[50000,30000, 0]" [intensity]="0.1 * Math.PI" [decay]="0"/>
+    <ngt-point-light [position]="[-50000,30000, 0]" [intensity]="0.1 * Math.PI" [decay]="0"/>
+    <ngt-point-light [position]="[0,30000, -50000]" [intensity]="0.1 * Math.PI" [decay]="0"/>
+    <ngt-point-light [position]="[0,30000, 50000]" [intensity]="0.1 * Math.PI" [decay]="0"/>
     <app-room></app-room>
     <ngts-gizmo-helper [options]="{
       alignment: 'bottom-right',

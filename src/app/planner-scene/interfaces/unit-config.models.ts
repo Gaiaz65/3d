@@ -78,6 +78,8 @@ export interface FacadeConfig {
   functionalType?: string;
   openType: string;
   groupId?: number;
+  reverseSideType?: boolean;
+  disableSideTypes?: boolean; // фасад игнорирует глобальный sideType, позиция задаётся через align.x
   handle: FacadeHandleConfig;
 }
 
@@ -92,7 +94,7 @@ export interface ShelfConfig {
   id: number;
   length: SizeExpr;
   depth: SizeExpr;
-  initPosition: { y: SizeExpr };
+  initPosition: { y: SizeExpr; x?: SizeExpr };
   type: string;
   thickness: number;
   fixed?: boolean;
@@ -140,6 +142,8 @@ export interface ParsedCorpus {
   depth: number;       // mm
   thickness: number;   // wall thickness, mm
   backThickness: number;
+  frontPanel?: { length: number }; // передняя панель угловой тумбы (мм)
+  bottomGap?: number;  // нижний отступ корпуса от пола (мм), для юнитов без ножек
 }
 
 export interface ParsedSizes {
@@ -151,6 +155,7 @@ export interface ParsedGroups {
   sizes: ParsedSizes;
   corpus: ParsedCorpus;
   className: string;
+  sideType: string;
   facades: FacadeConfig[];
   legs: LegConfig[];
   shelves: ShelfConfig[];

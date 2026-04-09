@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import {NgtsLine, NgtsText} from 'angular-three-soba/abstractions';
 import {beforeRender, injectStore} from 'angular-three';
 import {ConfigurationStore} from '../../store/store';
-import {ResolvedUnit} from '../interfaces/unit-config.models';
+import {ResolvedUnit, Vec3} from '../interfaces/unit-config.models';
 
 @Component({
   selector: 'app-unit-size-lines',
@@ -105,23 +105,46 @@ export class UnitSizeLines implements OnInit {
     return this.textDir.dot(this.cameraDir) < 0;
   }
 
-  private buildLinesConfig(): Record<string, any> {
-    const s  = this.unit().size;       // outer spec dimensions (metres)
-    const cs = this.unit().corpusSize; // actual corpus box (metres)
+  private computeBounds(unit: ResolvedUnit) {
+    let minX = Infinity, maxX = -Infinity;
+    let minY = Infinity, maxY = -Infinity;
+    let minZ = Infinity, maxZ = -Infinity;
 
-    // Geometry convention (UnitBuilderService):
-    //   X: centred       → -s.x/2 … +s.x/2
-    //   Y: floor-aligned → 0 (floor) … s.y (top, includes legs)
-    //   Z: front-aligned → 0 (corpus front face) … -cs.z (corpus back panel)
-    //
-    // size.z (spec depth, e.g. 600mm) ≠ cs.z (corpus depth, e.g. 478mm):
-    // size.z includes installation allowance; lines use cs.z to match visible geometry.
-    const minX   = -s.x / 2, maxX = s.x / 2;
-    const maxY   = s.y;
-    const frontZ = 0;         // corpus front face
-    const backZ  = -cs.z;    // corpus back panel (actual geometry end)
-    const centerZ = -cs.z / 2;
-    const centerY  = maxY / 2;
+    const expand = (pos: Vec3, size: Vec3) => {
+      minX = Math.min(minX, pos.x - size.x / 2); maxX = Math.max(maxX, pos.x + size.x / 2);
+      minY = Math.min(minY, pos.y - size.y / 2); maxY = Math.max(maxY, pos.y + size.y / 2);
+      minZ = Math.min(minZ, pos.z - size.z / 2); maxZ = Math.max(maxZ, pos.z + size.z / 2);
+    };
+
+    for (const p of unit.panels)           expand(p.position, p.size);
+    for (const f of unit.facades)          expand(f.position, f.size);
+    for (const s of unit.shelves)          expand(s.position, s.size);
+    for (const p of unit.plinths  ?? [])   expand(p.position, p.size);
+    for (const t of unit.tabletops ?? [])  expand(t.position, t.size);
+    for (const l of unit.legs) {
+      const r = l.radius;
+      expand(l.position, { x: r * 2, y: l.height, z: r * 2 });
+    }
+
+    // fallback to unit.size when no geometry present
+    if (!isFinite(minX)) {
+      const s = unit.size;
+      return { minX: -s.x / 2, maxX: s.x / 2, minY: 0, maxY: s.y, minZ: -unit.corpusSize.z, maxZ: 0 };
+    }
+    return { minX, maxX, minY, maxY, minZ, maxZ };
+  }
+
+  private buildLinesConfig(): Record<string, any> {
+    const { minX, maxX, minY, maxY, minZ, maxZ } = this.computeBounds(this.unit());
+
+    const frontZ  = maxZ;                      // facade front face (can be > 0)
+    const backZ   = minZ;                      // back panel
+    const centerZ = (minZ + maxZ) / 2;
+    const centerY = (minY + maxY) / 2;
+
+    const labelW = this.mm(maxX - minX);
+    const labelH = this.mm(maxY - minY);
+    const labelD = this.mm(maxZ - minZ);
 
     const o   = this.offset;
     const ho  = o / 2;  // half offset
@@ -134,9 +157,9 @@ export class UnitSizeLines implements OnInit {
     // ── topLeft  (world: x<0, z<0) ──────────────────────────────────────────
     const topLeft = [{
       texts: [
-        { label: this.mm(s.x),  rotation: [0, 0, 0],           position: [0,          maxY + do2, backZ + ho] },
-        { label: this.mm(s.y),  rotation: [0, 0, Math.PI / 2], position: [maxX + do2, centerY,    backZ + ho] },
-        { label: this.mm(cs.z), rotation: [0, Math.PI / 2, 0], position: [minX + ho,  maxY + do2, centerZ   ] },
+        { label: labelW, rotation: [0, 0, 0],           position: [0,          maxY + do2, backZ + ho] },
+        { label: labelH, rotation: [0, 0, Math.PI / 2], position: [maxX + do2, centerY,    backZ + ho] },
+        { label: labelD, rotation: [0, Math.PI / 2, 0], position: [minX + ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (right side, back face)
@@ -157,9 +180,9 @@ export class UnitSizeLines implements OnInit {
     // ── topRight  (world: x>0, z<0) ─────────────────────────────────────────
     const topRight = [{
       texts: [
-        { label: this.mm(s.x),  rotation: [0, 0, 0],            position: [0,          maxY + do2, backZ + ho] },
-        { label: this.mm(s.y),  rotation: [0, 0, Math.PI / 2],  position: [minX - do2, centerY,    backZ + ho] },
-        { label: this.mm(cs.z), rotation: [0, -Math.PI / 2, 0], position: [maxX - ho,  maxY + do2, centerZ   ] },
+        { label: labelW, rotation: [0, 0, 0],            position: [0,          maxY + do2, backZ + ho] },
+        { label: labelH, rotation: [0, 0, Math.PI / 2],  position: [minX - do2, centerY,    backZ + ho] },
+        { label: labelD, rotation: [0, -Math.PI / 2, 0], position: [maxX - ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (left side, back face)
@@ -180,9 +203,9 @@ export class UnitSizeLines implements OnInit {
     // ── bottomRight  (world: x>0, z>0) ──────────────────────────────────────
     const bottomRight = [{
       texts: [
-        { label: this.mm(s.x),  rotation: [0, Math.PI, 0],           position: [0,          maxY + do2, backZ - ho] },
-        { label: this.mm(s.y),  rotation: [0, Math.PI, Math.PI / 2], position: [minX - do2, centerY,    backZ - ho] },
-        { label: this.mm(cs.z), rotation: [0, -Math.PI / 2, 0],      position: [maxX - ho,  maxY + do2, centerZ   ] },
+        { label: labelW, rotation: [0, Math.PI, 0],           position: [0,          maxY + do2, backZ - ho] },
+        { label: labelH, rotation: [0, Math.PI, Math.PI / 2], position: [minX - do2, centerY,    backZ - ho] },
+        { label: labelD, rotation: [0, -Math.PI / 2, 0],      position: [maxX - ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (left side, back face)
@@ -203,9 +226,9 @@ export class UnitSizeLines implements OnInit {
     // ── bottomLeft  (world: x<0, z>0) ───────────────────────────────────────
     const bottomLeft = [{
       texts: [
-        { label: this.mm(s.x),  rotation: [0, Math.PI, 0],           position: [0,          maxY + do2, backZ - ho] },
-        { label: this.mm(s.y),  rotation: [0, Math.PI, Math.PI / 2], position: [maxX + do2, centerY,    backZ - ho] },
-        { label: this.mm(cs.z), rotation: [0, Math.PI / 2, 0],       position: [minX + ho,  maxY + do2, centerZ   ] },
+        { label: labelW, rotation: [0, Math.PI, 0],           position: [0,          maxY + do2, backZ - ho] },
+        { label: labelH, rotation: [0, Math.PI, Math.PI / 2], position: [maxX + do2, centerY,    backZ - ho] },
+        { label: labelD, rotation: [0, Math.PI / 2, 0],       position: [minX + ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (right side, back face)

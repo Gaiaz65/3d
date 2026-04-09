@@ -17,7 +17,7 @@ export const OPTION_TYPE_TABLETOP_MATERIAL = 'tabletopMaterial';
 
 // ─── Скрытые опции (не показываются пользователю) ────────────────────────────
 
-export const OPTION_TYPE_HIDDEN_TEXT   = 'hidden_text';
+export const OPTION_TYPE_HIDDEN_TEXT   = 'hiddenText';
 export const OPTION_TYPE_HIDDEN_NUMBER = 'hidden_number';
 
 // ─── Типы открывания фасадов ──────────────────────────────────────────────────
