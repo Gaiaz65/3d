@@ -13,15 +13,31 @@ extend(THREE);
   template: `
     <ngts-perspective-camera [options]="{ makeDefault: true, fov: 50, position: [1000, 5000, -5000], resolution: 128 }"/>
     <ngts-orbit-controls [options]="{ zoomSpeed: 0.2, makeDefault: true, minDistance: 500, maxDistance: 15000 }" ></ngts-orbit-controls>
-    <ngt-color *args="['#c1c1c1']" attach="background"/>
-    <ngt-ambient-light [intensity]="1"/>
+    <ngt-color *args="['#dce8f0']" attach="background"/>
 
-    <ngt-point-light [position]="-100" [intensity]="0.5 * Math.PI" [decay]="0"/>
-    <ngt-point-light [position]="[0,30000, 0]" [intensity]="0.1 * Math.PI" [decay]="0"/>
-    <ngt-point-light [position]="[50000,30000, 0]" [intensity]="0.1 * Math.PI" [decay]="0"/>
-    <ngt-point-light [position]="[-50000,30000, 0]" [intensity]="0.1 * Math.PI" [decay]="0"/>
-    <ngt-point-light [position]="[0,30000, -50000]" [intensity]="0.1 * Math.PI" [decay]="0"/>
-    <ngt-point-light [position]="[0,30000, 50000]" [intensity]="0.1 * Math.PI" [decay]="0"/>
+    <!-- Мягкий окружающий свет — базовая засветка теней -->
+    <ngt-ambient-light [intensity]="0.35" color="#ffffff"/>
+
+    <!-- Полусферический свет: небо (тёплый) → земля (нейтральный) -->
+    <ngt-hemisphere-light
+      skyColor="#ffe8cc"
+      groundColor="#c8b89a"
+      [intensity]="0.7"
+    />
+
+    <!-- Ключевой свет: имитация солнца, сверху-спереди-справа -->
+    <ngt-directional-light
+      [position]="[8000, 15000, 6000]"
+      [intensity]="1.4"
+      color="#fff5e0"
+    />
+
+    <!-- Заполняющий свет: холодный, слева-снизу, смягчает резкие тени -->
+    <ngt-directional-light
+      [position]="[-6000, 4000, -4000]"
+      [intensity]="0.4"
+      color="#cce0ff"
+    />
     <app-room></app-room>
     <ngts-gizmo-helper [options]="{
       alignment: 'bottom-right',

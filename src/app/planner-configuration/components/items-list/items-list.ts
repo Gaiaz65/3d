@@ -16,20 +16,6 @@ import {CdkDropList} from '@angular/cdk/drag-drop';
 export class ItemsList implements OnInit {
 
   public items: any[] = [
-    {
-      type: 'floor',
-      title: 'На пол',
-      items: [
-        {id: 1, imageUrl: 'src/assets/floor.png', title: 'cube'},
-      ]
-    },
-    {
-      type: 'wall',
-      title: 'На стену',
-      items: [
-        {id: 2, imageUrl: 'assets/img/wall.png', title: 'round'},
-      ]
-    }
   ];
 
   private readonly renderer: Renderer2 = inject(Renderer2);

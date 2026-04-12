@@ -32,7 +32,7 @@ import {UnitAddModal} from './unit-add-modal';
             @for (object of section.items; track $index) {
               <div class="configuration-list__item">
                 <div class="configuration-list__item-title" [innerText]="object.title" [pTooltip]="object.title"></div>
-                <img [src]="object.url">
+                <img [src]="'assets/suraScreens/'+object.title+'.jpg'" (click)="check(object)">
                 <p-button (click)="openAddModal(object, $index)" [label]="'Добавить'"/>
               </div>
             }
@@ -45,6 +45,9 @@ import {UnitAddModal} from './unit-add-modal';
   `
 })
 export class ConfigurationUtilObjects implements OnInit {
+  check(object: any) {
+    console.log(object);
+  }
   @ViewChild('addModal') addModal!: UnitAddModal;
 
   public sections: WritableSignal<any> = signal([]);
@@ -70,7 +73,7 @@ export class ConfigurationUtilObjects implements OnInit {
               items: (section.items ?? []).map((item: any) => ({ ...item, sectionId: section.id })),
             }))
         );
-        this.configStore.addItem(this.sections()[1].items[54]);
+        this.configStore.addItem(this.sections()[1].items[52]);
       });
   }
 

@@ -102,38 +102,46 @@ export class UnitBuildHelpers {
     const baseY = legHeight;   // нижняя граница корпуса над полом
     const m = (v: number) => this.helper.toM(v);
 
-    const facades = [
-      {
+    const facadesConfig = {
+      back: {
         name: 'back',
         size: {x: m(width), y: m(height), z: m(bt)},
         position: {x: 0, y: m(baseY + height / 2), z: m(-(depth - bt / 2))}
       },
-    ]
+      front: {
+        name: 'front',
+        size: {x: m(width), y: m(height), z: m(bt)},
+        position: {x: 0, y: m(baseY + height / 2), z: m(-bt / 2)}
+      },
+      left: {
+        name: 'left',
+        size: {x: m(t), y: m(height), z: m(panelD)},
+        position: {x: m(-(width / 2 - t / 2)), y: m(baseY + height / 2), z: m(-(panelD / 2))}
+      },
+      right: {
+        name: 'right',
+        size: {x: m(t), y: m(height), z: m(panelD)},
+        position: {x: m(width / 2 - t / 2), y: m(baseY + height / 2), z: m(-(panelD / 2))}
+      },
+      bottom: {
+        name: 'bottom',
+        size: {x: m(innerW), y: m(t), z: m(panelD)},
+        position: {x: 0, y: m(baseY + t / 2), z: m(-(panelD / 2))}
+      }
+    };
+
+
+    let facades = []
 
     switch (catalogType) {
       case "N_BAR":
-        facades.push({
-          name: 'front',
-          size: {x: m(width), y: m(height), z: m(bt)},
-          position: {x: 0, y: m(baseY + height / 2), z: m(-bt / 2)}
-        })
+        facades.push(facadesConfig.front, facadesConfig.back)
         break;
+      case "N_SM":
+        facades.push(facadesConfig.left, facadesConfig.right);
+        break
       default:
-        facades.push({
-            name: 'left',
-            size: {x: m(t), y: m(height), z: m(panelD)},
-            position: {x: m(-(width / 2 - t / 2)), y: m(baseY + height / 2), z: m(-(panelD / 2))}
-          },
-          {
-            name: 'right',
-            size: {x: m(t), y: m(height), z: m(panelD)},
-            position: {x: m(width / 2 - t / 2), y: m(baseY + height / 2), z: m(-(panelD / 2))}
-          },
-          {
-            name: 'bottom',
-            size: {x: m(innerW), y: m(t), z: m(panelD)},
-            position: {x: 0, y: m(baseY + t / 2), z: m(-(panelD / 2))}
-          })
+        facades.push(facadesConfig.left, facadesConfig.back, facadesConfig.right, facadesConfig.bottom);
         break;
     }
     const strengtheningElements = this.buildStrengtheningPanels(width, height, depth, t, bt, legHeight, catalogType);
@@ -155,6 +163,7 @@ export class UnitBuildHelpers {
     const baseY = legHeight;   // нижняя граница корпуса над полом
     const m = (v: number) => this.helper.toM(v);
 
+    console.log(catalogType)
     const result: ResolvedPanel[] = [];
     switch (catalogType) {
       case 'N_BAR':
@@ -163,7 +172,7 @@ export class UnitBuildHelpers {
           {
             name: 'topStrengtheningRight',
             size: {x: topStrengtheningXSize, y: m(bt), z: m(depth)},
-            position: {x: m(width / 2)  - topStrengtheningXSize / 2, y: m(baseY + height - bt), z: m(-depth / 2)}
+            position: {x: m(width / 2) - topStrengtheningXSize / 2, y: m(baseY + height - bt), z: m(-depth / 2)}
           },
           {
             name: 'topStrengtheningLeft',
@@ -176,6 +185,20 @@ export class UnitBuildHelpers {
             position: {x: 0, y: m(baseY + height - bt), z: m(-depth / 2)}
           },
         )
+        break
+      case "N_SM":
+        result.push(
+          {
+            name: 'bottomStrengthening',
+            size: {x: m(width), y: m(100), z: m(bt)},
+            position: {x: m(0), y: m(50), z: m(0)}
+          },
+          {
+            name: 'backStrengthening',
+            size: {x: m(width), y: m(100), z: m(bt)},
+            position: {x: m(0), y: m(height/2 + 50), z: -m(depth)}
+          },
+          )
         break
       default:
         break;

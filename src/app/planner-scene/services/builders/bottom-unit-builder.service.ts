@@ -13,13 +13,14 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
   private readonly helper = inject(UnitBuildHelpers);
 
   build(config: any): ResolvedUnit {
+    const legLess = ['N_SM'];
     const groups = this.helper.parseGroups(config.options);
     const { corpus, sizes, sideType, className } = groups;
 
     // selectedWidth используется только для фасадов; панели корпуса строятся по corpus.width из options
     const facadeWidth = config.selectedWidth ?? corpus.width;
     console.log(groups.legs, corpus, config)
-    const legHeight   = this.helper.resolveLegHeight(groups.legs, corpus.bottomGap);
+    const legHeight   = legLess.includes(corpus.catalogCode) ?0 :this.helper.resolveLegHeight(groups.legs, corpus.bottomGap);
     const isAngle     = config.sectionId === GROUP_BOTTOM_ANGLE_UNITS;
 
     const facades = isAngle

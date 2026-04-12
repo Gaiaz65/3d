@@ -20680,6 +20680,13 @@
             "isGroup": true,
             "options": [
               {
+                "id": "catalogCode",
+                "value": "N_SM",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
                 "id": "width",
                 "defaultValue": "600",
                 "type": "radioButton",
@@ -21267,21 +21274,6 @@
             ]
           },
           {
-            "id": "plinths",
-            "type": "json",
-            "title": "Цоколь",
-            "sort": 4,
-            "value": [
-              {
-                "id": 0,
-                "positionType": "front",
-                "margin": {
-                  "y": 100
-                }
-              }
-            ]
-          },
-          {
             "id": "facades",
             "type": "json",
             "title": "Фасады",
@@ -21860,7 +21852,7 @@
               },
               {
                 "id": "bottomGap",
-                "value": 100,
+                "value": 0,
                 "sort": 2,
                 "title": "Отступ снизу",
                 "type": "hidden_number"
@@ -21885,6 +21877,18 @@
                 "sort": 4,
                 "type": "json",
                 "value": [
+                  {
+                    "id": 0,
+                    "length": "=({%100} + 32)",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "100",
+                      "x": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  },
                   {
                     "id": 0,
                     "length": "=({%50} - 16)",
@@ -21995,7 +21999,7 @@
                   "width": 500
                 },
                 "margin": {
-                  "z": -1200
+                  "z": -620
                 },
                 "functionalType": "forBar",
                 "canUnion": false,
@@ -22080,7 +22084,7 @@
               },
               {
                 "id": "bottomGap",
-                "value": 100,
+                "value": 0,
                 "sort": 2,
                 "title": "Отступ снизу",
                 "type": "hidden_number"
@@ -22105,6 +22109,18 @@
                 "sort": 4,
                 "type": "json",
                 "value": [
+                  {
+                    "id": 0,
+                    "length": "=({%100} + 32)",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "100",
+                      "x": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  },
                   {
                     "id": 0,
                     "length": "=({%50} - 16)",
@@ -22215,7 +22231,7 @@
                   "width": 500
                 },
                 "margin": {
-                  "z": -1200
+                  "z": -620
                 },
                 "functionalType": "forBarCircle",
                 "canUnion": false,
@@ -22342,7 +22358,7 @@
               },
               {
                 "id": "bottomGap",
-                "value": 100,
+                "value": 0,
                 "sort": 2,
                 "title": "Отступ снизу",
                 "type": "hidden_number"
@@ -22367,6 +22383,18 @@
                 "sort": 4,
                 "type": "json",
                 "value": [
+                  {
+                    "id": 0,
+                    "length": "=({%100} + 32)",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "100",
+                      "x": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  },
                   {
                     "id": 0,
                     "length": "=({%50} - 16)",
@@ -22588,6 +22616,18 @@
                 "value": [
                   {
                     "id": 0,
+                    "length": "=({%100} + 32)",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "100",
+                      "x": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  },
+                  {
+                    "id": 0,
                     "length": "=({%50} - 16)",
                     "depth": "%100",
                     "initPosition": {
@@ -22786,7 +22826,7 @@
               },
               {
                 "id": "bottomGap",
-                "value": 100,
+                "value": 0,
                 "sort": 2,
                 "title": "Отступ снизу",
                 "type": "hidden_number"
@@ -22811,6 +22851,18 @@
                 "sort": 4,
                 "type": "json",
                 "value": [
+                  {
+                    "id": 0,
+                    "length": "=({%100} + 32)",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "100",
+                      "x": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  },
                   {
                     "id": 0,
                     "length": "=({%50} - 16)",
@@ -23029,7 +23081,7 @@
               },
               {
                 "id": "bottomGap",
-                "value": 100,
+                "value": 0,
                 "sort": 2,
                 "title": "Отступ снизу",
                 "type": "hidden_number"
@@ -23054,6 +23106,18 @@
                 "sort": 4,
                 "type": "json",
                 "value": [
+                  {
+                    "id": 0,
+                    "length": "=({%100} + 32)",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "100",
+                      "x": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  },
                   {
                     "id": 0,
                     "length": "=({%50} - 16)",
