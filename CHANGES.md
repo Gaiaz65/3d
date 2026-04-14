@@ -37,6 +37,79 @@ ResolvedUnit.doorLeaf?: ResolvedDoorLeaf
 
 # Лог изменений архитектуры
 
+## 2026-04-14 — Учёт smallWidth/smallDepth для нижних торцевых модулей (bottomEndUnits)
+
+**Файлы:**
+- `src/app/planner-scene/interfaces/unit-config.models.ts`
+- `src/app/planner-scene/services/unit-build-helpers.service.ts`
+- `src/app/planner-scene/services/builders/bottom-unit-builder.service.ts`
+
+### Проблема
+
+Торцевые нижние модули (`N_ENDF`) имеют в конфигурации два скрытых параметра:
+- `smallWidth` (16 мм) — толщина боковой торцевой панели
+- `smallDepth` (284 мм) — глубина боковой торцевой панели (меньше основной глубины корпуса)
+
+Ранее эти параметры парсились, но не сохранялись и не использовались при построении геометрии.
+
+### Что изменено
+
+#### `ParsedCorpus` (unit-config.models.ts)
+Добавлены опциональные поля:
+```typescript
+smallWidth?: number;  // ширина торцевой боковой панели (мм)
+smallDepth?: number;  // глубина торцевой боковой панели (мм)
+```
+
+#### `parseGroups()` (unit-build-helpers.service.ts)
+Добавлено чтение параметров из группы `corpus`:
+```typescript
+smallWidth: this.getHiddenNumber(corpusOpts, 'smallWidth'),
+smallDepth: this.getHiddenNumber(corpusOpts, 'smallDepth'),
+```
+
+#### `buildPanels()` (unit-build-helpers.service.ts)
+Добавлены три новых параметра: `smallWidth?`, `smallDepth?`, `sideType?`.
+
+Добавлен кейс `N_ENDF`:
+- Открытая (торцевая) сторона — боковая панель с глубиной `smallDepth` и шириной `smallWidth`
+- Закрытая сторона (примыкает к соседнему модулю) — стандартная боковая панель полной глубины
+- Открытая сторона определяется по `sideType`: `'left'` → левая сторона открыта, `'right'` → правая
+
+#### `BottomUnitBuilderService.build()` (bottom-unit-builder.service.ts)
+Обновлён вызов `buildPanels()`: теперь передаются `corpus.smallWidth`, `corpus.smallDepth`, `sideType`.
+
+### Схема трапеции (вид сверху, sideType='left')
+
+```
+        |←── width=300 ──→|
+back    ████████████████████  z = −panelD (~546)
+        |                  |
+left    |                  | right
+(малая  |                  | (большая
+ 284мм) |                  |  ~546мм)
+        ╲                  |
+диаг    ╲__________________| z = 0  ← фронт большой стенки
+        z = −Δ (~262мм)
+        ← фронт малой стенки
+
+Δ = panelD − smallDepth  ≈ 262мм
+angle = atan2(Δ, width)  ≈ 41°
+```
+
+### Изменённые элементы
+
+| Элемент | Что изменилось |
+|---------|---------------|
+| Малая боковая панель | Позиция от задней стенки: z = −(panelD − sd/2) |
+| Фасад | Повёрнут на −angle вокруг Y; размер X = длина диагонали; ручка трансформируется через rotY |
+| Ножки | Передняя ножка торцевой стороны сдвинута на −deltaZ по Z |
+| Полки | Глубина = smallDepth; центр z = −(panelD − depth/2) (от задней стенки) |
+| Цоколи (front) | Диагональные: angle = rotY фасада |
+| Столешница | Повёрнута на rotY; X = diagLen; Z = средняя глубина трапеции |
+| ResolvedFacade | Добавлено поле `rotation?: Vec3` |
+| ThreeUnitComponent | Применяет `facadeRotation(facade)` к `[rotation]` фасадного mesh |
+
 ## 2026-04-09 — Настройка освещения сцены
 
 **Файл:** `src/app/planner-scene/scene-graph.ts`

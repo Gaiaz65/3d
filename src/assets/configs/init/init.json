@@ -26825,7 +26825,7 @@
               },
               {
                 "id": 0,
-                "positionType": "none"
+                "positionType": "front"
               }
             ]
           },
@@ -26846,7 +26846,7 @@
                 "id": 0,
                 "initPosition": {
                   "x": "=({%100}-50)",
-                  "z": "50"
+                  "z": "100"
                 }
               },
               {
@@ -27127,7 +27127,7 @@
               },
               {
                 "id": 0,
-                "positionType": "none"
+                "positionType": "front"
               }
             ]
           },
@@ -27148,7 +27148,7 @@
                 "id": 0,
                 "initPosition": {
                   "x": "=({%100}-50)",
-                  "z": "50"
+                  "z": "100"
                 }
               },
               {
@@ -27442,7 +27442,7 @@
               },
               {
                 "id": 0,
-                "positionType": "none"
+                "positionType": "front"
               }
             ]
           },
@@ -27463,7 +27463,7 @@
                 "id": 0,
                 "initPosition": {
                   "x": "=({%100}-50)",
-                  "z": "50"
+                  "z": "100"
                 }
               },
               {
@@ -27736,10 +27736,6 @@
               },
               {
                 "id": 0,
-                "positionType": "none"
-              },
-              {
-                "id": 0,
                 "positionType": "front"
               }
             ]
@@ -27761,7 +27757,7 @@
                 "id": 0,
                 "initPosition": {
                   "x": "=({%100}-50)",
-                  "z": "50"
+                  "z": "100"
                 }
               },
               {

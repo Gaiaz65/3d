@@ -144,6 +144,8 @@ export interface ParsedCorpus {
   backThickness: number;
   frontPanel?: { length: number }; // передняя панель угловой тумбы (мм)
   bottomGap?: number;  // нижний отступ корпуса от пола (мм), для юнитов без ножек
+  smallWidth?: number; // ширина торцевой боковой панели (мм), для bottomEndUnits
+  smallDepth?: number; // глубина торцевой боковой панели (мм), для bottomEndUnits
 }
 
 export interface ParsedSizes {
@@ -174,16 +176,25 @@ export interface Vec3 {
   z: number;
 }
 
+/** XZ-угол трапеции в пространстве юнита (метры). */
+export interface TrapezoidCorner {
+  x: number;
+  z: number;
+}
+
 export interface ResolvedPanel {
   name: string;
   size: Vec3;
   position: Vec3;
   rotation?: Vec3;
+  /** Если задано — панель рендерится как трапецевидная призма (BufferGeometry). */
+  trapezoidCorners?: TrapezoidCorner[];
 }
 
 export interface ResolvedFacade {
   size: Vec3;
   position: Vec3;
+  rotation?: Vec3;
   openType: string;
   functionalType?: string;
   modelType: string;
@@ -221,6 +232,7 @@ export interface ResolvedTabletop {
   size: Vec3;
   position: Vec3;
   rotation?: Vec3;
+  trapezoidCorners?: TrapezoidCorner[];
 }
 
 export interface ResolvedUnit {

@@ -57,6 +57,8 @@ export class UnitBuildHelpers {
       backThickness: this.getHiddenNumber(corpusOpts, 'backThickness') ?? 4,
       frontPanel: frontPanelOpt && 'value' in frontPanelOpt ? (frontPanelOpt.value as { length: number }) : undefined,
       bottomGap: this.getHiddenNumber(corpusOpts, 'bottomGap'),
+      smallWidth: this.getHiddenNumber(corpusOpts, 'smallWidth'),
+      smallDepth: this.getHiddenNumber(corpusOpts, 'smallDepth'),
     };
 
     // className — опция верхнего уровня (не группа)
@@ -96,6 +98,9 @@ export class UnitBuildHelpers {
     bt: number,        // толщина задней стенки
     legHeight: number,
     catalogType?: string,
+    smallWidth?: number,  // ширина торцевой боковой панели (N_ENDF)
+    smallDepth?: number,  // глубина торцевой боковой панели (N_ENDF)
+    sideType?: string,    // 'left' | 'right' — открытая сторона торцевого модуля
   ): ResolvedPanel[] {
     const innerW = width - t * 2;
     const panelD = depth - bt;  // панели не заходят в зону задней стенки
@@ -139,7 +144,55 @@ export class UnitBuildHelpers {
         break;
       case "N_SM":
         facades.push(facadesConfig.left, facadesConfig.right);
-        break
+        break;
+      case "N_END":
+      case "N_ENDF": {
+        // Торцевой нижний модуль (трапеция в плане):
+        // — обе боковые панели разделяют одну заднюю грань (z = −panelD)
+        // — открытая сторона: панель глубиной sd; центр z = −(panelD − sd/2)
+        // — закрытая сторона: стандартная панель полной глубины
+        const sw = smallWidth ?? t;
+        const sd = smallDepth ?? panelD;
+        const exposedIsLeft = sideType !== 'right';
+
+        const endPanel: ResolvedPanel = {
+          name: exposedIsLeft ? 'left' : 'right',
+          size: {x: m(sw), y: m(height), z: m(sd)},
+          position: {
+            x: exposedIsLeft ? m(-(width / 2 - sw / 2)) : m(width / 2 - sw / 2),
+            y: m(baseY + height / 2),
+            z: m(-(panelD - sd / 2)),
+          },
+        };
+        // Дно корпуса — трапеция в XZ-плоскости.
+        // Углы обходятся против часовой стрелки сверху:
+        // c0 = торцевой фронт, c1 = большой фронт, c2 = правый зад, c3 = левый зад
+        const deltaZ = panelD - sd;
+        const halfW = innerW / 2;
+        const trapezoidCorners = exposedIsLeft
+          ? [
+            {x: m(-halfW), z: m(-deltaZ)},  // c0: фронт малой стенки (лево)
+            {x: m(+halfW), z: 0},            // c1: фронт большой стенки (право)
+            {x: m(+halfW), z: m(-panelD)},   // c2: зад-право
+            {x: m(-halfW), z: m(-panelD)},   // c3: зад-лево
+          ]
+          : [
+            {x: m(+halfW), z: m(-deltaZ)},   // c0: фронт малой стенки (право)
+            {x: m(-halfW), z: 0},             // c1: фронт большой стенки (лево)
+            {x: m(-halfW), z: m(-panelD)},    // c2: зад-лево
+            {x: m(+halfW), z: m(-panelD)},    // c3: зад-право
+          ];
+
+        const bottomPanel: ResolvedPanel = {
+          name: 'bottom',
+          size: {x: 0, y: m(t), z: 0},
+          position: {x: 0, y: m(baseY + t / 2), z: 0},
+          trapezoidCorners,
+        };
+        const closedPanel = exposedIsLeft ? facadesConfig.right : facadesConfig.left;
+        facades.push(closedPanel, facadesConfig.back, endPanel, bottomPanel);
+        break;
+      }
       default:
         facades.push(facadesConfig.left, facadesConfig.back, facadesConfig.right, facadesConfig.bottom);
         break;
@@ -163,7 +216,6 @@ export class UnitBuildHelpers {
     const baseY = legHeight;   // нижняя граница корпуса над полом
     const m = (v: number) => this.helper.toM(v);
 
-    console.log(catalogType)
     const result: ResolvedPanel[] = [];
     switch (catalogType) {
       case 'N_BAR':
@@ -196,9 +248,9 @@ export class UnitBuildHelpers {
           {
             name: 'backStrengthening',
             size: {x: m(width), y: m(100), z: m(bt)},
-            position: {x: m(0), y: m(height/2 + 50), z: -m(depth)}
+            position: {x: m(0), y: m(height / 2 + 50), z: -m(depth)}
           },
-          )
+        )
         break
       default:
         break;
@@ -433,11 +485,22 @@ export class UnitBuildHelpers {
     corpusWidth: number,
     corpusDepth: number,
     legHeight: number,
+    smallDepth?: number,
+    sideType?: string,
   ): ResolvedPlinth[] {
     if (!configs.length) return [];
 
     const plinthThickness = PLINTH_THICKNESS;
     const m = (v: number) => this.helper.toM(v);
+
+    // Параметры трапеции для N_ENDF (только если smallDepth задан)
+    const hasSmall = smallDepth !== undefined && smallDepth > 0;
+    const deltaZ = hasSmall ? corpusDepth - smallDepth! : 0;
+    const diagLen = hasSmall ? Math.sqrt(corpusWidth * corpusWidth + deltaZ * deltaZ) : 0;
+    const angle = hasSmall ? Math.atan2(deltaZ, corpusWidth) : 0;
+    // sideType='left' → открытая сторона слева, фасад поворачивается вправо-вперёд → rotY отрицательный
+    const rotY = sideType === 'right' ? angle : -angle;
+    const exposedIsLeft = sideType !== 'right';
 
     return configs.map((pc) => {
       const length = pc.initSizes?.length ? Number(pc.initSizes.length) : 0;
@@ -450,12 +513,23 @@ export class UnitBuildHelpers {
 
       switch (pc.positionType) {
         case 'front':
-          w = length > 0 ? length : corpusWidth;
-          d = plinthThickness;
-          x = ox;
-          y = h / 2;
-          z = -plinthThickness / 2;
+          if (hasSmall) {
+            // Диагональный цоколь: длина = диагональ, повёрнут как фасад
+            w = diagLen;
+            d = plinthThickness;
+            x = ox;
+            y = h / 2;
+            z = -(deltaZ / 2);  // центр диагонали
+            rotation = {x: 0, y: rotY, z: 0};
+          } else {
+            w = length > 0 ? length : corpusWidth;
+            d = plinthThickness;
+            x = ox;
+            y = h / 2;
+            z = -plinthThickness / 2;
+          }
           break;
+
         case 'back':
           w = length > 0 ? length : corpusWidth;
           d = plinthThickness;
@@ -463,23 +537,43 @@ export class UnitBuildHelpers {
           y = h / 2;
           z = -(corpusDepth - plinthThickness / 2);
           break;
+
         case 'left':
-          w = plinthThickness;
-          d = length > 0 ? length : corpusDepth;
-          x = -(corpusWidth / 2 - plinthThickness / 2) + ox;
-          y = h / 2;
-          z = -d / 2;
+          if (hasSmall && exposedIsLeft) {
+            // Открытая левая сторона: глубина = smallDepth, позиция от задней стенки
+            d = smallDepth!;
+            w = plinthThickness;
+            x = -(corpusWidth / 2 - plinthThickness / 2) + ox;
+            y = h / 2;
+            z = -(corpusDepth - d / 2);
+          } else {
+            w = plinthThickness;
+            d = length > 0 ? length : corpusDepth;
+            x = -(corpusWidth / 2 - plinthThickness / 2) + ox;
+            y = h / 2;
+            z = -d / 2;
+          }
           break;
+
         case 'right':
-          w = plinthThickness;
-          d = length > 0 ? length : corpusDepth;
-          x = corpusWidth / 2 - plinthThickness / 2 + ox;
-          y = h / 2;
-          z = -d / 2;
+          if (hasSmall && !exposedIsLeft) {
+            // Открытая правая сторона: глубина = smallDepth, позиция от задней стенки
+            d = smallDepth!;
+            w = plinthThickness;
+            x = corpusWidth / 2 - plinthThickness / 2 + ox;
+            y = h / 2;
+            z = -(corpusDepth - d / 2);
+          } else {
+            w = plinthThickness;
+            d = length > 0 ? length : corpusDepth;
+            x = corpusWidth / 2 - plinthThickness / 2 + ox;
+            y = h / 2;
+            z = -d / 2;
+          }
           break;
+
         case 'none':
         default:
-          // TODO не уверен в расчетах
           w = length || plinthThickness;
           d = plinthThickness;
           x = ox;
@@ -505,13 +599,51 @@ export class UnitBuildHelpers {
     corpusDepth: number,
     corpusHeight: number,
     legHeight: number,
+    smallDepth?: number,
+    sideType?: string,
   ): ResolvedTabletop[] {
     if (!configs.length) return [];
 
     const TH = TABLETOP_THICKNESS;
     const m = (v: number) => this.helper.toM(v);
     const baseY = legHeight + corpusHeight;
+    const overhang = 30; // мм — вынос вперёд (стандарт)
+    const backOverhang = 0;   // задняя кромка у стенки
 
+    // Для N_ENDF: трапецевидная столешница с теми же параметрами выноса,
+    // что и стандартная (+100 мм по глубине, +50 мм по позиции).
+    if (smallDepth !== undefined && smallDepth > 0) {
+      const deltaZ = corpusDepth - smallDepth;
+      const halfW = corpusWidth / 2;
+      const exposedIsLeft = sideType !== 'right';
+
+      // Углы трапеции в мм (XZ), CCW сверху:
+      // c0 — фронт открытой (малой) стороны + вынос
+      // c1 — фронт закрытой (большой) стороны + вынос
+      // c2 — зад закрытой стороны
+      // c3 — зад открытой стороны
+      const trapezoidCorners = exposedIsLeft
+        ? [
+          {x: m(-halfW), z: m(-(deltaZ - overhang))},
+          {x: m(+halfW), z: m(+overhang)},
+          {x: m(+halfW), z: m(-(corpusDepth + backOverhang))},
+          {x: m(-halfW), z: m(-(corpusDepth + backOverhang))},
+        ]
+        : [
+          {x: m(+halfW), z: m(-(deltaZ - overhang))},
+          {x: m(-halfW), z: m(+overhang)},
+          {x: m(-halfW), z: m(-(corpusDepth + backOverhang))},
+          {x: m(+halfW), z: m(-(corpusDepth + backOverhang))},
+        ];
+
+      return configs.map(() => ({
+        size: {x: 0, y: m(TH), z: 0},
+        position: {x: 0, y: m(baseY + TH / 2), z: 0},
+        trapezoidCorners,
+      }));
+    }
+
+    // Стандартная прямоугольная столешница
     return configs.map((tc) => {
       const length = Number(tc.initSizes?.length ?? tc.sizes?.length ?? corpusWidth);
       const width = Number(tc.sizes?.width ?? tc.initSizes?.width ?? corpusDepth);
@@ -524,7 +656,7 @@ export class UnitBuildHelpers {
 
       // TODO + 50 к позиции и + 100 к глубине столешницы ( нужно запросить размеры )
       return {
-        size: {x: m(length), y: m(TH), z: m(width + 100)},
+        size: {x: m(length), y: m(TH), z: m(width + overhang)},
         position: {x: m(x), y: m(y), z: m(z + 50)},
         rotation,
       };
