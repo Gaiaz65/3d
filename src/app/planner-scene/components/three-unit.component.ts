@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import {loaderResource, NgtArgs, NgtThreeEvent} from 'angular-three';
 import {
-  ResolvedFacade, ResolvedPanel, ResolvedPlinth, ResolvedTabletop,
+  ResolvedFacade, ResolvedPanel, ResolvedPlinth, ResolvedShelf, ResolvedTabletop,
   ResolvedUnit, TrapezoidCorner, Vec3,
 } from '../interfaces/unit-config.models';
 import {DraggableGroupDirective} from '../directives/draggable-group.directive';
@@ -109,9 +109,15 @@ import {TextureLoader} from 'three';
 
       <!-- ── Shelves ─────────────────────────────────────────────────── -->
       @for (shelf of unit().shelves; track $index) {
-        <ngt-mesh [position]="[shelf.position.x, shelf.position.y, shelf.position.z]">
-          <ngt-box-geometry *args="[shelf.size.x, shelf.size.y, shelf.size.z]"/>
-          <ngt-mesh-standard-material [color]="corpusColor()" [roughness]="0.65"/>
+        <ngt-mesh
+          [position]="[shelf.position.x, shelf.position.y, shelf.position.z]"
+          [geometry]="shelfGeometry(shelf)"
+        >
+          <ngt-mesh-standard-material
+            [color]="corpusColor()"
+            [roughness]="0.65"
+            [side]="shelf.trapezoidCorners ? doubleSide : frontSide"
+          />
         </ngt-mesh>
       }
 
@@ -194,6 +200,7 @@ export class ThreeUnitComponent {
   // ── Кэш геометрий (WeakMap — GC очищает при удалении панели) ───────────
   private readonly _panelGeoCache = new WeakMap<ResolvedPanel, THREE.BufferGeometry>();
   private readonly _topGeoCache   = new WeakMap<ResolvedTabletop, THREE.BufferGeometry>();
+  private readonly _shelfGeoCache = new WeakMap<ResolvedShelf, THREE.BufferGeometry>();
 
   panelGeometry(panel: ResolvedPanel): THREE.BufferGeometry {
     if (!this._panelGeoCache.has(panel)) {
@@ -213,6 +220,16 @@ export class ThreeUnitComponent {
       this._topGeoCache.set(top, geo);
     }
     return this._topGeoCache.get(top)!;
+  }
+
+  shelfGeometry(shelf: ResolvedShelf): THREE.BufferGeometry {
+    if (!this._shelfGeoCache.has(shelf)) {
+      const geo = shelf.trapezoidCorners
+        ? this.createTrapezoidGeo(shelf.trapezoidCorners, shelf.size.y)
+        : new THREE.BoxGeometry(shelf.size.x, shelf.size.y, shelf.size.z);
+      this._shelfGeoCache.set(shelf, geo);
+    }
+    return this._shelfGeoCache.get(shelf)!;
   }
 
   /**

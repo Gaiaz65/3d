@@ -214,6 +214,8 @@ export interface ResolvedLeg {
 export interface ResolvedShelf {
   size: Vec3;
   position: Vec3;
+  /** Если задано — полка рендерится как трапецевидная призма (BufferGeometry). */
+  trapezoidCorners?: TrapezoidCorner[];
 }
 
 export interface ResolvedRod {

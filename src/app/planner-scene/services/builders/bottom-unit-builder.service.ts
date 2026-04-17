@@ -72,7 +72,7 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
         : this.helper.buildShelves(groups.shelves, corpus.width, corpus.depth, corpus.height, corpus.thickness, corpus.backThickness, legHeight),
       rods: this.helper.buildRods(groups.rods, corpus.width, corpus.depth, corpus.height, legHeight),
       plinths: this.helper.buildPlinths(groups.plinths, corpus.width, corpus.depth, legHeight, corpus.smallDepth, sideType),
-      tabletops: [],
+      tabletops: this.helper.buildTabletops(groups.tabletops, corpus.width, corpus.depth, corpus.height, legHeight, corpus.smallDepth, sideType),
     };
   }
 
@@ -206,9 +206,16 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
   }
 
   /**
-   * Полки торцевого модуля:
-   * Ограничены глубиной малой стороны (smallDepth).
-   * Центр полки позиционируется от задней стенки: z = −(panelD − depth/2)
+   * Полки торцевого модуля — трапецевидная призма в XZ-плоскости.
+   *
+   * Контур совпадает с внутренним контуром корпуса (innerHalfW × panelD).
+   * Направленность трапеции определяется exposedIsLeft (малая сторона — слева или справа).
+   *
+   * exposedIsLeft=true (малая сторона — лево):
+   *   c0: лево-фронт малой стенки  z = −deltaZ
+   *   c1: право-фронт большой стенки z = 0
+   *   c2: право-зад                 z = −panelD
+   *   c3: лево-зад                  z = −panelD
    */
   private buildEndShelves(
     configs: ShelfConfig[],
@@ -216,120 +223,35 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
     legHeight: number,
     sideType: string,
   ): ResolvedShelf[] {
-    console.log(corpus)
-    const {panelD, smallD} = this.endGeometry(corpus);
-    const innerW = corpus.width - corpus.thickness * 2;
-    const m = (v: number) => this.helper.helper.toM(v);
-
-    return configs.map(sc => {
-      const depth = this.helper.helper.calculateSizeByParent(sc.depth, smallD);
-      const rawY = this.helper.helper.calculateSizeByParent(sc.initPosition.y, corpus.height);
-      const y = legHeight + rawY;
-      // Полка примыкает к задней стенке, её передняя грань — у фронта малой стенки
-      const centerZ = -(panelD - depth / 2);
-
-      const length = this.helper.helper.calculateSizeByParent(sc.length, innerW);
-      return {
-        size: {x: m(length), y: m(sc.thickness), z: m(depth)},
-        position: {x: 0, y: m(y), z: m(centerZ)},
-      };
-    });
-  }
-
-  /**
-   * Цоколи торцевого модуля:
-   * — фронтальный цоколь: диагональный, совпадает с фасадом по углу и позиции
-   * — боковые цоколи: стандартный алгоритм
-   */
-  private buildEndPlinths(
-    configs: AccessoryConfig[],
-    corpus: ParsedCorpus,
-    legHeight: number,
-    sideType: string,
-  ): ResolvedPlinth[] {
-    if (!configs.length) return [];
-
-    const {deltaZ, diagLen, angle} = this.endGeometry(corpus);
-    const rotY = sideType === 'right' ? angle : -angle;
-    const centerZ = -(deltaZ / 2);
-    const h = legHeight;
-    const pt = PLINTH_THICKNESS;
-    const m = (v: number) => this.helper.helper.toM(v);
-
-    return configs.map(pc => {
-      const length = pc.initSizes?.length ? Number(pc.initSizes.length) : 0;
-      const ox = (pc.initPosition?.x ?? 0) + (pc.margin?.x ?? 0);
-
-      switch (pc.positionType) {
-        case 'front':
-          return {
-            size: {x: m(diagLen), y: m(h), z: m(pt)},
-            position: {x: 0, y: m(h / 2), z: m(centerZ)},
-            rotation: {x: 0, y: rotY, z: 0},
-          };
-        case 'left': {
-          const d = length > 0 ? length : corpus.depth;
-          return {
-            size: {x: m(pt), y: m(h), z: m(d)},
-            position: {x: m(-(corpus.width / 2 - pt / 2) + ox), y: m(h / 2), z: m(-d / 2)},
-          };
-        }
-        case 'right': {
-          const d = length > 0 ? length : corpus.depth;
-          return {
-            size: {x: m(pt), y: m(h), z: m(d)},
-            position: {x: m(corpus.width / 2 - pt / 2 + ox), y: m(h / 2), z: m(-d / 2)},
-          };
-        }
-        default:
-          return {
-            size: {x: m(length || pt), y: m(h), z: m(pt)},
-            position: {x: m(ox), y: m(h / 2), z: 0},
-          };
-      }
-    });
-  }
-
-  /**
-   * Столешница торцевого модуля — трапеция в XZ-плоскости.
-   * Углы совпадают с контуром корпуса + стандартный вынос 50 мм вперёд и назад.
-   */
-  private buildEndTabletops(
-    configs: AccessoryConfig[],
-    corpus: ParsedCorpus,
-    legHeight: number,
-    sideType: string,
-  ): ResolvedTabletop[] {
-    if (!configs.length) return [];
-
     const {panelD, deltaZ} = this.endGeometry(corpus);
-    const TH = TABLETOP_THICKNESS;
-    const baseY = legHeight + corpus.height;
-    const halfW = corpus.width / 2;
-    const overhang = 50; // мм: стандартный вынос столешницы
+    const innerHalfW = (corpus.width - corpus.thickness * 2) / 2;
+    const exposedIsLeft = sideType === 'left';
     const m = (v: number) => this.helper.helper.toM(v);
-    const exposedIsLeft = sideType !== 'right';
 
-    // Трапецевидный контур совпадает с подошвой корпуса + вынос
     const trapezoidCorners = exposedIsLeft
       ? [
-        {x: m(-halfW), z: m(-(deltaZ - overhang))},
-        {x: m(+halfW), z: m(+overhang)},
-        {x: m(+halfW), z: m(-panelD - overhang)},
-        {x: m(-halfW), z: m(-panelD - overhang)},
+        {x: m(-innerHalfW), z: m(-deltaZ)},  // c0: фронт малой стенки (лево)
+        {x: m(+innerHalfW), z: 0},            // c1: фронт большой стенки (право)
+        {x: m(+innerHalfW), z: m(-panelD)},   // c2: зад-право
+        {x: m(-innerHalfW), z: m(-panelD)},   // c3: зад-лево
       ]
       : [
-        {x: m(+halfW), z: m(-(deltaZ - overhang))},
-        {x: m(-halfW), z: m(+overhang)},
-        {x: m(-halfW), z: m(-panelD - overhang)},
-        {x: m(+halfW), z: m(-panelD - overhang)},
+        {x: m(+innerHalfW), z: m(-deltaZ)},   // c0: фронт малой стенки (право)
+        {x: m(-innerHalfW), z: 0},             // c1: фронт большой стенки (лево)
+        {x: m(-innerHalfW), z: m(-panelD)},   // c2: зад-лево
+        {x: m(+innerHalfW), z: m(-panelD)},   // c3: зад-право
       ];
 
-    return configs.map(() => ({
-      size: {x: 0, y: m(TH), z: 0},
-      position: {x: 0, y: m(baseY + TH / 2), z: 0},
-      trapezoidCorners,
-    }));
+    return configs.map(sc => {
+      const rawY = this.helper.helper.calculateSizeByParent(sc.initPosition.y, corpus.height);
+      const y = legHeight + rawY;
+
+      return {
+        size: {x: 0, y: m(sc.thickness), z: 0},
+        position: {x: 0, y: m(y), z: 0},
+        trapezoidCorners,
+      };
+    });
   }
 
   // ── Стандартные приватные методы ─────────────────────────────────────────
