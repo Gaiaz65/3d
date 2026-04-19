@@ -89,6 +89,10 @@ export class UnitBuildHelpers {
   }
 
   // ── Панели (стенки корпуса) ─────────────────────────────────────────────
+  //catalogType?: string,
+  //     smallWidth?: number,  // ширина торцевой боковой панели (N_ENDF)
+  //     smallDepth?: number,  // глубина торцевой боковой панели (N_ENDF)
+  //     sideType?: string,    // 'left' | 'right' — открытая сторона торцевого модуля
 
   buildPanels(
     width: number,
@@ -96,15 +100,11 @@ export class UnitBuildHelpers {
     depth: number,
     t: number,         // толщина боковой стенки
     bt: number,        // толщина задней стенки
-    legHeight: number,
-    catalogType?: string,
-    smallWidth?: number,  // ширина торцевой боковой панели (N_ENDF)
-    smallDepth?: number,  // глубина торцевой боковой панели (N_ENDF)
-    sideType?: string,    // 'left' | 'right' — открытая сторона торцевого модуля
+    options: Record<string, any>
   ): ResolvedPanel[] {
     const innerW = width - t * 2;
     const panelD = depth - bt;  // панели не заходят в зону задней стенки
-    const baseY = legHeight;   // нижняя граница корпуса над полом
+    const baseY = options['legHeight'] || 0;   // нижняя граница корпуса над полом
     const m = (v: number) => this.helper.toM(v);
 
     const facadesConfig = {
@@ -132,28 +132,37 @@ export class UnitBuildHelpers {
         name: 'bottom',
         size: {x: m(innerW), y: m(t), z: m(panelD)},
         position: {x: 0, y: m(baseY + t / 2), z: m(-(panelD / 2))}
-      }
+      },
+      top: {
+        name: 'top',
+        size: {x: m(innerW), y: m(t), z: m(panelD)},
+        position: {x: 0, y: m(height - bt * 2), z: m(-(panelD / 2))}
+      },
     };
 
 
     let facades = []
 
-    switch (catalogType) {
+    switch (options['catalogCode']) {
       case "N_BAR":
         facades.push(facadesConfig.front, facadesConfig.back)
         break;
       case "N_SM":
         facades.push(facadesConfig.left, facadesConfig.right);
         break;
+      // Торцевые модули: нижние (N_END, N_ENDF) и верхние (VT_*, VPU_*)
+      // — трапеция в плане, открытая сторона — малая боковая панель (sd × sw)
+      // — закрытая сторона — стандартная панель полной глубины
+      // — дно (и крышка для верхних) — трапециевидные панели
+      case "VT_300":
+      case "VT_309":
+      case "VPU_300":
+      case "VPU_309":
       case "N_END":
       case "N_ENDF": {
-        // Торцевой нижний модуль (трапеция в плане):
-        // — обе боковые панели разделяют одну заднюю грань (z = −panelD)
-        // — открытая сторона: панель глубиной sd; центр z = −(panelD − sd/2)
-        // — закрытая сторона: стандартная панель полной глубины
-        const sw = smallWidth ?? t;
-        const sd = smallDepth ?? panelD;
-        const exposedIsLeft = sideType !== 'right';
+        const sw = options['smallWidth'] ?? t;
+        const sd = options['smallDepth'] ?? panelD;
+        const exposedIsLeft = options['sideType'] !== 'right';
 
         const endPanel: ResolvedPanel = {
           name: exposedIsLeft ? 'left' : 'right',
@@ -164,9 +173,8 @@ export class UnitBuildHelpers {
             z: m(-(panelD - sd / 2)),
           },
         };
-        // Дно корпуса — трапеция в XZ-плоскости.
-        // Углы обходятся против часовой стрелки сверху:
-        // c0 = торцевой фронт, c1 = большой фронт, c2 = правый зад, c3 = левый зад
+        // Трапециевидный контур (XZ, против часовой стрелки сверху):
+        // c0 = торцевой фронт, c1 = большой фронт, c2 = зад-большой, c3 = зад-малый
         const deltaZ = panelD - sd;
         const halfW = innerW / 2;
         const trapezoidCorners = exposedIsLeft
@@ -191,13 +199,31 @@ export class UnitBuildHelpers {
         };
         const closedPanel = exposedIsLeft ? facadesConfig.right : facadesConfig.left;
         facades.push(closedPanel, facadesConfig.back, endPanel, bottomPanel);
+
+        // Верхние торцевые: крышка тоже трапеция
+        if (options['level'] === 'top') {
+          facades.push({
+            name: 'top',
+            size: {x: 0, y: m(t), z: 0},
+            position: {x: 0, y: m(baseY + height - t / 2), z: 0},
+            trapezoidCorners,
+          });
+        }
         break;
       }
       default:
         facades.push(facadesConfig.left, facadesConfig.back, facadesConfig.right, facadesConfig.bottom);
         break;
     }
-    const strengtheningElements = this.buildStrengtheningPanels(width, height, depth, t, bt, legHeight, catalogType);
+    const strengtheningElements = this.buildStrengtheningPanels(width, height, depth, t, bt, options['legHeight'], options['catalogType']);
+
+    // Крышка для верхних шкафов (прямоугольная).
+    // End-юниты добавляют трапециевидную крышку внутри своего case.
+    const isEndCode = ['VT_300','VT_309','VPU_300','VPU_309','N_END','N_ENDF']
+      .includes(options['catalogCode']);
+    if (options['level'] === 'top' && !isEndCode) {
+      facades.push(facadesConfig.top);
+    }
 
     return [...facades, ...strengtheningElements];
   }

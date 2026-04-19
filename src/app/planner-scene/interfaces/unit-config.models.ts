@@ -27,7 +27,7 @@ export interface HiddenTextOption extends OptionBase {
 }
 
 export interface RadioButtonOption extends OptionBase {
-  type: 'radiobutton';
+  type: 'radioButton';
   defaultValue: string;
   items: RadioItem[];
 }

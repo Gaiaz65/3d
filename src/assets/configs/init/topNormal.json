@@ -1,0 +1,5007 @@
+[
+  {
+    "id": "topAngleUnits",
+    "icon": "newTopAngleUnits",
+    "title": "Верхние угловые",
+    "sort": 4,
+    "isGroup": true,
+    "items": [
+      {
+        "uid": "shkaf-uglovoy",
+        "catalogCode": "shkaf-uglovoy",
+        "level": "top",
+        "title": "720 верхний угловой ТРАПЕЦИЯ",
+        "image": "/static-files/unit/surskaya/720 верхний угловой ТРАПЕЦИЯ.jpg",
+        "depthText": "592 мм",
+        "heightText": "716 мм",
+        "widthText": "592 мм",
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_590",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "right",
+                "number": 0,
+                "modelType": "default",
+                "functionalType": "pivotDoor",
+                "openType": "verticalPivot",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-eFrez",
+        "catalogCode": "shkaf-uglovoy-eFrez",
+        "level": "top",
+        "title": "720 верхний угловой ТРАПЕЦИЯ E фрезеровка",
+        "image": "/static-files/unit/surskaya/720 верхний угловой ТРАПЕЦИЯ E фрезеровка.jpg",
+        "depthText": "592 мм",
+        "heightText": "716 мм",
+        "widthText": "592 мм",
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_590",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "right",
+                "number": 0,
+                "modelType": "decorLeft",
+                "functionalType": "pivotDoorE",
+                "openType": "verticalPivot",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "notCheckOfferModelType": true,
+                "frezSideType": {
+                  "defaultValue": "left",
+                  "items": [
+                    {
+                      "id": "left",
+                      "title": "левая"
+                    },
+                    {
+                      "id": "right",
+                      "title": "правая"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-zFrez",
+        "catalogCode": "shkaf-uglovoy-zFrez",
+        "level": "top",
+        "title": "720 верхний угловой ТРАПЕЦИЯ Z фрезеровка",
+        "image": "/static-files/unit/surskaya/720 верхний угловой ТРАПЕЦИЯ Z фрезеровка.jpg",
+        "depthText": "592 мм",
+        "heightText": "716 мм",
+        "widthText": "592 мм",
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_590",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "right",
+                "number": 0,
+                "modelType": "decor3",
+                "functionalType": "комплект распашная дверь z",
+                "openType": "verticalPivot",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "notCheckOfferModelType": true
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-visokiy",
+        "catalogCode": "shkaf-uglovoy-visokiy",
+        "level": "top",
+        "title": "920 верхний угловой ТРАПЕЦИЯ",
+        "image": "/static-files/unit/surskaya/920 верхний угловой ТРАПЕЦИЯ.jpg",
+        "depthText": "592 мм",
+        "heightText": "920 мм",
+        "widthText": "592 мм",
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_599",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 920,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "=({%100}/3)"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "=({%100}/3*2)"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "functionalType": "pivotDoor",
+                "openType": "verticalPivot",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-visokiy-eFrez",
+        "catalogCode": "shkaf-uglovoy-visokiy-eFrez",
+        "level": "top",
+        "title": "920 верхний угловой ТРАПЕЦИЯ E фрезеровка",
+        "image": "/static-files/unit/surskaya/920 верхний угловой ТРАПЕЦИЯ E фрезеровка.jpg",
+        "depthText": "592 мм",
+        "heightText": "920 мм",
+        "widthText": "592 мм",
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_599",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 920,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "=({%100}/3)"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "=({%100}/3*2)"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "decorLeft",
+                "functionalType": "pivotDoorE",
+                "openType": "verticalPivot",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "notCheckOfferModelType": true,
+                "frezSideType": {
+                  "defaultValue": "left",
+                  "items": [
+                    {
+                      "id": "left",
+                      "title": "левая"
+                    },
+                    {
+                      "id": "right",
+                      "title": "правая"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-visokiy-zFrez",
+        "catalogCode": "shkaf-uglovoy-visokiy-zFrez",
+        "level": "top",
+        "title": "920 верхний угловой ТРАПЕЦИЯ Z фрезеровка",
+        "image": "/static-files/unit/surskaya/920 верхний угловой ТРАПЕЦИЯ Z фрезеровка.jpg",
+        "depthText": "592 мм",
+        "heightText": "920 мм",
+        "widthText": "592 мм",
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_599",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 920,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "=({%100}/3)"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "=({%100}/3*2)"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "decor3",
+                "functionalType": "комплект распашная дверь z",
+                "openType": "verticalPivot",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "notCheckOfferModelType": true
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-690",
+        "catalogCode": "shkaf-uglovoy-pryamoy-690",
+        "level": "top",
+        "title": "Шкаф верхний угловой ШВУ 690",
+        "image": "/static-files/unit/surskaya/Шкаф верхний угловой ШВУ 690.jpg",
+        "depthText": "302 мм",
+        "heightText": "716 мм",
+        "widthText": "690 мм",
+        "options": [
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_690",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 690,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": 350
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": -350
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 684,
+                    "position": {
+                      "x": 296
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "350",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "isFlipY": true,
+                "functionalType": "pivotDoor",
+                "openType": "verticalPivot",
+                "groupId": 1,
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "reverseSideType": true
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -350,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 2,
+                "functionalType": "anglePlanks",
+                "openType": "none",
+                "calculateSizes": {
+                  "width": "44",
+                  "height": "%100"
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -371,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 2,
+                "functionalType": "anglePlanks",
+                "openType": "none",
+                "calculateType": "none"
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-visokiy-690",
+        "catalogCode": "shkaf-uglovoy-pryamoy-visokiy-690",
+        "level": "top",
+        "title": "Шкаф верхний высокий угловой 690",
+        "image": "/static-files/unit/surskaya/Шкаф верхний высокий угловой 690.jpg",
+        "depthText": "302 мм",
+        "heightText": "920 мм",
+        "widthText": "690 мм",
+        "options": [
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_699",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 690,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 920,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": 452
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": -452
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 888,
+                    "position": {
+                      "x": 296
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "350",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -350,
+                  "y": 0,
+                  "z": 0
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -371,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-700",
+        "catalogCode": "shkaf-uglovoy-pryamoy-700",
+        "level": "top",
+        "title": "720 верхний угловой ПРЯМОЙ",
+        "image": "/static-files/unit/surskaya/720 верхний угловой ПРЯМОЙ.jpg",
+        "depthText": "302 мм",
+        "heightText": "716 мм",
+        "widthText": "700 мм",
+        "options": [
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_700",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 700,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": 350
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": -350
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 684,
+                    "position": {
+                      "x": 296
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "350",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "isFlipY": true,
+                "functionalType": "pivotDoor",
+                "openType": "verticalPivot",
+                "groupId": 1,
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "reverseSideType": true
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -350,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 2,
+                "functionalType": "anglePlanks",
+                "openType": "none",
+                "calculateSizes": {
+                  "width": "44",
+                  "height": "%100"
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -371,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 2,
+                "functionalType": "anglePlanks",
+                "openType": "none",
+                "calculateType": "none"
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-visokiy-VU709",
+        "catalogCode": "shkaf-uglovoy-pryamoy-visokiy-VU709",
+        "level": "top",
+        "title": "920 верхний угловой ПРЯМОЙ",
+        "image": "/static-files/unit/surskaya/920 верхний угловой ПРЯМОЙ.jpg",
+        "depthText": "302 мм",
+        "heightText": "920 мм",
+        "widthText": "700 мм",
+        "options": [
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_709",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 700,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 920,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": 452
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": -452
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 888,
+                    "position": {
+                      "x": 296
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "350",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "functionalType": "pivotDoor",
+                "openType": "verticalPivot",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -350,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 2,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "anglePlanks"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -371,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 2,
+                "functionalType": "anglePlanks",
+                "calculateSizes": {
+                  "width": "40",
+                  "height": "%100"
+                },
+                "openType": "none"
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-990",
+        "catalogCode": "shkaf-uglovoy-pryamoy-990",
+        "level": "top",
+        "title": "Шкаф верхний горизонтальный угловой ШВУГ 990",
+        "image": "/static-files/unit/surskaya/Шкаф верхний горизонтальный угловой ШВУГ 990.jpg",
+        "depthText": "302 мм",
+        "heightText": "358 мм",
+        "widthText": "990 мм",
+        "options": [
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_990",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 990,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 358,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": 172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": -172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 328,
+                    "position": {
+                      "x": 296
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "650",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -650,
+                  "y": 0,
+                  "z": 0
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "margin": {
+                  "x": -671,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-shvug1000",
+        "catalogCode": "shkaf-uglovoy-pryamoy-shvug1000",
+        "level": "top",
+        "title": "360 верхний горизонтальный угловой",
+        "image": "/static-files/unit/surskaya/360 верхний горизонтальный угловой.jpg",
+        "depthText": "302 мм",
+        "heightText": "358 мм",
+        "widthText": "1000 мм",
+        "options": [
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_1000",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 1000,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 358,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": 172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": -172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 328,
+                    "position": {
+                      "x": 296
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "650",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "calculateSizes": {
+                  "width": "680",
+                  "height": "%100"
+                },
+                "openType": "horizontalPivot",
+                "functionalType": "verticalPivotDoor",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -650,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -671,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-shvug1009",
+        "catalogCode": "shkaf-uglovoy-pryamoy-shvug1009",
+        "level": "top",
+        "title": "460 верхний горизонтальный угловой",
+        "image": "/static-files/unit/surskaya/460 верхний горизонтальный угловой.jpg",
+        "depthText": "302 мм",
+        "heightText": "460 мм",
+        "widthText": "1000 мм",
+        "options": [
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_1009",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 1000,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 460,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": 172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 304,
+                    "position": {
+                      "x": 152,
+                      "y": -172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 328,
+                    "position": {
+                      "x": 296
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "650",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "isFlipY": true,
+                "calculateSizes": {
+                  "width": "680",
+                  "height": "%100"
+                },
+                "openType": "horizontalPivot",
+                "functionalType": "verticalPivotDoor2",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "reverseSideType": true
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -650,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor2"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -671,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor2"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-shvug1010",
+        "catalogCode": "shkaf-uglovoy-pryamoy-shvug1010",
+        "level": "top",
+        "title": "360 верхний горизонтальный угловой ГЛУБОКИЙ",
+        "image": "/static-files/unit/surskaya/360 верхний горизонтальный угловой ГЛУБОКИЙ.jpg",
+        "depthText": "650 мм",
+        "heightText": "358 мм",
+        "widthText": "1000 мм",
+        "options": [
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "depth",
+                "value": 650,
+                "sort": 1,
+                "title": "Глубина",
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_1010",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 1000,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 358,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 560,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 520
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 560,
+                    "width": 74,
+                    "position": {
+                      "x": 280,
+                      "y": 172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 560,
+                    "width": 74,
+                    "position": {
+                      "x": 280,
+                      "y": -172
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 328,
+                    "width": 74,
+                    "position": {
+                      "x": 550
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "400",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "openType": "horizontalPivot",
+                "calculateSizes": {
+                  "width": "420",
+                  "height": "%100"
+                },
+                "functionalType": "verticalPivotDoor",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -400,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "74",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -406,
+                  "y": 0,
+                  "z": 52
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-shvug1019",
+        "catalogCode": "shkaf-uglovoy-pryamoy-shvug1019",
+        "level": "top",
+        "title": "460 Шкаф верхний горизонтальный угловой ГЛУБОКИЙ",
+        "image": "/static-files/unit/surskaya/460 Шкаф верхний горизонтальный угловой ГЛУБОКИЙ.jpg",
+        "depthText": "650 мм",
+        "heightText": "460 мм",
+        "widthText": "1000 мм",
+        "options": [
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "depth",
+                "value": 650,
+                "sort": 1,
+                "title": "Глубина",
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_1019",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 1000,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 460,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 560,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true
+                  }
+                ]
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 520
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 560,
+                    "width": 74,
+                    "position": {
+                      "x": 280,
+                      "y": 223
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 560,
+                    "width": 74,
+                    "position": {
+                      "x": 280,
+                      "y": -223
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 430,
+                    "width": 74,
+                    "position": {
+                      "x": 550
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "400",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "calculateSizes": {
+                  "width": "420",
+                  "height": "%100"
+                },
+                "openType": "horizontalPivot",
+                "functionalType": "verticalPivotDoor",
+                "isFlipY": true,
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                },
+                "reverseSideType": true
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -400,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "74",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -406,
+                  "y": 0,
+                  "z": 52
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-steklo",
+        "catalogCode": "shkaf-uglovoy-steklo",
+        "level": "top",
+        "title": "720 верхний угловой ТРАПЕЦИЯ СТЕКЛО",
+        "image": "/static-files/unit/surskaya/720 верхний угловой ТРАПЕЦИЯ СТЕКЛО.jpg",
+        "depthText": "592 мм",
+        "heightText": "716 мм",
+        "widthText": "592 мм",
+        "disableFacades": [
+          "estetik",
+          "terra",
+          "khelmer"
+        ],
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_590",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "glass",
+                "functionalType": "pivotGlassDoor",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-steklo-memfis",
+        "catalogCode": "shkaf-uglovoy-steklo-memfis",
+        "level": "top",
+        "title": "720 верхний угловой ТРАПЕЦИЯ СТЕКЛО",
+        "image": "/static-files/unit/surskaya/720 верхний угловой ТРАПЕЦИЯ СТЕКЛО.jpg",
+        "depthText": "592 мм",
+        "heightText": "716 мм",
+        "widthText": "592 мм",
+        "enableFacades": [
+          "memfis"
+        ],
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_590",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "glass2",
+                "functionalType": "pivotGlassDoor",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-steklo-new",
+        "catalogCode": "shkaf-uglovoy-steklo-new",
+        "level": "top",
+        "title": "720 верхний угловой ТРАПЕЦИЯ СТЕКЛО NEW",
+        "image": "/static-files/unit/surskaya/720 верхний угловой ТРАПЕЦИЯ СТЕКЛО NEW.jpg",
+        "depthText": "592 мм",
+        "heightText": "716 мм",
+        "widthText": "592 мм",
+        "disableFacades": [
+          "estetik",
+          "terra",
+          "khelmer"
+        ],
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_590",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 716,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "glass",
+                "functionalType": "pivotGlassDoor",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-steklo-visokiy",
+        "catalogCode": "shkaf-uglovoy-steklo-visokiy",
+        "level": "top",
+        "title": "920 верхний угловой ТРАПЕЦИЯ СТЕКЛО",
+        "image": "/static-files/unit/surskaya/920 верхний угловой ТРАПЕЦИЯ СТЕКЛО.jpg",
+        "depthText": "592 мм",
+        "heightText": "920 мм",
+        "widthText": "592 мм",
+        "disableFacades": [
+          "estetik",
+          "terra",
+          "khelmer"
+        ],
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VU_599",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 920,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "glass",
+                "functionalType": "pivotGlassDoor",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-steklo-visokiy-new",
+        "catalogCode": "shkaf-uglovoy-steklo-visokiy-new",
+        "level": "top",
+        "title": "920 верхний угловой ТРАПЕЦИЯ СТЕКЛО NEW",
+        "image": "/static-files/unit/surskaya/920 верхний угловой ТРАПЕЦИЯ СТЕКЛО NEW.jpg",
+        "depthText": "592 мм",
+        "heightText": "920 мм",
+        "widthText": "592 мм",
+        "disableFacades": [
+          "estetik",
+          "terra",
+          "khelmer"
+        ],
+        "isSameWidthDepth": true,
+        "options": [
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Сторона открывания",
+            "items": [
+              {
+                "id": "left",
+                "title": "Левая"
+              },
+              {
+                "id": "right",
+                "title": "Правая"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 592,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 920,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 592,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "shelves",
+                "title": "Полки",
+                "sort": 4,
+                "type": "json",
+                "value": [
+                  {
+                    "id": 0,
+                    "length": "%100",
+                    "depth": "%100",
+                    "initPosition": {
+                      "y": "%50"
+                    },
+                    "type": "horizontal",
+                    "thickness": 16,
+                    "fixed": true,
+                    "rotation": {
+                      "x": 1.5707963267948966
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "backSideDepth",
+                "value": 4,
+                "title": "Ширина задней подпорки",
+                "sort": 0,
+                "type": "hidden_number"
+              },
+              {
+                "id": "sideDepth",
+                "value": 300,
+                "title": "Глубина стороны",
+                "sort": 0,
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleCube",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "%100",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "glass",
+                "functionalType": "pivotGlassDoor",
+                "calculateSizes": {
+                  "width": "396",
+                  "height": "%100"
+                },
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "id": "syncSideTypes",
+            "type": "json",
+            "title": "Синхронизация открывания дверей и направления модулей",
+            "sort": 0,
+            "value": false
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-shvug700",
+        "catalogCode": "shkaf-uglovoy-pryamoy-shvug700",
+        "level": "top",
+        "title": "Шкаф ШВУГ 700",
+        "image": "/static-files/unit/surskaya/Шкаф ШВУГ 700.jpg",
+        "depthText": "350 мм",
+        "heightText": "358 мм",
+        "widthText": "700 мм",
+        "options": [
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "depth",
+                "value": 350,
+                "sort": 1,
+                "title": "Глубина",
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_700",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 700,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 358,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 302,
+                    "position": {
+                      "x": 151,
+                      "y": 171
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 302,
+                    "position": {
+                      "x": 151,
+                      "y": -171
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 326,
+                    "position": {
+                      "x": 294
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "358",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "openType": "horizontalPivot",
+                "functionalType": "ФУГ-700",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -358,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -383,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "verticalPivotDoor"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-shvug709",
+        "catalogCode": "shkaf-uglovoy-pryamoy-shvug709",
+        "level": "top",
+        "title": "Шкаф ШВУГ 709",
+        "image": "/static-files/unit/surskaya/Шкаф ШВУГ 709.jpg",
+        "depthText": "350 мм",
+        "heightText": "460 мм",
+        "widthText": "700 мм",
+        "options": [
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "depth",
+                "value": 350,
+                "sort": 1,
+                "title": "Глубина",
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_709",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 700,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 460,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 302,
+                    "position": {
+                      "x": 151,
+                      "y": 222
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 302,
+                    "position": {
+                      "x": 151,
+                      "y": -222
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 428,
+                    "position": {
+                      "x": 294
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "358",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "openType": "horizontalPivot",
+                "functionalType": "ФУГ-700Н",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -358,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "ФУГ-700Н"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -383,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "ФУГ-700Н"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "shkaf-uglovoy-pryamoy-shvug700N",
+        "catalogCode": "shkaf-uglovoy-pryamoy-shvug700N",
+        "level": "top",
+        "title": "Шкаф ШВУГ700Н",
+        "image": "/static-files/unit/surskaya/Шкаф ШВУГ700Н.jpg",
+        "depthText": "350 мм",
+        "heightText": "460 мм",
+        "widthText": "700 мм",
+        "options": [
+          {
+            "id": "sizes",
+            "sort": 0,
+            "title": "Размеры",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "depth",
+                "value": 350,
+                "sort": 1,
+                "title": "Глубина",
+                "type": "hidden_number"
+              }
+            ]
+          },
+          {
+            "id": "corpus",
+            "sort": 0,
+            "title": "Корпус",
+            "isGroup": true,
+            "options": [
+              {
+                "id": "catalogCode",
+                "value": "VUG_709",
+                "type": "hiddenText",
+                "sort": 0,
+                "title": "Код каталога"
+              },
+              {
+                "id": "width",
+                "value": 700,
+                "sort": 0,
+                "title": "Ширина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "height",
+                "value": 460,
+                "sort": 1,
+                "title": "Высота корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "depth",
+                "value": 302,
+                "sort": 2,
+                "title": "Глубина корпуса",
+                "type": "hidden_number"
+              },
+              {
+                "id": "thickness",
+                "type": "hidden_number",
+                "title": "Толщина стенки",
+                "sort": 3,
+                "value": 16
+              },
+              {
+                "id": "backThickness",
+                "type": "hidden_number",
+                "title": "Толщина задней стенки",
+                "sort": 3,
+                "value": 4
+              },
+              {
+                "id": "frontPanel",
+                "value": {
+                  "length": 262
+                },
+                "title": "Передняя панель",
+                "sort": 0,
+                "type": "json"
+              },
+              {
+                "id": "planks",
+                "type": "json",
+                "title": "Планка",
+                "sort": 0,
+                "value": [
+                  {
+                    "id": 0,
+                    "length": 302,
+                    "position": {
+                      "x": 151,
+                      "y": 222
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 302,
+                    "position": {
+                      "x": 151,
+                      "y": -222
+                    }
+                  },
+                  {
+                    "id": 0,
+                    "length": 428,
+                    "position": {
+                      "x": 294
+                    },
+                    "rotation": {
+                      "z": 1.5707963267948966
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "sideType",
+            "defaultValue": "left",
+            "type": "radioButton",
+            "title": "Направление модуля",
+            "items": [
+              {
+                "id": "left",
+                "title": "Фасад справа"
+              },
+              {
+                "id": "right",
+                "title": "Фасад слева"
+              }
+            ],
+            "sort": 3
+          },
+          {
+            "id": "className",
+            "value": "TopUnitAngleNormal",
+            "sort": 4,
+            "title": "Класс объекта",
+            "type": "hiddenText"
+          },
+          {
+            "id": "facades",
+            "type": "json",
+            "title": "Фасады",
+            "sort": 0,
+            "value": [
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "358",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "default",
+                "groupId": 1,
+                "openType": "horizontalPivot",
+                "functionalType": "ФУГ-700Н",
+                "handle": {
+                  "id": 0,
+                  "align": {
+                    "x": "center",
+                    "y": "bottom"
+                  },
+                  "location": "horizontal",
+                  "margin": {
+                    "x": 0,
+                    "y": 20
+                  }
+                }
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "80",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 2,
+                  "right": 2,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -358,
+                  "y": 0,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "ФУГ-700Н"
+              },
+              {
+                "id": 0,
+                "initSizes": {
+                  "width": "30",
+                  "height": "%100"
+                },
+                "gap": {
+                  "bottom": 2,
+                  "left": 0,
+                  "right": 0,
+                  "top": 2
+                },
+                "geometryType": "square",
+                "sideType": "default",
+                "number": 0,
+                "modelType": "plane",
+                "margin": {
+                  "x": -383,
+                  "y": 0,
+                  "z": 31
+                },
+                "rotation": {
+                  "x": 0,
+                  "y": 1.5707963267948966,
+                  "z": 0
+                },
+                "groupId": 1,
+                "calculateType": "none",
+                "openType": "none",
+                "functionalType": "ФУГ-700Н"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,15 +1,15 @@
 import {inject, Injectable} from '@angular/core';
 import {IUnitBuilderStrategy} from '../../interfaces/unit-builder.interface';
 import {
-  AccessoryConfig, FacadeConfig, LegConfig, ParsedCorpus, ResolvedFacade,
-  ResolvedLeg, ResolvedPanel, ResolvedPlinth, ResolvedShelf, ResolvedTabletop,
+  FacadeConfig, LegConfig, ParsedCorpus, ResolvedFacade,
+  ResolvedLeg, ResolvedPanel, ResolvedShelf,
   ResolvedUnit, ShelfConfig,
 } from '../../interfaces/unit-config.models';
 import {
-  DEFAULT_FACADE_DEPTH, DEFAULT_HANDLE_DEPTH, DEFAULT_LEG_RADIUS,
-  PLINTH_THICKNESS, TABLETOP_THICKNESS, UnitBuildHelpers,
+  DEFAULT_FACADE_DEPTH, DEFAULT_HANDLE_DEPTH, DEFAULT_LEG_RADIUS, UnitBuildHelpers,
 } from '../unit-build-helpers.service';
 import {GROUP_BOTTOM_ANGLE_UNITS} from '../../constants';
+import {ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT, ALIGN_TOP} from '../../constants/geometry.constants';
 
 /**
  * Нижние тумбы: normal, angle, end.
@@ -34,11 +34,20 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
       ? this.normalizeFacadesForAngle(groups.facades)
       : groups.facades;
 
+    const additionalOptions = {
+      legHeight,
+      catalogCode: corpus.catalogCode,
+      smallWidth: corpus.smallWidth,
+      smallDepth: corpus.smallDepth,
+      sideType
+    }
+
     const panels = this.helper.buildPanels(
-      corpus.width, corpus.height, corpus.depth,
+      corpus.width,
+      corpus.height,
+      corpus.depth,
       corpus.thickness, corpus.backThickness,
-      legHeight, corpus.catalogCode,
-      corpus.smallWidth, corpus.smallDepth, sideType,
+      additionalOptions
     );
     if (corpus.frontPanel) {
       panels.push(...this.buildFrontPanel(corpus.frontPanel.length, corpus.width, corpus.height, corpus.thickness, legHeight, sideType));
@@ -118,7 +127,7 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
       const rawH = this.helper.helper.calculateSizeByParent(fc.initSizes.height, corpus.height);
       const h = rawH - fc.gap.top - fc.gap.bottom;
       const y = this.helper.resolveAlignY(fc.align?.y ?? 'center', h, corpus.height, fc.gap, baseY);
-      const handle = this.buildEndHandle(fc, h, centerZ, y, rotY);
+      const handle = this.buildEndHandle(fc, diagLen, h, centerZ, y, rotY);
 
       return {
         size: {x: m(diagLen), y: m(h), z: m(DEFAULT_FACADE_DEPTH)},
@@ -134,11 +143,17 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
 
   /**
    * Ручка диагонального фасада.
-   * Позиция вычисляется в локальной системе фасада (X вдоль диагонали),
-   * затем трансформируется в мировые координаты поворотом rotY.
+   *
+   * Алгоритм:
+   * 1. Вычисляем позицию ручки в локальном пространстве фасада:
+   *    — localX: вдоль диагонали, зависит от align.x + margin.x
+   *    — localY: вертикаль, зависит от align.y + margin.y
+   *    — localZ: перпендикуляр к фасаду (= выступ ручки)
+   * 2. Трансформируем (localX, localZ) в мировые (worldX, worldZ) поворотом rotY вокруг Y.
    */
   private buildEndHandle(
     fc: FacadeConfig,
+    facadeW: number,
     facadeH: number,
     facadeCenterZ: number,
     facadeY: number,
@@ -149,22 +164,36 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
     const hW = 120;
     const hH = 20;
     const hD = DEFAULT_HANDLE_DEPTH;
-    const m = (v: number) => this.helper.helper.toM(v);
+    const m  = (v: number) => this.helper.helper.toM(v);
 
-    // В локальном пространстве фасада: ручка у верхнего центра
+    // ── Локальная X (вдоль диагонали) ────────────────────────────────────
+    const marginX = fc.handle.margin?.x ?? 0;
+    let localX = marginX;
+    if (fc.handle.align.x === ALIGN_LEFT)  localX = -(facadeW / 2 - hW / 2) + marginX;
+    if (fc.handle.align.x === ALIGN_RIGHT) localX =  (facadeW / 2 - hW / 2) + marginX;
+
+    // ── Локальная Y (вертикаль) ───────────────────────────────────────────
     const marginY = fc.handle.margin?.y ?? 20;
-    const localY = facadeY + facadeH / 2 - hH / 2 - marginY;
-    // Смещение по Z (в сторону зрителя) от центра фасада
+    let localY = facadeY;
+    if (fc.handle.align.y === ALIGN_TOP)    localY = facadeY + facadeH / 2 - hH / 2 - marginY;
+    if (fc.handle.align.y === ALIGN_BOTTOM) localY = facadeY - facadeH / 2 + hH / 2 + marginY;
+
+    // ── Локальная Z (выступ перпендикулярно фасаду) ───────────────────────
     const localZ = DEFAULT_FACADE_DEPTH / 2 + hD / 2;
 
-    // Трансформация z-смещения в мировое пространство через поворот rotY
-    const worldX = localZ * Math.sin(rotY);          // x = z_local * sin(rotY)
-    const worldZ = localZ * Math.cos(rotY) + facadeCenterZ; // z = z_local * cos(rotY) + centerZ
+    // ── Трансформация (localX, localZ) → мировые XZ через поворот rotY ───
+    //   worldX =  localX·cos(rotY) + localZ·sin(rotY)
+    //   worldZ = -localX·sin(rotY) + localZ·cos(rotY) + centerZ
+    const worldX =  localX * Math.cos(rotY) + localZ * Math.sin(rotY);
+    const worldZ = -localX * Math.sin(rotY) + localZ * Math.cos(rotY) + facadeCenterZ;
+
+    // ── Поворот ручки: ориентация фасада + vertical/horizontal ────────────
+    const rotZ = fc.handle.location === 'vertical' ? Math.PI / 2 : 0;
 
     return {
-      size: {x: m(hW), y: m(hH), z: m(hD)},
+      size:     {x: m(hW), y: m(hH), z: m(hD)},
       position: {x: m(worldX), y: m(localY), z: m(worldZ)},
-      rotation: {x: 0, y: rotY, z: 0},
+      rotation: {x: 0, y: rotY, z: rotZ},
     };
   }
 

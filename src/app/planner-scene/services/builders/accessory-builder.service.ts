@@ -25,7 +25,7 @@ export class AccessoryBuilderService implements IUnitBuilderStrategy {
       corpusSize:        { x: this.h.helper.toM(corpusWidth), y: this.h.helper.toM(corpus.height), z: this.h.helper.toM(corpus.depth) },
       corpusCatalogCode: corpus.catalogCode,
       availableWidths:   corpus.availableWidths,
-      panels:    this.h.buildPanels(corpusWidth, corpus.height, corpus.depth, corpus.thickness, corpus.backThickness, 0),
+      panels:    this.h.buildPanels(corpusWidth, corpus.height, corpus.depth, corpus.thickness, corpus.backThickness, {}),
       facades:   this.h.buildFacades(groups.facades, corpusWidth, corpus.height, corpus.depth, 0, sideType),
       legs:      [],
       shelves:   [],

@@ -26,7 +26,7 @@ export class PenalUnitBuilderService implements IUnitBuilderStrategy {
       corpusSize:        { x: this.h.helper.toM(corpusWidth), y: this.h.helper.toM(corpus.height), z: this.h.helper.toM(corpus.depth) },
       corpusCatalogCode: corpus.catalogCode,
       availableWidths:   corpus.availableWidths,
-      panels:    this.h.buildPanels(corpusWidth, corpus.height, corpus.depth, corpus.thickness, corpus.backThickness, legHeight),
+      panels:    this.h.buildPanels(corpusWidth, corpus.height, corpus.depth, corpus.thickness, corpus.backThickness, {legHeight}),
       facades:   this.h.buildFacades(groups.facades, corpusWidth, corpus.height, corpus.depth, legHeight, sideType),
       legs:      this.h.buildLegs(groups.legs, corpusWidth, corpus.depth),
       shelves:   this.h.buildShelves(groups.shelves, corpusWidth, corpus.depth, corpus.height, corpus.thickness, corpus.backThickness, legHeight),

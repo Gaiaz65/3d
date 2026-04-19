@@ -69,8 +69,9 @@ function findFreePosition(
   const roomHalfX = roomSize.x / 2;            // мм
   const newHalfW  = newUnit.size.x * 1000 / 2; // метры → мм
   const newHalfD  = newUnit.size.z * 1000 / 2; // метры → мм
-  const y = 0;
-  const z = 0;
+  const y = newUnit.level === 'bottom' ? 0 : roomSize.y / 2;
+  // левый верхний угол
+  const z = -(roomSize.z  / 2 - (newUnit.corpusSize.z * 1000));
 
   // X-интервалы элементов, перекрывающихся по Z с новым объектом
   const occupied = items
@@ -143,6 +144,7 @@ export const ConfigurationStore = signalStore(
       },
       addItem(config: any) {
         const resolvedUnit = builder.build(config);
+        console.log(resolvedUnit);
         const position = findFreePosition(store.items(), resolvedUnit, store.roomParameters().size);
         patchState(store, {
           items: [...store.items(), {id: nextId(), rotation: 0, position, config, resolvedUnit}],

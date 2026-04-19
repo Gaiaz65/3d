@@ -5,7 +5,7 @@ export const OPTION_TYPE_TEXT            = 'text';
 export const OPTION_TYPE_CHECKBOX        = 'checkbox';
 export const OPTION_TYPE_RANGE           = 'range';
 export const OPTION_TYPE_SELECT          = 'select';
-export const OPTION_TYPE_RADIOBUTTON     = 'radiobutton';
+export const OPTION_TYPE_RADIOBUTTON     = 'radioButton';
 export const OPTION_TYPE_JSON            = 'json';
 export const OPTION_TYPE_OFFERS          = 'offers';
 
