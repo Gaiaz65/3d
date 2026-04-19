@@ -160,6 +160,8 @@ export class UnitBuildHelpers {
       case "VPU_309":
       case "N_END":
       case "N_ENDF": {
+        // TODO найти определение для smallWidth
+        // const sw = options['smallWidth'] ?? t;
         const sw = options['smallWidth'] ?? t;
         const sd = options['smallDepth'] ?? panelD;
         const exposedIsLeft = options['sideType'] !== 'right';
