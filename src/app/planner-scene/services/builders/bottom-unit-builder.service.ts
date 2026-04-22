@@ -46,7 +46,8 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
       corpus.width,
       corpus.height,
       corpus.depth,
-      corpus.thickness, corpus.backThickness,
+      corpus.thickness,
+      corpus.backThickness,
       additionalOptions
     );
     if (corpus.frontPanel) {

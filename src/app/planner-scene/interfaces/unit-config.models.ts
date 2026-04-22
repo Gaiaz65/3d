@@ -106,6 +106,13 @@ export interface RodConfig {
   initPosition: { y: SizeExpr };
 }
 
+export interface PlankConfig {
+  id: number;
+  length: number;                        // длина планки (мм)
+  position: { x: number; y?: number };  // x/y от центра корпуса (мм); y=0 → середина высоты
+  rotation?: { z?: number, y?: number, x?: number,  };            // поворот вокруг Z (радианы)
+}
+
 export interface AccessoryConfig {
   id: number;
   positionType: string;
@@ -146,6 +153,8 @@ export interface ParsedCorpus {
   bottomGap?: number;  // нижний отступ корпуса от пола (мм), для юнитов без ножек
   smallWidth?: number; // ширина торцевой боковой панели (мм), для bottomEndUnits
   smallDepth?: number; // глубина торцевой боковой панели (мм), для bottomEndUnits
+  sideDepth?: number; // глубина фронтальной и боковой панели (мм), для topAngleUnits
+  sideWidth?: number; // ширина задней подпорки (мм), для topAngleUnits (VU_590/VU_599)
 }
 
 export interface ParsedSizes {
@@ -166,6 +175,7 @@ export interface ParsedGroups {
   aprons: AccessoryConfig[];
   plinths: AccessoryConfig[];
   corners: AccessoryConfig[];
+  planks: PlankConfig[];
 }
 
 // ── Resolved unit (ready for rendering, all values in meters) ────────────
@@ -253,5 +263,6 @@ export interface ResolvedUnit {
   shelves: ResolvedShelf[];
   rods: ResolvedRod[];
   plinths?: ResolvedPlinth[];
+  planks?: ResolvedPlinth[];
   tabletops?: ResolvedTabletop[];
 }

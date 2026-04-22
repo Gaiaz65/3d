@@ -45,6 +45,7 @@ import {TextureLoader} from 'three';
       @for (panel of unit().panels; track panel.name) {
         <ngt-mesh
           [position]="[panel.position.x, panel.position.y, panel.position.z]"
+          [rotation]="panelRotation(panel)"
           [geometry]="panelGeometry(panel)"
           [castShadow]="true"
           [receiveShadow]="true"
@@ -147,6 +148,21 @@ import {TextureLoader} from 'three';
         </ngt-mesh>
       }
 
+      <!-- ── Planks ─────────────────────────────────────────────────── -->
+      @for (plank of unit().planks; track $index) {
+        <ngt-mesh
+          [position]="[plank.position.x, plank.position.y, plank.position.z]"
+          [rotation]="plinthRotation(plank)"
+        >
+          <ngt-box-geometry *args="[plank.size.x, plank.size.y, plank.size.z]"/>
+          <ngt-mesh-standard-material
+            [color]="corpusColor()"
+            [roughness]="0.8"
+            [metalness]="0.0"
+          />
+        </ngt-mesh>
+      }
+
       <!-- ── Tabletops ───────────────────────────────────────────────── -->
       @for (top of (unit().tabletops ?? []); track $index) {
         <ngt-mesh
@@ -168,6 +184,7 @@ import {TextureLoader} from 'three';
       <!-- Selection outline (invisible hit box for entire unit) -->
       <ngt-mesh
         [visible]="false"
+        [position]="[0, unit().size.y / 2, -unit().size.z / 2]"
         (click)="onUnitClick($event)"
       >
         <ngt-box-geometry *args="[unit().size.x, unit().size.y, unit().size.z]"/>
@@ -193,13 +210,13 @@ export class ThreeUnitComponent {
 
   protected readonly Math = Math;
   protected readonly doubleSide = THREE.DoubleSide;
-  protected readonly frontSide  = THREE.FrontSide;
+  protected readonly frontSide = THREE.FrontSide;
 
   private readonly store = inject(ConfigurationStore);
 
   // ── Кэш геометрий (WeakMap — GC очищает при удалении панели) ───────────
   private readonly _panelGeoCache = new WeakMap<ResolvedPanel, THREE.BufferGeometry>();
-  private readonly _topGeoCache   = new WeakMap<ResolvedTabletop, THREE.BufferGeometry>();
+  private readonly _topGeoCache = new WeakMap<ResolvedTabletop, THREE.BufferGeometry>();
   private readonly _shelfGeoCache = new WeakMap<ResolvedShelf, THREE.BufferGeometry>();
 
   panelGeometry(panel: ResolvedPanel): THREE.BufferGeometry {
@@ -244,40 +261,42 @@ export class ThreeUnitComponent {
    * height — толщина панели по Y (метры).
    * Mesh должен быть позиционирован только по Y (XZ = 0).
    */
+  /**
+   * Строит призму по N угловым точкам XZ-контура (работает для 4 и 5 вершин).
+   *
+   * Порядок corners — CCW сверху (по часовой для нижней грани).
+   * height — толщина по Y (метры).
+   * Вершины 0..n-1 — нижние (y = -h2), n..2n-1 — верхние (y = +h2).
+   */
   private createTrapezoidGeo(corners: TrapezoidCorner[], height: number): THREE.BufferGeometry {
-    const [c0, c1, c2, c3] = corners;
+    const n = corners.length;
     const h2 = height / 2;
 
-    // 8 вершин: нижние (y = −h2) + верхние (y = +h2)
-    const pos = new Float32Array([
-      c0.x, -h2, c0.z,  // 0 нижний-c0
-      c1.x, -h2, c1.z,  // 1 нижний-c1
-      c2.x, -h2, c2.z,  // 2 нижний-c2
-      c3.x, -h2, c3.z,  // 3 нижний-c3
-      c0.x, +h2, c0.z,  // 4 верхний-c0
-      c1.x, +h2, c1.z,  // 5 верхний-c1
-      c2.x, +h2, c2.z,  // 6 верхний-c2
-      c3.x, +h2, c3.z,  // 7 верхний-c3
-    ]);
+    // 2n вершин: сначала нижние, затем верхние
+    const posArr: number[] = [];
+    for (const c of corners) posArr.push(c.x, -h2, c.z);
+    for (const c of corners) posArr.push(c.x, +h2, c.z);
 
-    // Грани (треугольники, CCW снаружи каждой грани)
-    const idx = [
-      // Верхняя грань (+Y): CCW сверху — 4,7,6,5
-      4, 7, 6,  4, 6, 5,
-      // Нижняя грань (−Y): CCW снизу — 0,1,2,3
-      0, 1, 2,  0, 2, 3,
-      // Диагональный фасад c0→c1: 0,1,5,4
-      0, 5, 1,  0, 4, 5,
-      // Правая/большая грань c1→c2: 1,2,6,5
-      1, 6, 2,  1, 5, 6,
-      // Задняя грань c2→c3: 2,3,7,6
-      2, 7, 3,  2, 6, 7,
-      // Левая/малая грань c3→c0: 3,0,4,7
-      3, 4, 0,  3, 7, 4,
-    ];
+    const idx: number[] = [];
+
+    // Нижняя грань — веер от вершины 0
+    for (let i = 1; i < n - 1; i++) {
+      idx.push(0, i, i + 1);
+    }
+
+    // Верхняя грань — обратный веер от вершины n (соответствует порядку 4,7,6,5 для n=4)
+    for (let i = 1; i < n - 1; i++) {
+      idx.push(n, n + (n - i), n + (n - i - 1));
+    }
+
+    // Боковые грани (по одному квадрату на каждое ребро контура)
+    for (let i = 0; i < n; i++) {
+      const j = (i + 1) % n;
+      idx.push(i, n + j, j, i, n + i, n + j);
+    }
 
     const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(posArr), 3));
     geo.setIndex(idx);
     geo.computeVertexNormals();
     return geo;
@@ -314,6 +333,11 @@ export class ThreeUnitComponent {
     return mat ?? '#f0ece4';
   });
 
+  panelRotation(panel: ResolvedPanel): [number, number, number] {
+    if (!panel.rotation) return [0, 0, 0];
+    return [panel.rotation.x ?? 0, panel.rotation.y ?? 0, panel.rotation.z ?? 0];
+  }
+
   facadeRotation(facade: ResolvedFacade): [number, number, number] {
     if (!facade.rotation) return [0, 0, 0];
     return [facade.rotation.x ?? 0, facade.rotation.y ?? 0, facade.rotation.z ?? 0];
@@ -326,6 +350,10 @@ export class ThreeUnitComponent {
 
   plinthRotation(plinth: ResolvedPlinth): [number, number, number] {
     return [plinth?.rotation?.x ?? 0, plinth?.rotation?.y ?? 0, plinth?.rotation?.z ?? 0];
+  }
+
+  plankRotation(plank: ResolvedPlinth): [number, number, number] {
+    return [plank?.rotation?.x ?? 0, plank?.rotation?.y ?? 0, plank?.rotation?.z ?? 0];
   }
 
   handleRotation(handle: NonNullable<ResolvedFacade['handle']>): [number, number, number] {

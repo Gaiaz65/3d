@@ -3,7 +3,7 @@ import {KitchenHelperService} from './kitchen-helper.service';
 import {
   AccessoryConfig, FacadeConfig, JsonOption, LegConfig,
   OptionGroup, OptionOrGroup, ParsedCorpus, ParsedGroups, ParsedSizes,
-  RadioButtonOption, ResolvedFacade, ResolvedLeg, ResolvedPanel,
+  PlankConfig, RadioButtonOption, ResolvedFacade, ResolvedLeg, ResolvedPanel,
   ResolvedPlinth, ResolvedRod, ResolvedShelf, ResolvedTabletop,
   RodConfig, ShelfConfig, Vec3,
 } from '../interfaces/unit-config.models';
@@ -59,6 +59,8 @@ export class UnitBuildHelpers {
       bottomGap: this.getHiddenNumber(corpusOpts, 'bottomGap'),
       smallWidth: this.getHiddenNumber(corpusOpts, 'smallWidth'),
       smallDepth: this.getHiddenNumber(corpusOpts, 'smallDepth'),
+      sideDepth: this.getHiddenNumber(corpusOpts, 'sideDepth'),
+      sideWidth: this.getHiddenNumber(corpusOpts, 'backSideDepth'),
     };
 
     // className — опция верхнего уровня (не группа)
@@ -85,7 +87,24 @@ export class UnitBuildHelpers {
     const plinths = this.getJsonValue<AccessoryConfig>(options, 'plinths');
     const corners = this.getJsonValue<AccessoryConfig>(options, 'corners');
 
-    return {sizes, corpus, className, sideType, facades, legs, shelves, rods, tabletops, aprons, plinths, corners};
+
+    const planks = this.getJsonValue<AccessoryConfig>(corpusOpts, 'planks') as any;
+
+    return {
+      sizes,
+      corpus,
+      className,
+      sideType,
+      facades,
+      legs,
+      shelves,
+      rods,
+      tabletops,
+      aprons,
+      plinths,
+      corners,
+      planks
+    };
   }
 
   // ── Панели (стенки корпуса) ─────────────────────────────────────────────
@@ -146,6 +165,105 @@ export class UnitBuildHelpers {
     switch (options['catalogCode']) {
       case "N_BAR":
         facades.push(facadesConfig.front, facadesConfig.back)
+        break;
+      case "VU_590":
+      case "VU_599": {
+        // Угловой шкаф: пятиугольный корпус в плане XZ.
+        // sd = sideDepth: глубина боковой панели (от задней стенки) и ширина передней подпорки.
+        // sw = sideWidth (backSideDepth): толщина тонкой передней подпорки.
+        const exposedIsLeft = options['sideType'] !== 'right';
+        const sd = options['sideDepth'] || width;   // 300 мм
+        const sw = options['sideWidth'] ?? bt;       // 4 мм
+        const half = innerW / 2;                    // innerHalfW = 280 мм
+        const deltaZ = panelD - sd;                 // 288 мм
+
+        // Пятиугольник (XZ, 5 вершин, против часовой сверху):
+        // Для exposedIsLeft=true: левая сторона — полная, правая — sd от задней стенки.
+        // Диагональный фасад: от c1 до c2.
+        const pentagonCorners = exposedIsLeft
+          ? [
+            {x: m(-half), z: 0},          // c0: передне-левый (полная левая)
+            {x: m(-half + sd), z: 0},           // c1: правый конец передней подпорки
+            {x: m(+half), z: m(-deltaZ)},  // c2: передняя грань короткой правой панели
+            {x: m(+half), z: m(-panelD)},  // c3: задне-правый
+            {x: m(-half), z: m(-panelD)},  // c4: задне-левый
+          ]
+          : [
+            {x: m(+half), z: 0},           // c0: передне-правый (полная правая)
+            {x: m(+half - sd), z: 0},            // c1: левый конец передней подпорки
+            {x: m(-half), z: m(-deltaZ)},   // c2: передняя грань короткой левой панели
+            {x: m(-half), z: m(-panelD)},   // c3: задне-левый
+            {x: m(+half), z: m(-panelD)},   // c4: задне-правый
+          ];
+
+        // Дно — пятиугольная панель
+        const bottomPanel: ResolvedPanel = {
+          name: 'bottom',
+          size: {x: 0, y: m(t), z: 0},
+          position: {x: 0, y: m(baseY + t / 2), z: 0},
+          trapezoidCorners: pentagonCorners,
+        };
+
+        // Передняя подпорка (ширина sd, толщина sw)
+        const frontCenterX = exposedIsLeft ? m(-half + sd / 2) : m(+half - sd / 2);
+        const frontPanel: ResolvedPanel = {
+          name: 'front',
+          size: {x: m(sd), y: m(height), z: m(sw)},
+          position: {x: frontCenterX, y: m(baseY + height / 2), z: m(-sw / 2)},
+        };
+
+        // Короткая боковая панель (глубина sd, от задней стенки)
+        const shortSideX = exposedIsLeft ? m(width / 2 - t / 2) : m(-(width / 2 - t / 2));
+        const shortSidePanel: ResolvedPanel = {
+          name: exposedIsLeft ? 'right' : 'left',
+          size: {x: m(t), y: m(height), z: m(sd)},
+          position: {x: shortSideX, y: m(baseY + height / 2), z: m(-panelD + sd / 2)},
+        };
+
+        // Крышка — пятиугольная (только для верхних шкафов)
+        if (options['level'] === 'top') {
+          facades.push({
+            name: 'top',
+            size: {x: 0, y: m(t), z: 0},
+            position: {x: 0, y: m(baseY + height - t / 2), z: 0},
+            trapezoidCorners: pentagonCorners,
+          });
+        }
+
+        const fullSide = exposedIsLeft ? facadesConfig.left : facadesConfig.right;
+        facades.push(fullSide, facadesConfig.back, bottomPanel, frontPanel, shortSidePanel);
+        break;
+      }
+      case "VU_700":
+        const exposedIsLeft = options['sideType'] !== 'right';
+        const exposedMultiplier = exposedIsLeft ? -1 : 1;
+        if (options['frontPanel']) {
+          const frontWidth = options['frontPanel'].length;
+          const front = {
+            name: 'front',
+            size: {x: m(frontWidth), y: m(height), z: m(bt)},
+            position: {x: m((innerW - frontWidth) / 2) * exposedMultiplier, y: m(baseY + height / 2), z: m(-bt / 2)}
+          }
+          facades.push(front);
+        }
+
+        if (options['planks']) {
+          options['planks'].forEach((plank: PlankConfig, index: number) => {
+            const x = (width * exposedMultiplier / 2) - plank.position.x  * exposedMultiplier;
+            const y = height / 2 + (plank.position.y ?? 0);
+            const z = t;
+
+            const plankConfig = {
+              name: 'plank-' + index,
+              size: {x: m(plank.length), y: m(t), z: m(50)},
+              position: {x: m(x), y: m(y), z: m(z)},
+              rotation: {x: plank?.rotation?.x ?? 0, y: plank?.rotation?.y ?? 0, z: plank?.rotation?.z ?? 0},
+            };
+            facades.push(plankConfig);
+          })
+        }
+
+        facades.push(facadesConfig.left, facadesConfig.right, facadesConfig.bottom, facadesConfig.back);
         break;
       case "N_SM":
         facades.push(facadesConfig.left, facadesConfig.right);
@@ -221,7 +339,7 @@ export class UnitBuildHelpers {
 
     // Крышка для верхних шкафов (прямоугольная).
     // End-юниты добавляют трапециевидную крышку внутри своего case.
-    const isEndCode = ['VT_300','VT_309','VPU_300','VPU_309','N_END','N_ENDF']
+    const isEndCode = ['VT_300', 'VT_309', 'VPU_300', 'VPU_309', 'N_END', 'N_ENDF', 'VU_590', 'VU_599']
       .includes(options['catalogCode']);
     if (options['level'] === 'top' && !isEndCode) {
       facades.push(facadesConfig.top);
