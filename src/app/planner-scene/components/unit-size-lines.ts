@@ -1,9 +1,16 @@
-import {afterNextRender, Component, computed, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, input, OnInit, signal, ViewChild, WritableSignal} from '@angular/core';
+import {afterNextRender, Component, computed, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject, input, signal, ViewChild} from '@angular/core';
 import * as THREE from 'three';
 import {NgtsLine, NgtsText} from 'angular-three-soba/abstractions';
 import {beforeRender, injectStore} from 'angular-three';
 import {ConfigurationStore} from '../../store/store';
-import {ResolvedUnit, Vec3} from '../interfaces/unit-config.models';
+import {ResolvedUnit} from '../interfaces/unit-config.models';
+import {computeVisibleWorldBox} from '../utils/object.utils';
+
+interface Bounds {
+  minX: number; maxX: number;
+  minY: number; maxY: number;
+  minZ: number; maxZ: number;
+}
 
 @Component({
   selector: 'app-unit-size-lines',
@@ -34,7 +41,7 @@ import {ResolvedUnit, Vec3} from '../interfaces/unit-config.models';
     </ngt-group>
   `,
 })
-export class UnitSizeLines implements OnInit {
+export class UnitSizeLines {
   @ViewChild('sizeLineGroup') sizeLineGroupRef?: ElementRef<THREE.Group>;
 
   public store = injectStore();
@@ -42,14 +49,20 @@ export class UnitSizeLines implements OnInit {
 
   /** ElementRef to the parent ngt-group (for world quaternion in text facing check). */
   public targetGroup = input.required<ElementRef<THREE.Group>>();
-  /** Resolved unit — provides outer dimensions in metres. */
+  /** Resolved unit — используется только для fallback-label если AABB ещё не готов. */
   public unit = input.required<ResolvedUnit>();
 
-  public sideLines: WritableSignal<string> = signal('topLeft');
-  public textReadable: WritableSignal<boolean> = signal(true);
+  public sideLines = signal('topLeft');
+  public textReadable = signal(true);
 
-  // Signal so `lines` computed reacts when ngOnInit populates the config
-  private linesConfig = signal<Record<string, any>>({});
+  private readonly _bounds = signal<Bounds | null>(null);
+
+  private readonly linesConfig = computed(() => {
+    const b = this._bounds();
+    if (!b) return {};
+    return this.buildLinesConfig(b);
+  });
+
   public lines = computed(() => this.linesConfig()[this.sideLines()] ?? this.linesConfig()['topLeft']);
 
   private cameraDir = new THREE.Vector3();
@@ -70,12 +83,43 @@ export class UnitSizeLines implements OnInit {
       const group = this.targetGroup()?.nativeElement;
       if (!group) return;
 
-      // Determine which quadrant the unit is in (group is a direct scene child → position = world pos)
+      // Quadrant key (для выбора конфига линий)
       const pos = group.position;
       const key = (pos.z > 0 ? 'bottom' : 'top') + (pos.x > 0 ? 'Right' : 'Left');
       if (this.sideLines() !== key) this.sideLines.set(key);
 
-      // Hide text when facing away from camera
+      // Фактический AABB → локальное пространство группы
+      const worldBox = computeVisibleWorldBox(group);
+      if (worldBox.isEmpty()) return;
+
+      // Конвертируем все 8 углов мирового AABB обратно в локальное пространство группы
+      // (worldToLocal учитывает позицию, ротацию и масштаб группы)
+      const localBox = new THREE.Box3();
+      const wMin = worldBox.min, wMax = worldBox.max;
+      for (const x of [wMin.x, wMax.x]) {
+        for (const y of [wMin.y, wMax.y]) {
+          for (const z of [wMin.z, wMax.z]) {
+            localBox.expandByPoint(group.worldToLocal(new THREE.Vector3(x, y, z)));
+          }
+        }
+      }
+
+      const b: Bounds = {
+        minX: localBox.min.x, maxX: localBox.max.x,
+        minY: localBox.min.y, maxY: localBox.max.y,
+        minZ: localBox.min.z, maxZ: localBox.max.z,
+      };
+
+      // Обновляем только при реальном изменении
+      const prev = this._bounds();
+      if (!prev ||
+          Math.abs(prev.minX - b.minX) > 1e-6 || Math.abs(prev.maxX - b.maxX) > 1e-6 ||
+          Math.abs(prev.minY - b.minY) > 1e-6 || Math.abs(prev.maxY - b.maxY) > 1e-6 ||
+          Math.abs(prev.minZ - b.minZ) > 1e-6 || Math.abs(prev.maxZ - b.maxZ) > 1e-6) {
+        this._bounds.set(b);
+      }
+
+      // Видимость текста
       const lines = this.lines();
       if (!lines?.length) return;
       const rotation = lines[0].texts?.[0]?.rotation;
@@ -83,10 +127,6 @@ export class UnitSizeLines implements OnInit {
       const visible = this.isTextFacingCamera(rotation);
       if (this.textReadable() !== visible) this.textReadable.set(visible);
     });
-  }
-
-  ngOnInit(): void {
-    this.linesConfig.set(this.buildLinesConfig());
   }
 
   private isTextFacingCamera(rotation: number[]): boolean {
@@ -105,40 +145,11 @@ export class UnitSizeLines implements OnInit {
     return this.textDir.dot(this.cameraDir) < 0;
   }
 
-  private computeBounds(unit: ResolvedUnit) {
-    let minX = Infinity, maxX = -Infinity;
-    let minY = Infinity, maxY = -Infinity;
-    let minZ = Infinity, maxZ = -Infinity;
+  private buildLinesConfig(b: Bounds): Record<string, any> {
+    const { minX, maxX, minY, maxY, minZ, maxZ } = b;
 
-    const expand = (pos: Vec3, size: Vec3) => {
-      minX = Math.min(minX, pos.x - size.x / 2); maxX = Math.max(maxX, pos.x + size.x / 2);
-      minY = Math.min(minY, pos.y - size.y / 2); maxY = Math.max(maxY, pos.y + size.y / 2);
-      minZ = Math.min(minZ, pos.z - size.z / 2); maxZ = Math.max(maxZ, pos.z + size.z / 2);
-    };
-
-    for (const p of unit.panels)           expand(p.position, p.size);
-    for (const f of unit.facades)          expand(f.position, f.size);
-    for (const s of unit.shelves)          expand(s.position, s.size);
-    for (const p of unit.plinths  ?? [])   expand(p.position, p.size);
-    for (const t of unit.tabletops ?? [])  expand(t.position, t.size);
-    for (const l of unit.legs) {
-      const r = l.radius;
-      expand(l.position, { x: r * 2, y: l.height, z: r * 2 });
-    }
-
-    // fallback to unit.size when no geometry present
-    if (!isFinite(minX)) {
-      const s = unit.size;
-      return { minX: -s.x / 2, maxX: s.x / 2, minY: 0, maxY: s.y, minZ: -unit.corpusSize.z, maxZ: 0 };
-    }
-    return { minX, maxX, minY, maxY, minZ, maxZ };
-  }
-
-  private buildLinesConfig(): Record<string, any> {
-    const { minX, maxX, minY, maxY, minZ, maxZ } = this.computeBounds(this.unit());
-
-    const frontZ  = maxZ;                      // facade front face (can be > 0)
-    const backZ   = minZ;                      // back panel
+    const frontZ  = maxZ;
+    const backZ   = minZ;
     const centerZ = (minZ + maxZ) / 2;
     const centerY = (minY + maxY) / 2;
 
@@ -147,12 +158,8 @@ export class UnitSizeLines implements OnInit {
     const labelD = this.mm(maxZ - minZ);
 
     const o   = this.offset;
-    const ho  = o / 2;  // half offset
-    const do2 = o * 2;  // double offset
-
-    // All configs draw Y & X dimension lines on the BACK face (backZ),
-    // as requested: "по задней стенке z".
-    // The Z dimension line runs from backZ → frontZ showing corpus depth.
+    const ho  = o / 2;
+    const do2 = o * 2;
 
     // ── topLeft  (world: x<0, z<0) ──────────────────────────────────────────
     const topLeft = [{

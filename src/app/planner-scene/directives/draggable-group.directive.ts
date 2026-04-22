@@ -15,7 +15,7 @@ import {injectStore} from 'angular-three';
 import {fromEvent, Subject, takeUntil} from 'rxjs';
 import {ConfigurationStore} from '../../store/store';
 import {SurfaceService} from '../services/surface.service';
-import {getObjectSize} from '../utils/object.utils';
+import {computeVisibleWorldBox, getObjectSize} from '../utils/object.utils';
 
 @Directive({
   selector: '[draggableGroup]',
@@ -341,32 +341,9 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
 
   /**
    * AABB только видимых мешей группы (пропускает invisible hit-box и спец-объекты).
-   * Box3.setFromObject включает invisible меши, что даёт двойной размер — поэтому обход ручной.
    */
   private getVisibleWorldBox(): THREE.Box3 {
-    const box = new THREE.Box3();
-    this.draggableObject.updateWorldMatrix(true, true);
-    this.collectVisibleMeshes(this.draggableObject, box);
-    return box;
-  }
-
-  /**
-   * Recursive traversal that skips entire subtrees tagged with special userData flags.
-   * Unlike Object3D.traverse(), this allows pruning invisible or excluded subtrees.
-   */
-  private collectVisibleMeshes(object: THREE.Object3D, box: THREE.Box3): void {
-    if (!object.visible) return;
-    if (object.userData['isSelectionBox'] || object.userData['isGhost'] || object.userData['isSizeLine']) return;
-    const mesh = object as THREE.Mesh;
-    if (mesh.isMesh && mesh.geometry) {
-      mesh.geometry.computeBoundingBox();
-      if (mesh.geometry.boundingBox) {
-        box.union(mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld));
-      }
-    }
-    for (const child of object.children) {
-      this.collectVisibleMeshes(child, box);
-    }
+    return computeVisibleWorldBox(this.draggableObject);
   }
 
   private getWorldSize(): THREE.Vector3 {
