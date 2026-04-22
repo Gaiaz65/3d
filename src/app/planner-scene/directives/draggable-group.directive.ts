@@ -158,17 +158,17 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     const localCenter = this.draggableObject.worldToLocal(worldCenter.clone());
 
     const boxGeo = new THREE.BoxGeometry(localSize.x, localSize.y, localSize.z);
-    const fillMat = new THREE.MeshBasicMaterial({
-      color: 0x00dd55, transparent: true, opacity: 0.2,
-      depthWrite: false, side: THREE.DoubleSide,
-    });
-    this.selectionBox = new THREE.Mesh(boxGeo, fillMat);
+
+    // Только контур — никакого fill, чтобы не перекрывать геометрию юнита
+    const edgesGeo = new THREE.EdgesGeometry(boxGeo);
+    const edgesMat = new THREE.LineBasicMaterial({color: 0x00ff55, depthTest: false});
+    this.selectionEdges = new THREE.LineSegments(edgesGeo, edgesMat);
+    this.selectionEdges.renderOrder = 999;
+
+    // selectionBox используем как контейнер (invisible Mesh для dispose)
+    this.selectionBox = new THREE.Mesh(boxGeo, new THREE.MeshBasicMaterial({visible: false}));
     this.selectionBox.position.copy(localCenter);
     this.selectionBox.userData['isSelectionBox'] = true;
-
-    const edgesGeo = new THREE.EdgesGeometry(boxGeo);
-    const edgesMat = new THREE.LineBasicMaterial({color: 0x00ff55});
-    this.selectionEdges = new THREE.LineSegments(edgesGeo, edgesMat);
     this.selectionBox.add(this.selectionEdges);
 
     this.draggableObject.add(this.selectionBox);
@@ -277,19 +277,32 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
   private createGhost(): void {
     if (this.ghost) return;
 
-    const worldSize = this.getWorldSize(); // uses getVisibleWorldBox internally
-    const geometry = new THREE.BoxGeometry(worldSize.x, worldSize.y, worldSize.z);
-    const material = new THREE.MeshBasicMaterial({
-      color: 0xff3333, transparent: true, opacity: 0.35,
-      depthWrite: false, depthTest: false, side: THREE.DoubleSide,
+    const worldSize = this.getWorldSize();
+    // +8 world units (≈8 мм при scale=1000) — поверхности ghost не совпадают
+    // с поверхностями юнита → z-fighting исключён
+    const pad = 8;
+    const geometry = new THREE.BoxGeometry(
+      worldSize.x + pad,
+      worldSize.y + pad,
+      worldSize.z + pad,
+    );
+
+    const fillMat = new THREE.MeshBasicMaterial({
+      color: 0xff3333,
+      transparent: true,
+      opacity: 0.2,
+      depthWrite: false,
+      depthTest: false,
+      side: THREE.FrontSide,
     });
 
     const edgesGeo = new THREE.EdgesGeometry(geometry);
-    const edgesMat = new THREE.LineBasicMaterial({color: 0xff6666, depthTest: false});
+    const edgesMat = new THREE.LineBasicMaterial({color: 0xff3333, depthTest: false});
     const edges = new THREE.LineSegments(edgesGeo, edgesMat);
+    edges.renderOrder = 999;
 
-    this.ghost = new THREE.Mesh(geometry, material);
-    this.ghost.renderOrder = 999;
+    this.ghost = new THREE.Mesh(geometry, fillMat);
+    this.ghost.renderOrder = 998;
     this.ghost.add(edges);
     this.ghost.userData['isGhost'] = true;
     this.ghost.visible = false;
