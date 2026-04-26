@@ -199,9 +199,8 @@ import {TextureLoader} from 'three';
         <ngt-box-geometry *args="[unit().size.x, unit().size.y, unit().size.z]"/>
         <ngt-mesh-basic-material [transparent]="true" [opacity]="0"/>
       </ngt-mesh>
-
       @if (groupRef) {
-        <app-unit-size-lines [targetGroup]="groupRef" [unit]="unit()"/>
+        <app-unit-size-lines [targetGroup]="groupRef" [unit]="unit()" [skipZAxis]="unit().size.z < 0.4"/>
       }
     </ngt-group>
   `,

@@ -51,6 +51,7 @@ export class UnitSizeLines {
   public targetGroup = input.required<ElementRef<THREE.Group>>();
   /** Resolved unit — используется только для fallback-label если AABB ещё не готов. */
   public unit = input.required<ResolvedUnit>();
+  public skipZAxis = input<boolean>(false);
 
   public sideLines = signal('topLeft');
   public textReadable = signal(true);
@@ -166,7 +167,6 @@ export class UnitSizeLines {
       texts: [
         { label: labelW, rotation: [0, 0, 0],           position: [0,          maxY + do2, backZ + ho] },
         { label: labelH, rotation: [0, 0, Math.PI / 2], position: [maxX + do2, centerY,    backZ + ho] },
-        { label: labelD, rotation: [0, Math.PI / 2, 0], position: [minX + ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (right side, back face)
@@ -177,10 +177,6 @@ export class UnitSizeLines {
         [maxX, maxY + do2, backZ], [maxX, maxY + o, backZ],
         [minX, maxY + o,   backZ],
         [minX, maxY + do2, backZ], [minX, maxY,     backZ],
-        // Z (top-left corner, back → front)
-        [minX, maxY + do2, backZ],  [minX, maxY + o, backZ],
-        [minX, maxY + o,   frontZ],
-        [minX, maxY + do2, frontZ], [minX, maxY,     frontZ],
       ],
     }];
 
@@ -189,7 +185,6 @@ export class UnitSizeLines {
       texts: [
         { label: labelW, rotation: [0, 0, 0],            position: [0,          maxY + do2, backZ + ho] },
         { label: labelH, rotation: [0, 0, Math.PI / 2],  position: [minX - do2, centerY,    backZ + ho] },
-        { label: labelD, rotation: [0, -Math.PI / 2, 0], position: [maxX - ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (left side, back face)
@@ -200,10 +195,6 @@ export class UnitSizeLines {
         [minX, maxY + do2, backZ], [minX, maxY + o, backZ],
         [maxX, maxY + o,   backZ],
         [maxX, maxY + do2, backZ], [maxX, maxY,     backZ],
-        // Z (top-right corner, back → front)
-        [maxX, maxY + do2, backZ],  [maxX, maxY + o, backZ],
-        [maxX, maxY + o,   frontZ],
-        [maxX, maxY + do2, frontZ], [maxX, maxY,     frontZ],
       ],
     }];
 
@@ -212,7 +203,6 @@ export class UnitSizeLines {
       texts: [
         { label: labelW, rotation: [0, Math.PI, 0],           position: [0,          maxY + do2, backZ - ho] },
         { label: labelH, rotation: [0, Math.PI, Math.PI / 2], position: [minX - do2, centerY,    backZ - ho] },
-        { label: labelD, rotation: [0, -Math.PI / 2, 0],      position: [maxX - ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (left side, back face)
@@ -223,10 +213,6 @@ export class UnitSizeLines {
         [minX, maxY + do2, backZ], [minX, maxY + o, backZ],
         [maxX, maxY + o,   backZ],
         [maxX, maxY + do2, backZ], [maxX, maxY,     backZ],
-        // Z (top-right corner, back → front)
-        [maxX, maxY + do2, backZ],  [maxX, maxY + o, backZ],
-        [maxX, maxY + o,   frontZ],
-        [maxX, maxY + do2, frontZ], [maxX, maxY,     frontZ],
       ],
     }];
 
@@ -235,7 +221,6 @@ export class UnitSizeLines {
       texts: [
         { label: labelW, rotation: [0, Math.PI, 0],           position: [0,          maxY + do2, backZ - ho] },
         { label: labelH, rotation: [0, Math.PI, Math.PI / 2], position: [maxX + do2, centerY,    backZ - ho] },
-        { label: labelD, rotation: [0, Math.PI / 2, 0],       position: [minX + ho,  maxY + do2, centerZ   ] },
       ],
       points: [
         // Y (right side, back face)
@@ -246,12 +231,37 @@ export class UnitSizeLines {
         [maxX, maxY + do2, backZ], [maxX, maxY + o, backZ],
         [minX, maxY + o,   backZ],
         [minX, maxY + do2, backZ], [minX, maxY,     backZ],
-        // Z (top-left corner, back → front)
+      ],
+    }];
+
+    if (!this.skipZAxis()) {
+      bottomLeft[0].texts.push({ label: labelD, rotation: [0, Math.PI / 2, 0],       position: [minX + ho,  maxY + do2, centerZ   ] });
+      bottomLeft[0].points.push(
+        [minX, maxY + do2, backZ],  [minX, maxY + o, backZ],
+        [minX, maxY + o,   frontZ],
+        [minX, maxY + do2, frontZ], [minX, maxY,     frontZ]);
+
+      bottomRight[0].texts.push({ label: labelD, rotation: [0, -Math.PI / 2, 0],      position: [maxX - ho,  maxY + do2, centerZ   ] });
+      bottomRight[0].points.push(
+        [maxX, maxY + do2, backZ],  [maxX, maxY + o, backZ],
+        [maxX, maxY + o,   frontZ],
+        [maxX, maxY + do2, frontZ], [maxX, maxY,     frontZ],
+      );
+
+      topLeft[0].texts.push({ label: labelD, rotation: [0, Math.PI / 2, 0], position: [minX + ho,  maxY + do2, centerZ   ] });
+      topLeft[0].points.push(
         [minX, maxY + do2, backZ],  [minX, maxY + o, backZ],
         [minX, maxY + o,   frontZ],
         [minX, maxY + do2, frontZ], [minX, maxY,     frontZ],
-      ],
-    }];
+      );
+
+      topRight[0].texts.push({ label: labelD, rotation: [0, -Math.PI / 2, 0], position: [maxX - ho,  maxY + do2, centerZ   ] });
+      topRight[0].points.push(
+        [maxX, maxY + do2, backZ],  [maxX, maxY + o, backZ],
+        [maxX, maxY + o,   frontZ],
+        [maxX, maxY + do2, frontZ], [maxX, maxY,     frontZ],
+      );
+    }
 
     return { topLeft, topRight, bottomRight, bottomLeft };
   }
