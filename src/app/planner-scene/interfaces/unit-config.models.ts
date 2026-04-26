@@ -197,6 +197,8 @@ export interface ResolvedPanel {
   size: Vec3;
   position: Vec3;
   rotation?: Vec3;
+  color?: string;
+  materialType?: 'glass' | undefined;
   /** Если задано — панель рендерится как трапецевидная призма (BufferGeometry). */
   trapezoidCorners?: TrapezoidCorner[];
 }

@@ -8,7 +8,6 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ConfigurationStore} from '../../../store/store';
 import {Button} from 'primeng/button';
 import {HttpClient} from '@angular/common/http';
-import {ConstructiveBuilderService} from '../../../planner-scene/services/constructive-builder.service';
 import {IWall} from '../../../planner-scene/interfaces/configuration';
 
 const FORM_CONFIG = [
@@ -110,7 +109,6 @@ export class ConfigurationForm implements OnInit {
 
   private destroyRef: DestroyRef = inject(DestroyRef)
   private configurationStore = inject(ConfigurationStore);
-  private readonly builder = inject(ConstructiveBuilderService);
   private http = inject(HttpClient);
 
   constructor() {
@@ -156,9 +154,22 @@ export class ConfigurationForm implements OnInit {
             utilities.push(...item.items);
           }
         })
-        this.utilities.set(utilities);
-        this.communications.set(communications);
+        this.utilities.set(utilities.map((item: any) => {
+          return {
+            ...item,
+            sectionId: 'utilities',
+          };
+        }));
+
+        this.configurationStore.addItem(this.utilities()[2]);
+        this.communications.set(communications.map((item: any) => {
+          return {
+            ...item,
+            sectionId: 'utilities',
+          };
+        }));
       })
+
   }
 
   public checkOnBlur(controlName: string, minValue: number): void {
@@ -169,21 +180,19 @@ export class ConfigurationForm implements OnInit {
   }
 
   public createUtilityObject(obj: any): void {
-    const item = this.builder.build(obj);
-    this.configurationStore.addItem(item)
+    this.configurationStore.addItem(obj);
   }
 
 
   public createCommunicationObject(obj: any): void {
-    const item = this.builder.build(obj);
-    this.configurationStore.addItem(item)
+    this.configurationStore.addItem(obj);
   }
 
-  public selectFloor(floor:IWall): void {
+  public selectFloor(floor: IWall): void {
     this.configurationStore.setCurrentFloor(floor);
   }
 
-  public selectWall(wall:IWall): void {
+  public selectWall(wall: IWall): void {
     this.configurationStore.setCurrentWall(wall);
   }
 

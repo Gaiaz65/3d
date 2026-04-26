@@ -23,6 +23,7 @@ import {computeVisibleWorldBox, getObjectSize} from '../utils/object.utils';
 })
 export class DraggableGroupDirective implements OnInit, OnDestroy {
   @Input() public dragLevel: string = 'bottom';
+  @Input() public countInvisibleUnits: boolean = false;
   @Output() public dragging = new EventEmitter<void>();
   @Output() public dragEndEvent = new EventEmitter<void>();
   @Output() public focusChange = new EventEmitter<boolean>();
@@ -356,7 +357,7 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
    * AABB только видимых мешей группы (пропускает invisible hit-box и спец-объекты).
    */
   private getVisibleWorldBox(): THREE.Box3 {
-    return computeVisibleWorldBox(this.draggableObject);
+    return computeVisibleWorldBox(this.draggableObject, this.countInvisibleUnits);
   }
 
   private getWorldSize(): THREE.Vector3 {

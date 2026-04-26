@@ -43,7 +43,7 @@ export interface IConfigurationTab {
 })
 export class ConfigurationLayout {
   public EMenuItems = EMenuItems;
-  public tabsValue = this.EMenuItems.modules;
+  public tabsValue = this.EMenuItems.configuration;
   public tabs: IConfigurationTab[] = [
     {
       label: 'Конфигурация',

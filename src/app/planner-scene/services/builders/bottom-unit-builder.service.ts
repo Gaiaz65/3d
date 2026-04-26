@@ -8,8 +8,7 @@ import {
 import {
   DEFAULT_FACADE_DEPTH, DEFAULT_HANDLE_DEPTH, DEFAULT_LEG_RADIUS, UnitBuildHelpers,
 } from '../unit-build-helpers.service';
-import {GROUP_BOTTOM_ANGLE_UNITS} from '../../constants';
-import {ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT, ALIGN_TOP} from '../../constants/geometry.constants';
+import {GROUP_BOTTOM_ANGLE_UNITS, ALIGN_BOTTOM, ALIGN_LEFT, ALIGN_RIGHT, ALIGN_TOP} from '../../constants';
 
 /**
  * Нижние тумбы: normal, angle, end.

@@ -26,6 +26,7 @@ export const GROUP_CONSTRUCTIVE_DOORS   = 'doors';
 export const GROUP_CONSTRUCTIVE_WINDOWS = 'windows';
 export const GROUP_CONSTRUCTIVE_PILLARS = 'pillars';
 export const GROUP_CONSTRUCTIVE_DECOR   = 'decor';
+export const GROUP_UTILITIES   = 'utilities';
 
 export const GROUP_EQUIPMENTS        = 'equipments';
 export const GROUP_TOP_CONSTRUCTIVE  = 'topConstructive';

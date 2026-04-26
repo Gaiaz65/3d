@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { ResolvedPanel, ResolvedUnit } from '../interfaces/unit-config.models';
+import {Injectable} from '@angular/core';
+import {ResolvedPanel, ResolvedUnit} from '../interfaces/unit-config.models';
 
 const DEFAULT_WALL_HEIGHT = 2500;
-const DEFAULT_FRAME_WIDTH  = 70;
-const FRAME_DEPTH_EXTRA    = 5; // frame slightly protrudes from wall face
+const DEFAULT_FRAME_WIDTH = 70;
+const FRAME_DEPTH_EXTRA = 5; // frame slightly protrudes from wall face
 
 /**
  * ConstructiveBuilderService
@@ -22,31 +22,31 @@ const FRAME_DEPTH_EXTRA    = 5; // frame slightly protrudes from wall face
  *   Y: 0 = floor level
  *   Z: 0 = front face, negative = into depth
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class ConstructiveBuilderService {
 
   build(config: any): ResolvedUnit {
-    const className  = this.getTopValue(config.options, 'className') ?? '';
-    const sizes      = this.parseSizes(config.options);
+    const className = this.getTopValue(config.options, 'className') ?? '';
+    const sizes = this.parseSizes(config.options);
     const frameWidth = this.getTopValue(config.options, 'frameWidth') ?? DEFAULT_FRAME_WIDTH;
 
-    const { width: w, height: h, depth: d } = sizes;
+    const {width: w, height: h, depth: d} = sizes;
 
     const panels = this.buildPanels(className, w, h, d, frameWidth);
 
     return {
-      uid:              config.uid,
-      level:            config.level ?? 'bottom',
+      uid: config.uid,
+      level: config.level ?? 'bottom',
       className,
-      size:             { x: m(w), y: m(h), z: m(d) },
-      corpusSize:       { x: m(w), y: m(h), z: m(d) },
+      size: {x: m(w), y: m(h), z: m(d)},
+      corpusSize: {x: m(w), y: m(h), z: m(d)},
       corpusCatalogCode: config.catalogCode ?? '',
-      availableWidths:  [],
+      availableWidths: [],
       panels,
-      facades:          [],
-      legs:             [],
-      shelves:          [],
-      rods:             [],
+      facades: [],
+      legs: [],
+      shelves: [],
+      rods: [],
     };
   }
 
@@ -60,7 +60,7 @@ export class ConstructiveBuilderService {
     switch (className) {
       case 'ConstructiveDoor':
       case 'ConstructiveDoorway':
-        return this.buildDoorPanels(w, h, d, fw);
+        return this.buildDoorPanels(w, h, d, fw, className);
       case 'ConstructiveWindow':
         return this.buildWindowPanels(w, h, d, fw);
       case 'ConstructivePillar':
@@ -76,59 +76,85 @@ export class ConstructiveBuilderService {
   // 3 frame panels: left post, right post, top lintel.
   // Opening bottom is at Y = 0 (floor level — no bottom frame).
 
-  private buildDoorPanels(w: number, h: number, d: number, fw: number): ResolvedPanel[] {
+  private buildDoorPanels(w: number, h: number, d: number, fw: number, type: string): ResolvedPanel[] {
     const fd = d + FRAME_DEPTH_EXTRA;
-    return [
+    const frames = [
       {
         name: 'frame-left',
-        size:     { x: m(fw), y: m(h),       z: m(fd) },
-        position: { x: m(-(w / 2 + fw / 2)), y: m(h / 2),       z: m(-fd / 2) },
+        size: {x: m(fw), y: m(h), z: m(fd)},
+        position: {x: m(-(w / 2 + fw / 2)), y: m(h / 2), z: m(-fd / 2)},
+        color: '#c7c1c1'
       },
       {
         name: 'frame-right',
-        size:     { x: m(fw), y: m(h),       z: m(fd) },
-        position: { x: m(w / 2 + fw / 2),   y: m(h / 2),       z: m(-fd / 2) },
+        size: {x: m(fw), y: m(h), z: m(fd)},
+        position: {x: m(w / 2 + fw / 2), y: m(h / 2), z: m(-fd / 2)},
+        color: '#c7c1c1'
       },
       {
         name: 'frame-top',
-        size:     { x: m(w + fw * 2), y: m(fw), z: m(fd) },
-        position: { x: 0,             y: m(h + fw / 2),        z: m(-fd / 2) },
+        size: {x: m(w + fw * 2), y: m(fw), z: m(fd)},
+        position: {x: 0, y: m(h + fw / 2), z: m(-fd / 2)},
+        color: '#c7c1c1'
       },
     ];
+
+    const frontFrame = {
+      name: 'frame-front',
+      size: {x: m(w), y: m(h), z: m(fd / 4)},
+      position: {x: m(0), y: m(h / 2), z: m(-fd / 2)},
+      color: '#c4bfbf',
+      materialType: type === 'ConstructiveDoor' ? undefined :'glass',
+    };
+    frames.push(frontFrame);
+
+
+    return frames
   }
 
   // ── Window ────────────────────────────────────────────────────────────────
   // 4 frame panels + thin glass panel in the middle.
 
   private buildWindowPanels(w: number, h: number, d: number, fw: number): ResolvedPanel[] {
-    const fd       = d + FRAME_DEPTH_EXTRA;
-    const totalW   = w + fw * 2;
-    const glassD   = 4;
+    const fd = d + FRAME_DEPTH_EXTRA;
+    const totalW = w + fw * 2;
+    const glassD = 4;
     return [
       {
         name: 'frame-left',
-        size:     { x: m(fw),     y: m(h),       z: m(fd) },
-        position: { x: m(-(w / 2 + fw / 2)), y: m(h / 2), z: m(-fd / 2) },
+        size: {x: m(fw), y: m(h), z: m(fd)},
+        position: {x: m(-(w / 2 + fw / 2)), y: m(h / 2), z: m(-fd / 2)},
       },
       {
         name: 'frame-right',
-        size:     { x: m(fw),     y: m(h),       z: m(fd) },
-        position: { x: m(w / 2 + fw / 2),   y: m(h / 2), z: m(-fd / 2) },
+        size: {x: m(fw), y: m(h), z: m(fd)},
+        position: {x: m(w / 2 + fw / 2), y: m(h / 2), z: m(-fd / 2)},
       },
       {
         name: 'frame-top',
-        size:     { x: m(totalW), y: m(fw),      z: m(fd) },
-        position: { x: 0,         y: m(h + fw / 2),       z: m(-fd / 2) },
+        size: {x: m(totalW), y: m(fw), z: m(fd)},
+        position: {x: 0, y: m(h + fw / 2), z: m(-fd / 2)},
+      },
+      {
+        name: 'frame-middle',
+        size: {x: m(totalW), y: m(fw), z: m(fd)},
+        position: {x: 0, y: m(h/ 2), z: m(-fd / 2)},
+      },
+      {
+        name: 'frame-middle-cross',
+        size: {x: m(fw), y: m(h), z: m(fd)},
+        position: {x: m(0), y: m(h / 2), z: m(-fd / 2)},
       },
       {
         name: 'frame-bottom',
-        size:     { x: m(totalW), y: m(fw),      z: m(fd) },
-        position: { x: 0,         y: m(-fw / 2),          z: m(-fd / 2) },
+        size: {x: m(totalW), y: m(fw), z: m(fd)},
+        position: {x: 0, y: m(-fw / 2), z: m(-fd / 2)},
       },
       {
         name: 'glass',
-        size:     { x: m(w),      y: m(h),       z: m(glassD) },
-        position: { x: 0,         y: m(h / 2),            z: m(-d / 2) },
+        size: {x: m(w), y: m(h), z: m(glassD)},
+        position: {x: 0, y: m(h / 2), z: m(-d / 2)},
+        materialType: 'glass',
       },
     ];
   }
@@ -139,8 +165,8 @@ export class ConstructiveBuilderService {
     return [
       {
         name: 'body',
-        size:     { x: m(w), y: m(h), z: m(d) },
-        position: { x: 0,    y: m(h / 2),    z: m(-d / 2) },
+        size: {x: m(w), y: m(h), z: m(d)},
+        position: {x: 0, y: m(h / 2), z: m(-d / 2)},
       },
     ];
   }
@@ -153,8 +179,8 @@ export class ConstructiveBuilderService {
     return [
       {
         name: 'wall',
-        size:     { x: m(width), y: m(h), z: m(depth) },
-        position: { x: 0,        y: m(h / 2), z: m(-depth / 2) },
+        size: {x: m(width), y: m(h), z: m(depth)},
+        position: {x: 0, y: m(h / 2), z: m(-depth / 2)},
       },
     ];
   }
@@ -169,9 +195,9 @@ export class ConstructiveBuilderService {
     const sizesGroup = options.find((o: any) => o.isGroup && o.id === 'sizes');
     const opts: any[] = sizesGroup?.options ?? [];
     return {
-      width:  this.getOptValue(opts, 'width')  ?? 1000,
+      width: this.getOptValue(opts, 'width') ?? 1000,
       height: this.getOptValue(opts, 'height') ?? DEFAULT_WALL_HEIGHT,
-      depth:  this.getOptValue(opts, 'depth')  ?? 100,
+      depth: this.getOptValue(opts, 'depth') ?? 100,
     };
   }
 

@@ -70,8 +70,6 @@ export class ConfigurationUtilObjects implements OnInit {
               items: (section.items ?? []).map((item: any) => ({ ...item, sectionId: section.id })),
             }))
         );
-
-        this.configStore.addItem(this.sections()[3].items[8]);
       });
   }
 

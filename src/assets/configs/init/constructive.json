@@ -180,7 +180,7 @@
         "widthText": "",
         "heightText": "",
         "depthText": "",
-        "level": "bottom",
+        "level": "top",
         "svgImage": "newWindow",
         "options": [
           {

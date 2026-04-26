@@ -50,15 +50,24 @@ import {TextureLoader} from 'three';
           [castShadow]="true"
           [receiveShadow]="true"
         >
-          <ngt-mesh-standard-material
-            [color]="corpusColor()"
-            [map]="corpusTexture.value()"
-            [roughness]="0.65"
-            [metalness]="0.05"
-            [emissive]="corpusEmissiveColor()"
-            [emissiveIntensity]="isSelected() ? 0.15 : 0"
-            [side]="panel.trapezoidCorners ? doubleSide : frontSide"
-          />
+          @if (panel.materialType === 'glass') {
+            <ngt-mesh-physical-material
+              [transmission]="1"
+              [roughness]="0"
+              [thickness]="0.5"
+              [ior]="1"
+              [color]="panel.color"
+            />
+          } @else {
+            <ngt-mesh-standard-material
+              [color]="panel.color || corpusColor()"
+              [map]="corpusTexture.value()"
+              [roughness]="0.65"
+              [metalness]="0.05"
+              [emissive]="corpusEmissiveColor()"
+              [emissiveIntensity]="isSelected() ? 0.15 : 0"
+            />
+          }
         </ngt-mesh>
       }
 
@@ -350,10 +359,6 @@ export class ThreeUnitComponent {
 
   plinthRotation(plinth: ResolvedPlinth): [number, number, number] {
     return [plinth?.rotation?.x ?? 0, plinth?.rotation?.y ?? 0, plinth?.rotation?.z ?? 0];
-  }
-
-  plankRotation(plank: ResolvedPlinth): [number, number, number] {
-    return [plank?.rotation?.x ?? 0, plank?.rotation?.y ?? 0, plank?.rotation?.z ?? 0];
   }
 
   handleRotation(handle: NonNullable<ResolvedFacade['handle']>): [number, number, number] {
