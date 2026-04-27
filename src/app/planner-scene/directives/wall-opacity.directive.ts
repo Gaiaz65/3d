@@ -30,9 +30,12 @@ export class WallOpacityDirective {
   private setOpacity(opacity: number): void {
     const material = this.host.nativeElement.material;
     if (Array.isArray(material)) {
-      material.forEach(mat => { if (mat.transparent) mat.opacity = opacity; });
+      material.forEach(mat => {
+        if (mat.transparent) mat.opacity = opacity;
+      });
     } else if (material?.transparent) {
       material.opacity = opacity;
+      material.needsUpdate = true;
     }
   }
 }

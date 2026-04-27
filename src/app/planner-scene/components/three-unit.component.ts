@@ -56,7 +56,7 @@ import {TextureLoader} from 'three';
               [roughness]="0"
               [thickness]="0.5"
               [ior]="1"
-              [color]="panel.color"
+              [color]="panel.color || '#ddd5c0'"
             />
           } @else {
             <ngt-mesh-standard-material

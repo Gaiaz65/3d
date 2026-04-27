@@ -57,7 +57,7 @@ export class WallSizeLines {
 
   protected readonly font    = FONT;
   protected readonly halfPi  = Math.PI / 2;
-  protected readonly lineOptions = {color: 'black', lineWidth: 1.5, depthTest: false} as const;
+  protected readonly lineOptions = {color: 'black', lineWidth: 1.5, depthTest: true, transparent: false, depthWrite: true} as const;
 
   protected readonly visible = signal(true);
 

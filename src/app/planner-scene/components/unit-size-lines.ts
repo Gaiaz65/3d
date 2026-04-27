@@ -35,7 +35,7 @@ interface Bounds {
                 depthOffset: -1
               }"/>
           }
-          <ngts-line [points]="line.points" [options]="{ color: 'black', lineWidth: 1.5, depthTest: true }"/>
+          <ngts-line [points]="line.points" [options]="{ color: 'black', lineWidth: 1.5}"/>
         }
       }
     </ngt-group>

@@ -161,7 +161,6 @@ export class ConfigurationForm implements OnInit {
           };
         }));
 
-        this.configurationStore.addItem(this.utilities()[2]);
         this.communications.set(communications.map((item: any) => {
           return {
             ...item,

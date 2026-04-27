@@ -27,9 +27,7 @@ import {ThreeUnitComponent} from '../components/three-unit.component';
             wall.type === 'left' || wall.type === 'right' ? roomDepth() : roomWidth(),
             roomHeight()
           ]"/>
-          <ngt-mesh-standard-material color="0xF5F0E6"
-                                      [map]="wallTexture.value()"
-                                      [transparent]="true"/>
+          <ngt-mesh-standard-material [map]="wallTexture.value()"/>
 
           <app-wall-size-lines
             [wall]="wallMesh"
