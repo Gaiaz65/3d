@@ -66,6 +66,62 @@ export class SurfaceService {
    * Не изменяет позицию — только проверяет.
    */
 
+/**
+   * Ищет ближайшего соседа в пределах threshold и возвращает дельту,
+   * которую нужно прибавить к desiredPosition чтобы объект «прилип» к нему.
+   * Возвращает null если подходящего соседа нет.
+   */
+  getSnapDelta(
+    draggingObject: THREE.Object3D,
+    desiredPosition: THREE.Vector3,
+    threshold: number,
+  ): THREE.Vector3 | null {
+    const dragBox = this.getGeometryBox(draggingObject);
+    const size = new THREE.Vector3();
+    dragBox.getSize(size);
+    const hx = size.x / 2, hz = size.z / 2;
+
+    const cx = desiredPosition.x, cz = desiredPosition.z;
+    const selfMinX = cx - hx, selfMaxX = cx + hx;
+    const selfMinZ = cz - hz, selfMaxZ = cz + hz;
+
+    let bestDist = threshold;
+    let bestDelta: THREE.Vector3 | null = null;
+
+    for (const other of this.items) {
+      if (other === draggingObject) continue;
+      const ob = this.getGeometryBox(other);
+
+      // Проверяем зазоры по X (объект слева / справа от соседа)
+      const gapRight = ob.min.x - selfMaxX; // self левее other
+      const gapLeft  = selfMinX - ob.max.x; // self правее other
+
+      if (gapRight >= 0 && gapRight < bestDist) {
+        bestDist  = gapRight;
+        bestDelta = new THREE.Vector3(gapRight, 0, 0);
+      }
+      if (gapLeft >= 0 && gapLeft < bestDist) {
+        bestDist  = gapLeft;
+        bestDelta = new THREE.Vector3(-gapLeft, 0, 0);
+      }
+
+      // Проверяем зазоры по Z (объект спереди / сзади от соседа)
+      const gapFront = ob.min.z - selfMaxZ; // self ближе к камере
+      const gapBack  = selfMinZ - ob.max.z; // self дальше от камеры
+
+      if (gapFront >= 0 && gapFront < bestDist) {
+        bestDist  = gapFront;
+        bestDelta = new THREE.Vector3(0, 0, gapFront);
+      }
+      if (gapBack >= 0 && gapBack < bestDist) {
+        bestDist  = gapBack;
+        bestDelta = new THREE.Vector3(0, 0, -gapBack);
+      }
+    }
+
+    return bestDelta;
+  }
+
   hasCollisionAt(draggingObject: THREE.Object3D, desiredPosition: THREE.Vector3): boolean {
     const dragBox = this.getGeometryBox(draggingObject);
     const size = new THREE.Vector3();

@@ -203,6 +203,7 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     }
 
     this.checkWallSnap(clamped);
+    this.checkObjectProximity(clamped);
 
     this.store().invalidate();
     this.dragging.emit();
@@ -246,6 +247,15 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     this.ghostService.create(this.getWorldSize());
 
     this.ngZone.run(() => this.rotationChange.emit(rotY));
+  }
+
+  private checkObjectProximity(position: THREE.Vector3): void {
+    const delta = this.surfaceService.getSnapDelta(this.draggableObject, position, 100);
+    if (!delta) return;
+    position.add(delta);
+    this.draggableObject.position.copy(position);
+    this.lastValidPosition.copy(position);
+    this.ghostService.hide();
   }
 
   // ── AABB helpers ──────────────────────────────────────────────────────────
