@@ -15,7 +15,7 @@ import {injectStore} from 'angular-three';
 import {fromEvent, Subject, takeUntil} from 'rxjs';
 import {ConfigurationStore} from '../../store/store';
 import {SurfaceService} from '../services/surface.service';
-import {computeVisibleWorldBox, getObjectSize} from '../utils/object.utils';
+import {computeVisibleWorldBox} from '../utils/object.utils';
 
 @Directive({
   selector: '[draggableGroup]',
@@ -27,6 +27,7 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
   @Output() public dragging = new EventEmitter<void>();
   @Output() public dragEndEvent = new EventEmitter<void>();
   @Output() public focusChange = new EventEmitter<boolean>();
+  @Output() public rotationChange = new EventEmitter<number>();
 
   public focused = signal(false);
 
@@ -53,6 +54,8 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
   private lastValidPosition = new THREE.Vector3();
   private size = {x: 0, y: 0, z: 0};
   private minY = 0;
+  private roomBounds = {minX: 0, maxX: 0, minZ: 0, maxZ: 0};
+  private objectHalfSize = new THREE.Vector3();
 
   // Offset from group.position to AABB center (precomputed on drag start)
   private aabbOffset = new THREE.Vector3();
@@ -200,6 +203,9 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     this.computeAabbOffset();
     this.calculateSize();
     this.createGhost();
+    const {x, z} = this.configStore.roomParameters().size;
+    this.roomBounds = {minX: -x / 2, maxX: x / 2, minZ: -z / 2, maxZ: z / 2};
+    this.objectHalfSize.copy(this.getWorldSize()).multiplyScalar(0.5);
 
     this.dragDestroy$.next();
     const canvas = this.store().gl?.domElement;
@@ -258,6 +264,8 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
         this.lastValidPosition.copy(clamped);
         this.hideGhost();
       }
+
+      this.checkWallProximity(clamped);
 
       this.store().invalidate();
       this.dragging.emit();
@@ -390,6 +398,59 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     const rect = canvas.getBoundingClientRect();
     this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+  }
+
+  private checkWallProximity(position: THREE.Vector3): void {
+    const {minX, maxX, minZ, maxZ} = this.roomBounds;
+
+    // AABB-центр объекта с учётом смещения от origin группы
+    const cx = position.x + this.aabbOffset.x;
+    const cz = position.z + this.aabbOffset.z;
+    const hx = this.objectHalfSize.x;
+    const hz = this.objectHalfSize.z;
+
+    // Расстояния от края AABB до каждой стены
+    const distances = [
+      {dist: (cz - hz) - minZ, rotY: 0},              // задняя стена (-Z)
+      {dist: maxZ - (cz + hz), rotY: Math.PI},         // передняя стена (+Z)
+      {dist: (cx - hx) - minX, rotY:  Math.PI / 2},   // левая стена (-X)
+      {dist: maxX - (cx + hx), rotY: -Math.PI / 2},   // правая стена (+X)
+    ];
+
+    const nearest = distances.reduce((a, b) => a.dist < b.dist ? a : b);
+
+    if (nearest.dist > 100) return;
+
+    this.applyRotationWithReclamp(nearest.rotY, position);
+  }
+
+  private applyRotationWithReclamp(rotY: number, position: THREE.Vector3): void {
+    if (this.draggableObject.rotation.y === rotY) return;
+
+    // 1. Применяем ротацию и сразу обновляем матрицы
+    this.draggableObject.rotation.y = rotY;
+    this.draggableObject.updateWorldMatrix(true, true);
+
+    // 2. Пересчитываем AABB-зависимые значения с новой ротацией
+    this.computeAabbOffset();
+    this.calculateSize();
+    this.objectHalfSize.copy(this.getWorldSize()).multiplyScalar(0.5);
+
+    // 3. Зажимаем позицию в новые границы комнаты
+    const maxX = this.size.x - this.aabbOffset.x;
+    const minX = -this.size.x - this.aabbOffset.x;
+    const maxZ = this.size.z - this.aabbOffset.z;
+    const minZ = -this.size.z - this.aabbOffset.z;
+    position.x = Math.max(minX, Math.min(maxX, position.x));
+    position.z = Math.max(minZ, Math.min(maxZ, position.z));
+    this.draggableObject.position.copy(position);
+    this.lastValidPosition.copy(position);
+
+    // 4. Пересоздаём ghost с новым размером
+    this.removeGhost();
+    this.createGhost();
+
+    this.ngZone.run(() => this.rotationChange.emit(rotY));
   }
 
   private findWallIntersection(): THREE.Vector3 | null {
