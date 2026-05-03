@@ -222,7 +222,7 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
 
   private checkWallSnap(position: THREE.Vector3): void {
     const snap = this.wallSnap.check(position, this.aabbOffset, this.objectHalfSize, this.roomBounds);
-    if (!snap) return;
+    if (!snap || this.surfaceService.hasCollisionAt(this.draggableObject, position)) return;
     this.applyRotationWithReclamp(snap.rotY, position);
   }
 
@@ -251,7 +251,7 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
 
   private checkObjectProximity(position: THREE.Vector3): void {
     const delta = this.surfaceService.getSnapDelta(this.draggableObject, position, 100);
-    if (!delta) return;
+    if (!delta || this.surfaceService.hasCollisionAt(this.draggableObject, position)) return;
     position.add(delta);
     this.draggableObject.position.copy(position);
     this.lastValidPosition.copy(position);
