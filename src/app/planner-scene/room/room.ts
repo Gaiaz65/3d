@@ -41,6 +41,7 @@ import {ThreeUnitComponent} from '../components/three-unit.component';
 
       @for (entry of placedUnits(); track entry.id) {
         <app-three-unit
+          [id]="entry.id"
           [unit]="entry.resolvedUnit"
           [position]="entry.position"
           [rotation]="entry.rotation"

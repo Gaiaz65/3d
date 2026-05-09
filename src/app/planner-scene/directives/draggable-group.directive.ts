@@ -1,4 +1,15 @@
-import {Directive, ElementRef, EventEmitter, inject, Input, NgZone, OnDestroy, OnInit, Output, signal} from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  EventEmitter,
+  inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  OnInit,
+  Output,
+  signal
+} from '@angular/core';
 import * as THREE from 'three';
 import {injectStore} from 'angular-three';
 import {fromEvent, Subject, takeUntil} from 'rxjs';
@@ -17,43 +28,43 @@ import {DragWallSnap, RoomBounds} from '../helpers/drag-wall-snap';
 export class DraggableGroupDirective implements OnInit, OnDestroy {
   @Input() public dragLevel: string = 'bottom';
   @Input() public countInvisibleUnits: boolean = false;
-  @Output() public dragging       = new EventEmitter<void>();
-  @Output() public dragEndEvent   = new EventEmitter<void>();
-  @Output() public focusChange    = new EventEmitter<boolean>();
+  @Output() public dragging = new EventEmitter<void>();
+  @Output() public dragEndEvent = new EventEmitter<void>();
+  @Output() public focusChange = new EventEmitter<boolean>();
   @Output() public rotationChange = new EventEmitter<number>();
 
   public focused = signal(false);
 
-  private readonly host          = inject<ElementRef<THREE.Group>>(ElementRef);
-  private readonly store         = injectStore();
-  private readonly configStore   = inject(ConfigurationStore);
-  private readonly ngZone        = inject(NgZone);
+  private readonly host = inject<ElementRef<THREE.Group>>(ElementRef);
+  private readonly store = injectStore();
+  private readonly configStore = inject(ConfigurationStore);
+  private readonly ngZone = inject(NgZone);
   private readonly surfaceService = inject(SurfaceService);
-  private readonly ghostService  = inject(DragGhostService);
+  private readonly ghostService = inject(DragGhostService);
 
   private readonly draggableObject: THREE.Group;
   private readonly selectionBox: DragSelectionBox;
   private readonly wallSnap = new DragWallSnap();
 
-  private readonly destroy$     = new Subject<void>();
+  private readonly destroy$ = new Subject<void>();
   private readonly dragDestroy$ = new Subject<void>();
 
-  private isDragging  = false;
-  private dragPlane   = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
-  private dragOffset  = new THREE.Vector3();
-  private raycaster   = new THREE.Raycaster();
-  private mouse       = new THREE.Vector2();
+  private isDragging = false;
+  private dragPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+  private dragOffset = new THREE.Vector3();
+  private raycaster = new THREE.Raycaster();
+  private mouse = new THREE.Vector2();
 
   private lastValidPosition = new THREE.Vector3();
-  private aabbOffset        = new THREE.Vector3();
-  private objectHalfSize    = new THREE.Vector3();
+  private aabbOffset = new THREE.Vector3();
+  private objectHalfSize = new THREE.Vector3();
   private roomBounds: RoomBounds = {minX: 0, maxX: 0, minZ: 0, maxZ: 0};
-  private size  = {x: 0, y: 0, z: 0};
-  private minY  = 0;
+  private size = {x: 0, y: 0, z: 0};
+  private minY = 0;
 
   constructor() {
     this.draggableObject = this.host.nativeElement;
-    this.selectionBox    = new DragSelectionBox(this.draggableObject);
+    this.selectionBox = new DragSelectionBox(this.draggableObject);
   }
 
   // ── Lifecycle ──────────────────────────────────────────────────────────────
@@ -66,7 +77,9 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     this.surfaceService.focusChanges$
       .pipe(takeUntil(this.destroy$))
       .subscribe(focused => {
-        if (focused !== this.draggableObject && this.focused()) this.unfocusSilently();
+        if (focused !== this.draggableObject && this.focused()) {
+          this.unfocusSilently()
+        }
       });
 
     this.ngZone.runOutsideAngular(() => {
@@ -100,13 +113,14 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     const hits = this.raycaster.intersectObject(this.draggableObject, true)
       .filter(h => !h.object.userData['isSelectionBox'] && !h.object.userData['isGhost']);
 
+    const focusedObject = this.findHitById(hits, this.draggableObject.userData['id']);
     if (hits.length > 0) {
       event.stopPropagation();
-      if (!this.focused()) {
+      if (this.focused()) {
+        this.startDrag(event, focusedObject as any);
+      } else if (!this.surfaceService.hasFocus()) {
         this.setFocused(true);
         this.toggleControls(false);
-      } else {
-        this.startDrag(event, hits[0]);
       }
     } else if (this.focused()) {
       this.setFocused(false);
@@ -114,11 +128,15 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     this.store().invalidate();
   }
 
+
   private setFocused(value: boolean): void {
     if (value) {
       this.surfaceService.setFocus(this.draggableObject);
       this.selectionBox.create(this.countInvisibleUnits);
-      this.ngZone.run(() => { this.focused.set(true); this.focusChange.emit(true); });
+      this.ngZone.run(() => {
+        this.focused.set(true);
+        this.focusChange.emit(true);
+      });
     } else {
       this.unfocusSilently();
     }
@@ -127,7 +145,11 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
   private unfocusSilently(): void {
     this.selectionBox.remove();
     this.toggleControls(true);
-    this.ngZone.run(() => { this.focused.set(false); this.focusChange.emit(false); });
+    this.surfaceService.clearFocus();
+    this.ngZone.run(() => {
+      this.focused.set(false);
+      this.focusChange.emit(false);
+    });
   }
 
   // ── Drag ──────────────────────────────────────────────────────────────────
@@ -172,7 +194,7 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
 
     if (!this.raycaster.ray.intersectPlane(this.dragPlane, intersection)) return;
 
-    const raw      = intersection.clone().add(this.dragOffset);
+    const raw = intersection.clone().add(this.dragOffset);
     const wallPoint = this.findWallIntersection();
 
     let x = wallPoint ? wallPoint.x : raw.x;
@@ -269,8 +291,8 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     this.objectHalfSize.copy(worldSize).multiplyScalar(0.5);
 
     const roomSize = this.configStore.roomParameters().size;
-    this.minY  = worldSize.y / 2 - this.aabbOffset.y;
-    this.size  = {
+    this.minY = worldSize.y / 2 - this.aabbOffset.y;
+    this.size = {
       x: roomSize.x / 2 - worldSize.x / 2,
       y: roomSize.y - this.aabbOffset.y - worldSize.y / 2,
       z: roomSize.z / 2 - worldSize.z / 2,
@@ -280,6 +302,24 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
   private getWorldSize(): THREE.Vector3 {
     return computeVisibleWorldBox(this.draggableObject, this.countInvisibleUnits)
       .getSize(new THREE.Vector3());
+  }
+
+  // ── Hit helpers ───────────────────────────────────────────────────────────
+
+  /**
+   * Ищет в массиве hits первый, у которого в цепочке parent
+   * есть объект с userData.id === id.
+   * Возвращает найденный intersection или null.
+   */
+  private findHitById(hits: THREE.Intersection[], id: number): THREE.Intersection | null {
+    for (const hit of hits) {
+      let obj: THREE.Object3D | null = hit.object;
+      while (obj) {
+        if (obj.userData['id'] === id) return hit;
+        obj = obj.parent;
+      }
+    }
+    return null;
   }
 
   // ── Utilities ─────────────────────────────────────────────────────────────
@@ -304,8 +344,8 @@ export class DraggableGroupDirective implements OnInit, OnDestroy {
     const canvas = this.store().gl?.domElement;
     if (!canvas) return;
     const rect = canvas.getBoundingClientRect();
-    this.mouse.x =  ((event.clientX - rect.left) / rect.width)  * 2 - 1;
-    this.mouse.y = -((event.clientY - rect.top)  / rect.height) * 2 + 1;
+    this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
   }
 
   private findWallIntersection(): THREE.Vector3 | null {

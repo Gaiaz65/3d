@@ -37,6 +37,7 @@ import {TextureLoader} from 'three';
     <ngt-group
       #group
       draggableGroup
+      [userData]="{id: id()}"
       [dragLevel]="unit().level"
       [position]="[position().x, position().y, position().z]"
       [rotation]="[0, rotation(), 0]"
@@ -208,6 +209,7 @@ import {TextureLoader} from 'three';
 })
 export class ThreeUnitComponent {
   @ViewChild('group') groupRef!: ElementRef<THREE.Group>;
+  readonly id = input.required<number>();
   readonly unit = input.required<ResolvedUnit>();
   readonly position = input<Vec3>({x: 0, y: 0, z: 0});
   readonly rotation = input<number>(0); // Y-axis rotation in radians

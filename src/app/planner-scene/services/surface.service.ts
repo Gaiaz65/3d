@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import * as THREE from 'three';
 import {Subject} from 'rxjs';
 import {TSurfaceType} from '../interfaces/surface.interface';
@@ -31,9 +31,18 @@ export class SurfaceService {
   private focusedItem$ = new Subject<THREE.Object3D | null>();
   readonly focusChanges$ = this.focusedItem$.asObservable();
 
+  /** true если хотя бы один элемент сейчас в фокусе */
+  readonly hasFocus = signal(false);
+
   /** Сообщаем всем директивам, что фокус переходит к этому объекту */
   setFocus(object: THREE.Object3D): void {
+    this.hasFocus.set(true);
     this.focusedItem$.next(object);
+  }
+
+  /** Снимаем фокус со всех элементов */
+  clearFocus(): void {
+    this.hasFocus.set(false);
   }
 
   constructor() {
