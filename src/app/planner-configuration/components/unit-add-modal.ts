@@ -14,6 +14,7 @@ import {SelectButton} from 'primeng/selectbutton';
 import {Tooltip} from 'primeng/tooltip';
 import {ConfigurationStore} from '../../store/store';
 import {PrimeTemplate} from 'primeng/api';
+import {updateUrl} from '../../planner-scene/utils/image.util';
 
 @Component({
   selector: 'app-unit-add-modal',
@@ -34,7 +35,7 @@ import {PrimeTemplate} from 'primeng/api';
         <!-- ── Общая информация ──────────────────────────────────────── -->
         <div class="unit-info">
           @if (cfg.image) {
-            <img [src]="cfg.image" class="unit-image" [alt]="cfg.title">
+            <img [src]="cfg.image" class="unit-image" [alt]="cfg.title" (error)="updateUrl($event)">
           }
           <div class="unit-meta">
             <div class="unit-title">{{ cfg.title }}</div>
@@ -78,7 +79,7 @@ import {PrimeTemplate} from 'primeng/api';
               tooltipPosition="top"
             >
               @if (mat.textures?.length && mat.image) {
-                <img [src]="mat.image" class="color-chip__img">
+                <img [src]="mat.image" class="color-chip__img" (error)="updateUrl($event)">
               } @else {
                 <div class="color-chip__fill" [style.background-color]="mat.color ?? mat.emissiveColor"></div>
               }
@@ -179,7 +180,7 @@ export class UnitAddModal {
       });
   }
 
-  open(config: any, onConfirm: (cfg: any, material: any) => void): void {
+  public open(config: any, onConfirm: (cfg: any, material: any) => void): void {
     this.config.set(config);
     this.confirmCb = onConfirm;
 
@@ -191,18 +192,22 @@ export class UnitAddModal {
     this.visible.set(true);
   }
 
-  setRadio(optId: string, value: string): void {
+  public setRadio(optId: string, value: string): void {
     this.radioValues.set({ ...this.radioValues(), [optId]: value });
   }
 
-  confirm(): void {
+  public confirm(): void {
     const patched = this.patchedConfig();
     this.confirmCb?.(patched, this.selectedMaterial());
     this.visible.set(false);
   }
 
-  cancel(): void {
+  public cancel(): void {
     this.visible.set(false);
+  }
+
+  public updateUrl($event: any): void {
+    updateUrl($event);
   }
 
   private patchedConfig(): any {

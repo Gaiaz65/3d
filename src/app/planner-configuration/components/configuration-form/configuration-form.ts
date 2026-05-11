@@ -9,6 +9,7 @@ import {ConfigurationStore} from '../../../store/store';
 import {Button} from 'primeng/button';
 import {HttpClient} from '@angular/common/http';
 import {IWall} from '../../../planner-scene/interfaces/configuration';
+import {updateUrl} from '../../../planner-scene/utils/image.util';
 
 const FORM_CONFIG = [
   {min: 1000, max: 10000, controlName: 'width', label: 'Ширина'},
@@ -195,4 +196,7 @@ export class ConfigurationForm implements OnInit {
     this.configurationStore.setCurrentWall(wall);
   }
 
+  public updateUrl($event: any): void {
+    updateUrl($event);
+  }
 }

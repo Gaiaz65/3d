@@ -9,6 +9,7 @@ import {Tooltip} from 'primeng/tooltip';
 import {OptionGroup} from '../../planner-scene/interfaces/unit-config.interface';
 import {take} from 'rxjs';
 import {UnitAddModal} from './unit-add-modal';
+import {updateUrl} from '../../planner-scene/utils/image.util';
 
 @Component({
   selector: 'app-configuration-utils',
@@ -32,7 +33,7 @@ import {UnitAddModal} from './unit-add-modal';
             @for (object of section.items; track $index) {
               <div class="configuration-list__item">
                 <div class="configuration-list__item-title" [innerText]="object.title" [pTooltip]="object.title"></div>
-                <img [src]="'assets/suraScreens/'+object.title+'.jpg'">
+                <img [src]="'assets/suraScreens/'+object.title+'.jpg'"  (error)="updateUrl($event)" alt="-">
                 <p-button (click)="openAddModal(object, $index)" [label]="'Добавить'"/>
               </div>
             }
@@ -70,16 +71,19 @@ export class ConfigurationUtilObjects implements OnInit {
               items: (section.items ?? []).map((item: any) => ({ ...item, sectionId: section.id })),
             }))
         );
+        this.openAddModal(this.sections()[1].items[12],0);
+        this.configStore.addItem(this.sections()[1].items[15]);
       });
   }
 
   public openAddModal(obj: any, inx: number): void {
-      this.configStore.addItem(obj);
-    console.log(obj)
-    console.log(inx)
-    // this.addModal.open(obj, (cfg, material) => {
-    //   if (material) this.configStore.setFacadeStyle(material);
-    //   this.configStore.addItem(cfg);
-    // });
+    this.addModal.open(obj, (cfg, material) => {
+      if (material) this.configStore.setFacadeStyle(material);
+      this.configStore.addItem(cfg);
+    });
+  }
+
+  public updateUrl($event: any): void {
+    updateUrl($event);
   }
 }

@@ -38,7 +38,7 @@
       @for (object of utilities(); track $index) {
         <div class="configuration-list__item">
           <div class="configuration-list__item-title" [innerText]="object.title"></div>
-          <img [src]="object.url">
+          <img [src]="object.url" (error)="updateUrl($event)" alt="-">
           <p-button (click)="createUtilityObject(object)"
                     [label]="'Добавить'"></p-button>
         </div>
@@ -54,7 +54,7 @@
       @for (object of communications(); track $index) {
         <div class="configuration-list__item">
           <div class="configuration-list__item-title" [innerText]="object.title"></div>
-          <img [src]="object.url">
+          <img [src]="object.url" (error)="updateUrl($event)" alt="-">
           <p-button (click)="createCommunicationObject(object)"
                     [label]="'Добавить'"></p-button>
         </div>
@@ -70,7 +70,7 @@
       @for (floor of floor; track floor.title) {
         <div class="configuration-list__item">
           <div class="configuration-list__item-title" [innerText]="floor.title"></div>
-          <img [src]="floor.url">
+          <img [src]="floor.url" (error)="updateUrl($event)" alt="-">
           <p-button (click)="selectFloor(floor)"
                     [disabled]="currentFloor.id === floor.id"
                     [label]="currentFloor.id === floor.id ?'Выбрано' : 'Выбрать'"></p-button>
@@ -87,7 +87,7 @@
       @for (wall of walls; track wall.title) {
         <div class="configuration-list__item">
           <div class="configuration-list__item-title" [innerText]="wall.title"></div>
-          <img [src]="wall.url">
+          <img [src]="wall.url" (error)="updateUrl($event)" alt="-">
           <p-button (click)="selectWall(wall)"
                     [disabled]="currentWall.id === wall.id"
                     [label]="currentWall.id === wall.id ?'Выбрано' : 'Выбрать'"></p-button>
