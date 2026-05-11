@@ -51,6 +51,7 @@ export class ConfigurationContextMenu implements OnInit {
         label: 'Скетч вид',
         command: () => {
           setTimeout(() => this.dial.show());
+          this.configStore.toggleSketchView(!this.configStore.isSketchView());
         }
       },
       {

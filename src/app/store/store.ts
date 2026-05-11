@@ -29,6 +29,7 @@ type State = {
   currentWall: IWall,
   currentFloor: IWall,
   showSizeLines: boolean,
+  isSketchView: boolean,
   items: any[],
   facades: Record<string, any>,
 };
@@ -52,6 +53,7 @@ const initialState: State = {
     title: 'Белое дерево',
   },
   showSizeLines: true,
+  isSketchView: false,
   items: [],
   facades: {},
 };
@@ -121,6 +123,9 @@ export const ConfigurationStore = signalStore(
       },
       toggleSizeLines(flag: boolean) {
         patchState(store, {showSizeLines: flag});
+      },
+      toggleSketchView(flag: boolean) {
+        patchState(store, {isSketchView: flag});
       },
       clearItems() {
         patchState(store, {items: []});

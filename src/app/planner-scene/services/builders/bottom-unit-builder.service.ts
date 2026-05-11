@@ -41,6 +41,8 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
       sideType
     }
 
+    console.log()
+
     const panels = this.helper.buildPanels(
       corpus.width,
       corpus.height,

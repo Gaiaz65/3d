@@ -71,9 +71,12 @@ export class UnitBuildHelpers {
 
     // sideType — radioButton со значениями "left" | "right"
     const sideTypeOpt: any = getOption('sideType');
-    const sideType: string =
-      (sideTypeOpt?.type === OPTION_TYPE_RADIOBUTTON || sideTypeOpt?.type === 'radioButton')
-        ? (sideTypeOpt.defaultValue ?? 'left') : 'left';
+    // const sideType: string =
+    //   (sideTypeOpt?.type === OPTION_TYPE_RADIOBUTTON || sideTypeOpt?.type === 'radioButton')
+    //     ? (sideTypeOpt.defaultValue ?? 'left') : 'left';
+    const sideType = 'right'
+
+    console.log(sideType)
 
     // JSON-массивы
     const facades = this.getJsonValue<FacadeConfig>(options, 'facades');

@@ -25,7 +25,7 @@ export function computeVisibleWorldBox(root: THREE.Object3D, countInvisible = fa
 function collectVisible(object: THREE.Object3D, box: THREE.Box3, countInvisible: boolean): void {
   if (!countInvisible && !object.visible) return;
   const ud = object.userData;
-  if (ud['isSelectionBox'] || ud['isGhost'] || ud['isSizeLine']) return;
+  if (ud['isSelectionBox'] || ud['isGhost'] || ud['isSizeLine'] || ud['isSketchOutline']) return;
   const mesh = object as THREE.Mesh;
   if (mesh.isMesh && mesh.geometry) {
     mesh.geometry.computeBoundingBox();

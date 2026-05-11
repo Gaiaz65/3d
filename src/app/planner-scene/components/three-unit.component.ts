@@ -18,6 +18,7 @@ import {UnitSizeLines} from './unit-size-lines';
 import * as THREE from 'three';
 import {ConfigurationStore} from '../../store/store';
 import {TextureLoader} from 'three';
+import {SketchOutlineDirective} from '../directives/sketch-outline.directive';
 
 /**
  * ThreeUnitComponent
@@ -31,12 +32,14 @@ import {TextureLoader} from 'three';
 @Component({
   selector: 'app-three-unit',
   standalone: true,
-  imports: [NgtArgs, DraggableGroupDirective, UnitSizeLines],
+  imports: [NgtArgs, DraggableGroupDirective, UnitSizeLines, SketchOutlineDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
     <ngt-group
       #group
       draggableGroup
+      sketchOutline
+      [enabled]="isSketchView()"
       [userData]="{id: id()}"
       [dragLevel]="unit().level"
       [position]="[position().x, position().y, position().z]"
@@ -51,23 +54,27 @@ import {TextureLoader} from 'three';
           [castShadow]="true"
           [receiveShadow]="true"
         >
-          @if (panel.materialType === 'glass') {
-            <ngt-mesh-physical-material
-              [transmission]="1"
-              [roughness]="0"
-              [thickness]="0.5"
-              [ior]="1"
-              [color]="panel.color || '#ddd5c0'"
-            />
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
           } @else {
-            <ngt-mesh-standard-material
-              [color]="panel.color || corpusColor()"
-              [map]="corpusTexture.value()"
-              [roughness]="0.65"
-              [metalness]="0.05"
-              [emissive]="corpusEmissiveColor()"
-              [emissiveIntensity]="isSelected() ? 0.15 : 0"
-            />
+            @if (panel.materialType === 'glass') {
+              <ngt-mesh-physical-material
+                [transmission]="1"
+                [roughness]="0"
+                [thickness]="0.5"
+                [ior]="1"
+                [color]="panel.color || '#ddd5c0'"
+              />
+            } @else {
+              <ngt-mesh-standard-material
+                [color]="panel.color || corpusColor()"
+                [map]="corpusTexture.value()"
+                [roughness]="0.65"
+                [metalness]="0.05"
+                [emissive]="corpusEmissiveColor()"
+                [emissiveIntensity]="isSelected() ? 0.15 : 0"
+              />
+            }
           }
         </ngt-mesh>
       }
@@ -83,11 +90,14 @@ import {TextureLoader} from 'three';
           (pointerout)="onPointerOut()"
         >
           <ngt-box-geometry *args="[facade.size.x, facade.size.y, facade.size.z]"/>
-          <ngt-mesh-standard-material
-            [color]="facadeColor()"
-            [roughness]="0.28"
-            [metalness]="0.04"
-          />
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
+          } @else {
+            <ngt-mesh-standard-material
+              [color]="facadeColor()"
+              [roughness]="0.28"
+              [metalness]="0.04"/>
+          }
         </ngt-mesh>
 
         <!-- Handle (only when assigned) -->
@@ -97,11 +107,14 @@ import {TextureLoader} from 'three';
             [rotation]="handleRotation(h)"
           >
             <ngt-box-geometry *args="[h.size.x, h.size.y, h.size.z]"/>
-            <ngt-mesh-standard-material
-              [color]="'#c0c0c0'"
-              [roughness]="0.2"
-              [metalness]="0.8"
-            />
+            @if (isSketchView()) {
+              <ngt-mesh-standard-material color="white"/>
+            } @else {
+              <ngt-mesh-standard-material
+                [color]="'#c0c0c0'"
+                [roughness]="0.2"
+                [metalness]="0.8"/>
+            }
           </ngt-mesh>
         }
       }
@@ -110,11 +123,14 @@ import {TextureLoader} from 'three';
       @for (leg of unit().legs; track $index) {
         <ngt-mesh [position]="[leg.position.x, leg.position.y, leg.position.z]">
           <ngt-cylinder-geometry *args="[leg.radius, leg.radius, leg.height, 12]"/>
-          <ngt-mesh-standard-material
-            [color]="'#a8a8a8'"
-            [roughness]="0.3"
-            [metalness]="0.7"
-          />
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
+          } @else {
+            <ngt-mesh-standard-material
+              [color]="'#a8a8a8'"
+              [roughness]="0.3"
+              [metalness]="0.7"/>
+          }
         </ngt-mesh>
       }
 
@@ -124,11 +140,15 @@ import {TextureLoader} from 'three';
           [position]="[shelf.position.x, shelf.position.y, shelf.position.z]"
           [geometry]="shelfGeometry(shelf)"
         >
-          <ngt-mesh-standard-material
-            [color]="corpusColor()"
-            [roughness]="0.65"
-            [side]="shelf.trapezoidCorners ? doubleSide : frontSide"
-          />
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
+          } @else {
+            <ngt-mesh-standard-material
+              [color]="corpusColor()"
+              [roughness]="0.65"
+              [side]="shelf.trapezoidCorners ? doubleSide : frontSide"
+            />
+          }
         </ngt-mesh>
       }
 
@@ -139,7 +159,11 @@ import {TextureLoader} from 'three';
           [rotation]="[0, 0, Math.PI / 2]"
         >
           <ngt-cylinder-geometry *args="[rod.radius, rod.radius, rod.length, 8]"/>
-          <ngt-mesh-standard-material [color]="'#b0b0b0'" [roughness]="0.2" [metalness]="0.9"/>
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
+          } @else {
+            <ngt-mesh-standard-material [color]="'#b0b0b0'" [roughness]="0.2" [metalness]="0.9"/>
+          }
         </ngt-mesh>
       }
 
@@ -150,11 +174,15 @@ import {TextureLoader} from 'three';
           [rotation]="plinthRotation(plinth)"
         >
           <ngt-box-geometry *args="[plinth.size.x, plinth.size.y, plinth.size.z]"/>
-          <ngt-mesh-standard-material
-            [color]="corpusColor()"
-            [roughness]="0.8"
-            [metalness]="0.0"
-          />
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
+          } @else {
+            <ngt-mesh-standard-material
+              [color]="corpusColor()"
+              [roughness]="0.8"
+              [metalness]="0.0"
+            />
+          }
         </ngt-mesh>
       }
 
@@ -165,11 +193,15 @@ import {TextureLoader} from 'three';
           [rotation]="plinthRotation(plank)"
         >
           <ngt-box-geometry *args="[plank.size.x, plank.size.y, plank.size.z]"/>
-          <ngt-mesh-standard-material
-            [color]="corpusColor()"
-            [roughness]="0.8"
-            [metalness]="0.0"
-          />
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
+          } @else {
+            <ngt-mesh-standard-material
+              [color]="corpusColor()"
+              [roughness]="0.8"
+              [metalness]="0.0"
+            />
+          }
         </ngt-mesh>
       }
 
@@ -182,12 +214,16 @@ import {TextureLoader} from 'three';
           [castShadow]="true"
           [receiveShadow]="true"
         >
-          <ngt-mesh-standard-material
-            [color]="'#c8b89a'"
-            [roughness]="0.4"
-            [metalness]="0.05"
-            [side]="top.trapezoidCorners ? doubleSide : frontSide"
-          />
+          @if (isSketchView()) {
+            <ngt-mesh-standard-material color="white"/>
+          } @else {
+            <ngt-mesh-standard-material
+              [color]="'#c8b89a'"
+              [roughness]="0.4"
+              [metalness]="0.05"
+              [side]="top.trapezoidCorners ? doubleSide : frontSide"
+            />
+          }
         </ngt-mesh>
       }
 
@@ -198,7 +234,11 @@ import {TextureLoader} from 'three';
         (click)="onUnitClick($event)"
       >
         <ngt-box-geometry *args="[unit().size.x, unit().size.y, unit().size.z]"/>
-        <ngt-mesh-basic-material [transparent]="true" [opacity]="0"/>
+        @if (isSketchView()) {
+          <ngt-mesh-standard-material color="white"/>
+        } @else {
+          <ngt-mesh-basic-material [transparent]="true" [opacity]="0"/>
+        }
       </ngt-mesh>
       @if (groupRef) {
         <app-unit-size-lines [targetGroup]="groupRef" [unit]="unit()" [skipZAxis]="unit().size.z < 0.4"/>
@@ -214,6 +254,7 @@ export class ThreeUnitComponent {
   readonly position = input<Vec3>({x: 0, y: 0, z: 0});
   readonly rotation = input<number>(0); // Y-axis rotation in radians
   readonly selected = input<boolean>(false);
+  readonly isSketchView = input<boolean>(false);
 
   readonly unitClick = output<string>();   // emits uid
   readonly facadeClick = output<number>(); // emits facade index

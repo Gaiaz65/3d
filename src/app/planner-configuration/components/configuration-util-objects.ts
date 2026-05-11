@@ -72,15 +72,15 @@ export class ConfigurationUtilObjects implements OnInit {
             }))
         );
         this.openAddModal(this.sections()[1].items[12],0);
-        this.configStore.addItem(this.sections()[1].items[15]);
+        // this.configStore.addItem(this.sections()[1].items[15]);
       });
   }
 
   public openAddModal(obj: any, inx: number): void {
-    this.addModal.open(obj, (cfg, material) => {
-      if (material) this.configStore.setFacadeStyle(material);
-      this.configStore.addItem(cfg);
-    });
+      this.configStore.addItem(obj);
+    // this.addModal.open(obj, (cfg, material) => {
+    //   if (material) this.configStore.setFacadeStyle(material);
+    // });
   }
 
   public updateUrl($event: any): void {
