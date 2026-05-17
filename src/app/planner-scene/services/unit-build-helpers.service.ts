@@ -71,12 +71,9 @@ export class UnitBuildHelpers {
 
     // sideType — radioButton со значениями "left" | "right"
     const sideTypeOpt: any = getOption('sideType');
-    // const sideType: string =
-    //   (sideTypeOpt?.type === OPTION_TYPE_RADIOBUTTON || sideTypeOpt?.type === 'radioButton')
-    //     ? (sideTypeOpt.defaultValue ?? 'left') : 'left';
-    const sideType = 'right'
-
-    console.log(sideType)
+    const sideType: string =
+      (sideTypeOpt?.type === OPTION_TYPE_RADIOBUTTON || sideTypeOpt?.type === 'radioButton')
+        ? (sideTypeOpt.defaultValue ?? 'left') : 'left';
 
     // JSON-массивы
     const facades = this.getJsonValue<FacadeConfig>(options, 'facades');
@@ -163,7 +160,7 @@ export class UnitBuildHelpers {
     };
 
 
-    let facades = []
+    let facades = [];
 
     switch (options['catalogCode']) {
       case "N_BAR":
@@ -346,6 +343,14 @@ export class UnitBuildHelpers {
       .includes(options['catalogCode']);
     if (options['level'] === 'top' && !isEndCode) {
       facades.push(facadesConfig.top);
+    }
+
+    if (options['buildTopPanel']) {
+      facades.push({
+        name: 'top',
+        size: {x: m(innerW), y: m(t), z: m(panelD)},
+        position: {x: 0, y: m(height + options['legHeight'] - (t/2)), z: m(-panelD / 2)},
+      });
     }
 
     return [...facades, ...strengtheningElements];
@@ -806,7 +811,7 @@ export class UnitBuildHelpers {
       // TODO + 50 к позиции и + 100 к глубине столешницы ( нужно запросить размеры )
       return {
         size: {x: m(length), y: m(TH), z: m(width + overhang)},
-        position: {x: m(x), y: m(y), z: m(z + 50)},
+        position: {x: m(x), y: m(y), z: m(z)},
         rotation,
       };
     });

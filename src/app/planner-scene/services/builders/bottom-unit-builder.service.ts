@@ -41,8 +41,6 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
       sideType
     }
 
-    console.log()
-
     const panels = this.helper.buildPanels(
       corpus.width,
       corpus.height,
@@ -220,13 +218,19 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
     return configs.map(lc => {
       const rawX = this.helper.helper.calculateSizeByParent(lc.initPosition.x, corpus.width);
       const rawZ = this.helper.helper.calculateSizeByParent(lc.initPosition.z, corpus.depth);
-      const x = rawX - corpus.width / 2;
+
+      // Для 'right' геометрия зеркальная по X: конфиги ног определены для 'left'-ориентации,
+      // поэтому rawX нужно отзеркалить вокруг центра (аналогично buildFrontPanel с sign).
+      const x = exposedIsLeft
+        ? rawX - corpus.width / 2
+        : -(rawX - corpus.width / 2);
 
       const isFrontLeg = rawZ < corpus.depth / 2;
+      // После зеркалирования x малая сторона всегда корректно попадает в нужный знак
       const isOnExposedSide = exposedIsLeft ? x < 0 : x > 0;
 
       // Передняя ножка на торцевой стороне смещается вглубь на deltaZ
-      const z = isFrontLeg && isOnExposedSide ? -(rawZ + deltaZ) : -(rawZ);
+      const z = isFrontLeg && isOnExposedSide ? -(rawZ + deltaZ) : -rawZ;
 
       return {
         radius: m(lc.width ? lc.width / 2 : DEFAULT_LEG_RADIUS),

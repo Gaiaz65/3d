@@ -149,6 +149,7 @@ export const ConfigurationStore = signalStore(
       },
       addItem(config: any) {
         const resolvedUnit = builder.build(config);
+        console.log(resolvedUnit, config);
         const position = findFreePosition(store.items(), resolvedUnit, store.roomParameters().size);
         patchState(store, {
           items: [...store.items(), {id: nextId(), rotation: 0, position, config, resolvedUnit}],

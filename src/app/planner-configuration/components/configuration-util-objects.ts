@@ -33,7 +33,7 @@ import {updateUrl} from '../../planner-scene/utils/image.util';
             @for (object of section.items; track $index) {
               <div class="configuration-list__item">
                 <div class="configuration-list__item-title" [innerText]="object.title" [pTooltip]="object.title"></div>
-                <img [src]="'assets/suraScreens/'+object.title+'.jpg'"  (error)="updateUrl($event)" alt="-">
+                <img [src]="'assets/suraScreens/'+object.title+'.jpg'" (error)="updateUrl($event)" alt="-">
                 <p-button (click)="openAddModal(object, $index)" [label]="'Добавить'"/>
               </div>
             }
@@ -68,19 +68,17 @@ export class ConfigurationUtilObjects implements OnInit {
             .filter((section: OptionGroup) => !this.filteredSections.includes(section.id))
             .map((section: any) => ({
               ...section,
-              items: (section.items ?? []).map((item: any) => ({ ...item, sectionId: section.id })),
+              items: (section.items ?? []).map((item: any) => ({...item, sectionId: section.id})),
             }))
         );
-        this.openAddModal(this.sections()[1].items[12],0);
-        // this.configStore.addItem(this.sections()[1].items[15]);
       });
   }
 
   public openAddModal(obj: any, inx: number): void {
-      this.configStore.addItem(obj);
-    // this.addModal.open(obj, (cfg, material) => {
-    //   if (material) this.configStore.setFacadeStyle(material);
-    // });
+    this.addModal.open(obj, (cfg, material) => {
+      if (material) this.configStore.setFacadeStyle(material);
+      this.configStore.addItem(cfg);
+    });
   }
 
   public updateUrl($event: any): void {

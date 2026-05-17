@@ -75,11 +75,7 @@ import {SketchOutlineDirective} from '../directives/sketch-outline.directive';
       <ngt-mesh [position]="ceiling().position"
                 [rotation]="ceiling().rotation">
         <ngt-plane-geometry *args="ceiling().geometry"/>
-        @if (isSketchView()) {
-          <ngt-mesh-standard-material color="white"/>
-        } @else {
           <ngt-mesh-standard-material wireframe [opacity]="0" [transparent]="true"/>
-        }
       </ngt-mesh>
     </ngt-group>
   `,
