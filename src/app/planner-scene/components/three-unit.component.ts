@@ -5,10 +5,11 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   ElementRef, inject,
   input,
+  NgZone,
   output,
   ViewChild,
 } from '@angular/core';
-import {loaderResource, NgtArgs, NgtThreeEvent} from 'angular-three';
+import {injectStore, loaderResource, NgtArgs, NgtThreeEvent} from 'angular-three';
 import {
   ResolvedFacade, ResolvedPanel, ResolvedPlinth, ResolvedShelf, ResolvedTabletop,
   ResolvedUnit, TrapezoidCorner, Vec3,
@@ -19,6 +20,7 @@ import * as THREE from 'three';
 import {ConfigurationStore} from '../../store/store';
 import {TextureLoader} from 'three';
 import {SketchOutlineDirective} from '../directives/sketch-outline.directive';
+import {ItemFocusService} from '../services/item-focus.service';
 
 /**
  * ThreeUnitComponent
@@ -44,7 +46,10 @@ import {SketchOutlineDirective} from '../directives/sketch-outline.directive';
       [dragLevel]="unit().level"
       [position]="[position().x, position().y, position().z]"
       [rotation]="[0, rotation(), 0]"
-      [scale]="[1000,1000,1000]">
+      [scale]="[1000,1000,1000]"
+      (focusChange)="onFocusChange($event)"
+      (dragging)="onDragging()"
+      (dragEndEvent)="onDragEnd()">
       <!-- ── Corpus panels ───────────────────────────────────────────── -->
       @for (panel of unit().panels; track panel.name) {
         <ngt-mesh
@@ -263,7 +268,53 @@ export class ThreeUnitComponent {
   protected readonly doubleSide = THREE.DoubleSide;
   protected readonly frontSide = THREE.FrontSide;
 
-  private readonly store = inject(ConfigurationStore);
+  private readonly store    = inject(ConfigurationStore);
+  private readonly ngtStore = injectStore();
+  private readonly focusSvc = inject(ItemFocusService);
+  private readonly ngZone   = inject(NgZone);
+
+  // ── Focus → ItemContextMenu ────────────────────────────────────────────────
+
+  // focusChange эмитируется внутри ngZone.run() в директиве → zone безопасно.
+  protected onFocusChange(focused: boolean): void {
+    if (focused) {
+      this.focusSvc.setFocus(this.id(), this.getScreenPosition());
+    } else {
+      this.focusSvc.clearFocus();
+    }
+  }
+
+  // dragging эмитируется вне NgZone → обновление сигнала только при старте
+  // перетаскивания (не на каждый mousemove), чтобы избежать лишних zone-enter.
+  protected onDragging(): void {
+    if (this.focusSvc.isDragging()) return;
+    this.ngZone.run(() => this.focusSvc.setDragging(true));
+  }
+
+  // dragEndEvent эмитируется вне NgZone → входим в зону явно.
+  protected onDragEnd(): void {
+    this.ngZone.run(() => {
+      this.focusSvc.setDragging(false);
+      this.focusSvc.updatePosition(this.getScreenPosition());
+    });
+  }
+
+  /** Проецирует мировую позицию группы в экранные координаты (px). */
+  private getScreenPosition(): { x: number; y: number } {
+    const {camera, gl} = this.ngtStore();
+    const group = this.groupRef?.nativeElement;
+
+    const worldPos = new THREE.Vector3();
+    if (group) group.getWorldPosition(worldPos);
+
+    worldPos.project(camera);
+
+    const rect = gl.domElement.getBoundingClientRect();
+    return {
+      x: (worldPos.x + 1) / 2 * rect.width  + rect.left,
+      y: (-worldPos.y + 1) / 2 * rect.height + rect.top,
+    };
+  }
 
   // ── Кэш геометрий (WeakMap — GC очищает при удалении панели) ───────────
   private readonly _panelGeoCache = new WeakMap<ResolvedPanel, THREE.BufferGeometry>();

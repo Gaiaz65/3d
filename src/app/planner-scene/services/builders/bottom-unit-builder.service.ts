@@ -266,13 +266,13 @@ export class BottomUnitBuilderService implements IUnitBuilderStrategy {
     const trapezoidCorners = exposedIsLeft
       ? [
         {x: m(-innerHalfW), z: m(-deltaZ)},  // c0: фронт малой стенки (лево)
-        {x: m(+innerHalfW), z: 0},            // c1: фронт большой стенки (право)
+        {x: m(+innerHalfW), z: m(-corpus.thickness)},            // c1: фронт большой стенки (право)
         {x: m(+innerHalfW), z: m(-panelD)},   // c2: зад-право
         {x: m(-innerHalfW), z: m(-panelD)},   // c3: зад-лево
       ]
       : [
         {x: m(+innerHalfW), z: m(-deltaZ)},   // c0: фронт малой стенки (право)
-        {x: m(-innerHalfW), z: 0},             // c1: фронт большой стенки (лево)
+        {x: m(-innerHalfW), z: m(-corpus.thickness)},             // c1: фронт большой стенки (лево)
         {x: m(-innerHalfW), z: m(-panelD)},   // c2: зад-лево
         {x: m(+innerHalfW), z: m(-panelD)},   // c3: зад-право
       ];

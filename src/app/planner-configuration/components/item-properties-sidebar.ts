@@ -15,15 +15,15 @@ import {ConfigurationStore} from '../../store/store';
         <div class="props-body">
           <div class="prop-row">
             <span class="prop-label">Ширина</span>
-            <span class="prop-value">{{ it.size[0] }} мм</span>
+<!--            <span class="prop-value">{{ it?.size[0] }} мм</span>-->
           </div>
           <div class="prop-row">
             <span class="prop-label">Высота</span>
-            <span class="prop-value">{{ it.size[1] }} мм</span>
+<!--            <span class="prop-value">{{ it?.size[1] }} мм</span>-->
           </div>
           <div class="prop-row">
             <span class="prop-label">Глубина</span>
-            <span class="prop-value">{{ it.size[2] }} мм</span>
+<!--            <span class="prop-value">{{ it?.size[2] }} мм</span>-->
           </div>
 
           <div class="prop-section">Поворот</div>
@@ -54,6 +54,7 @@ export class ItemPropertiesSidebar {
 
   protected readonly item = computed(() => {
     const id = this.focusService.focusedItemId();
+    console.log(this.focusService.focusedItemId())
     return this.configStore.items().find(i => i.id === id) ?? null;
   });
 
@@ -80,6 +81,9 @@ export class ItemPropertiesSidebar {
           this.cdr.detectChanges();
         });
       }
+    });
+    effect(() => {
+      console.log(this.item());
     });
   }
 

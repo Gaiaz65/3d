@@ -4,11 +4,12 @@ import {ConfigurationStore} from '../../store/store';
 import {Button} from 'primeng/button';
 import {ItemPropertiesSidebar} from './item-properties-sidebar';
 import {ItemSpecModal} from './item-spec-modal';
+import {Tooltip} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-item-context-menu',
   standalone: true,
-  imports: [Button, ItemPropertiesSidebar, ItemSpecModal],
+  imports: [Button, ItemPropertiesSidebar, ItemSpecModal, Tooltip],
   styles: `
     .item-ctx-menu {
       position: fixed;
